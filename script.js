@@ -1,4 +1,4 @@
-// Navbar scroll effect
+// Efecto de desplazamiento --> barra de navegación
       window.addEventListener('scroll', function() {
          const navbar = document.querySelector('.navbar');
          if (window.scrollY > 50) {
@@ -8,7 +8,7 @@
          }
       });
 
-      // Smooth scrolling for anchor links
+      // Desplazamiento suave para enlaces de anclaje
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
          anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -23,7 +23,7 @@
          });
       });
 
-      // Update active nav link based on scroll position
+      // Actualizar el enlace de navegación activo según la posición de desplazamiento
       window.addEventListener('scroll', function() {
          const sections = document.querySelectorAll('section');
          const navLinks = document.querySelectorAll('.nav-link');
