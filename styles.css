@@ -259,6 +259,47 @@
          font-weight: 500;
          padding: 6px 12px;
       }
+
+      .modal-content {
+         background: rgba(255, 255, 255, 0.05);
+         backdrop-filter: blur(12px);
+         border-radius: 20px;
+      }
+
+      .modal-title {
+         background: linear-gradient(90deg, var(--accent), var(--primary));
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         font-weight: 700;
+      }
+
+      .modal-body img {
+         max-height: 350px;
+         object-fit: cover;
+      }
+
+      #proyectoVideoContainer {
+         max-width: 650px; 
+         margin: 0 auto 1.5rem auto; 
+         border-radius: 15px; 
+         overflow: hidden;    
+      }
+
+      #proyectoDescripcion {
+         text-align: justify;
+         padding-right: 4%;
+         padding-left: 4%;
+      }
+
+      .modal .badge {
+         background: rgba(67, 97, 238, 0.2);
+         color: var(--accent);
+         margin: 0 5px 5px 0;
+         font-weight: 500;
+         font-size: medium;
+         padding: 6px 12px;
+      }
+
       
       .certificates-container {
          max-width: 900px;

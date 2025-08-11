@@ -45,3 +45,68 @@
          });
       });
    
+// para la vista de detalles
+const proyectoModal = document.getElementById('proyectoModal');
+const proyectoVideo = document.getElementById('proyectoVideo');
+const proyectoVideoContainer = document.getElementById('proyectoVideoContainer');
+
+proyectoModal.addEventListener('show.bs.modal', event => {
+    const button = event.relatedTarget;
+
+    const title = button.getAttribute('data-title');
+    const img = button.getAttribute('data-img');
+    const desc = button.getAttribute('data-desc');
+    const tecnologias = button.getAttribute('data-tecnologias').split(',');
+    const link = button.getAttribute('data-link');
+    const video = button.getAttribute('data-video');
+
+    proyectoModal.querySelector('.modal-title').textContent = title;
+    document.getElementById('proyectoImagen').src = img;
+    document.getElementById('proyectoDescripcion').textContent = desc;
+
+    const techContainer = document.getElementById('proyectoTecnologias');
+    techContainer.innerHTML = '';
+    tecnologias.forEach(tec => {
+        const span = document.createElement('span');
+        span.classList.add('badge');
+        span.textContent = tec.trim();
+        techContainer.appendChild(span);
+    });
+
+    document.getElementById('proyectoLink').href = link;
+
+    // Mostrar video si existe
+    if (video) {
+        proyectoVideoContainer.style.display = 'block';
+        proyectoVideo.src = `https://www.youtube.com/embed/${video}?autoplay=1&rel=0`;
+    } else {
+        proyectoVideoContainer.style.display = 'none';
+        proyectoVideo.src = '';
+    }
+});
+
+// Detener video al cerrar modal
+proyectoModal.addEventListener('hidden.bs.modal', () => {
+    proyectoVideo.src = '';
+});
+
+//evento para limpiar form al enviar 
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+
+  fetch(form.action, {
+    method: form.method,
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      form.reset();  
+    }
+    
+  }).catch(error => {
+    alert("Error al enviar el mensaje");
+  });
+});
+

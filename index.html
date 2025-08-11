@@ -182,30 +182,107 @@
             <h2>Proyectos Destacados</h2>
          </div>
 
-         <!-- Proyecto 1 ITLA TV -->
          <div class="projects-container">
-            <div class="project-card">
-               <div class="project-img">
-                  <img src="Pictures/ITLA TV/portada.png" class="mw-100" alt="">
-               </div>
-               <div class="project-content">
-                  <h3>Net Series +</h3>
-                  <p>Plataforma de streaming con catálogo de series, filtros inteligentes, reproductor integrado y gestión de contenido.</p>
-                  <div>
-                     <span class="badge">C#</span>
-                     <span class="badge">HTML</span>
-                     <span class="badge">SQL</span>
-                     <span class="badge">ASP.NET Core</span>
+      
+      <!-- Proyecto 1 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="Pictures/ITLA TV/portada.png" class="mw-100" alt="Net Series +">
+        </div>
+        <div class="project-content">
+          <h3>Net Series +</h3>
+          <p>Plataforma de streaming con catálogo de series, filtros inteligentes, reproductor integrado y gestión de contenido.</p>
+          <div>
+            <span class="badge">C#</span>
+            <span class="badge">HTML</span>
+            <span class="badge">SQL</span>
+            <span class="badge">ASP.NET Core</span>
+          </div>
+          <div class="mt-3 text-center">
+            <a href="#"
+               class="btn btn-sm btn-primary"
+               data-bs-toggle="modal"
+               data-bs-target="#proyectoModal"
+               data-title="Net Series +"
+               data-img="Pictures/ITLA TV/portada.png"
+               data-desc='Plataforma de Streaming de Series y Películas
+
+                           Net Series + es una aplicación web desarrollada con ASP.NET Core MVC, implementando una arquitectura limpia y moderna que incluye capas para la base de datos, lógica de negocio y presentación. Utiliza Entity Framework Core con enfoque Code First para la gestión y persistencia de datos, y Bootstrap para un diseño responsivo y atractivo.
+
+                           La plataforma permite a los usuarios navegar, filtrar y reproducir contenido audiovisual, especialmente series y películas, ofreciendo una experiencia de streaming fluida e intuitiva. Cuenta con módulos completos para la gestión de series, géneros y productoras, incluyendo funcionalidades de creación, edición, visualización y eliminación con validaciones estrictas implementadas mediante ViewModels.
+
+                           Además, se implementaron funcionalidades clave como:
+
+                           Filtros inteligentes para facilitar la búsqueda y exploración del catálogo.
+
+                           Reproductor integrado para la visualización del contenido multimedia.
+
+                           Gestión de datos robusta que asegura la integridad y consistencia en las operaciones CRUD.
+
+                           Este proyecto es una muestra de la aplicación práctica de buenas prácticas en desarrollo web, uso efectivo de patrones de diseño, y la integración de tecnologías actuales para construir soluciones escalables y mantenibles.'
+               data-tecnologias="C#, HTML, SQL, ASP.NET Core, Entity framework, bootstrap"
+               data-link="https://github.com/Natanael-1a2b/net-series-plus"
+               data-video="hg5kiG2qwww">
+               Detalles
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 2 -->
+      
+
+      <!-- Proyecto 3 -->
+          
+    </div>
+    
+         <!-- Modal Detalles Proyecto -->
+         <div class="modal fade" id="proyectoModal" tabindex="-1" aria-labelledby="proyectoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+               <div class="modal-content bg-dark text-light rounded-4 border-0">
+                  <div class="modal-header border-0">
+                     <h5 class="modal-title" id="proyectoModalLabel">Título del Proyecto</h5>
+                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                   </div>
-                  <div class="mt-3 text-center">
-                     <a href="#" class="btn btn-sm btn-primary">Detalles</a>
+               <div class="modal-body">
+                  
+                  <!-- Imagen -->
+                  <div class="text-center">
+                     <h6>Imagen:</h6>
+                     <img src="" alt="Imagen del proyecto" class="img-fluid rounded mb-4 shadow" id="proyectoImagen">
+                  </div>  
+
+                  <!-- Video de YouTube -->
+                  <div class="text-center">
+                     <h6>Video:</h6>
+                     <div class="ratio ratio-16x9 mb-4" id="proyectoVideoContainer" style="display:none;">
+                        <iframe id="proyectoVideo" src="" title="Video del proyecto" allowfullscreen></iframe>
+                     </div>
                   </div>
+
+                  <!-- Tecnologías -->
+                  <div class="text-center p-4">
+                     <h6>Tecnologías utilizadas:</h6>
+                     <div id="proyectoTecnologias" class="mb-3"></div>
+                  </div>
+
+                  <!-- Descripción -->
+                  <div class="text-center">
+                     <h6>Descripcion del proyecto:</h6>
+                     <p id="proyectoDescripcion"></p>
+                  </div>      
+                  
+                  <!-- Link -->
+                  <div class="text-center">
+                     <a href="#" id="proyectoLink" target="_blank">
+                     </a>
+                  </div>
+
                </div>
             </div>
-
-            
-            
+         </div>
       </div>
+
    </section>
 
    <!-- Certificaciones -->
@@ -261,17 +338,17 @@
          <div class="row justify-content-center">
             <div class="col-lg-8">
                <div class="contact-form">
-                  <form>
+                  <form method="post" action="https://formspree.io/f/mnnzwnyd">
                      <div class="row">
                         <div class="col-md-6">
-                           <input type="text" class="form-control" placeholder="Nombre" required>
+                           <input type="text" class="form-control" placeholder="Nombre" name="Nombre" required>
                         </div>
                         <div class="col-md-6">
-                           <input type="email" class="form-control" placeholder="Email" required>
+                           <input type="email" class="form-control" placeholder="Email" name="Correo" required>
                         </div>
                      </div>
-                     <input type="text" class="form-control" placeholder="Asunto">
-                     <textarea class="form-control" rows="5" placeholder="Mensaje" required></textarea>
+                     <input type="text" class="form-control" placeholder="Asunto" name="Asunto">
+                     <textarea class="form-control" rows="5" placeholder="Mensaje" name="Mensaje" required></textarea>
                      <button type="submit" class="btn btn-primary w-100">Enviar Mensaje</button>
                   </form>
                </div>
@@ -284,10 +361,10 @@
    <footer>
       <div class="container">
          <div class="social-icons">
-            <a href="#" class="social-icon">
+            <a href="https://www.linkedin.com/in/claudio-natanael-beltre-rosario-38a580327/" class="social-icon">
                <i class="bi bi-linkedin"></i>
             </a>
-            <a href="#" class="social-icon">
+            <a href="https://github.com/Natanael-1a2b" class="social-icon">
                <i class="bi bi-github"></i>
             </a>
          </div>
