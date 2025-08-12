@@ -91,6 +91,18 @@ proyectoModal.addEventListener('hidden.bs.modal', () => {
 });
 
 //evento para limpiar form al enviar 
+const form = document.getElementById("formContacto");
+const alertContainer = document.getElementById("alertContainer");
+
+function showAlert(message, type, icon) {
+  alertContainer.innerHTML = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert"><i class="bi bi-${icon}"></i>
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+  `;
+}
+
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
@@ -102,11 +114,14 @@ form.addEventListener('submit', function(event) {
     headers: { 'Accept': 'application/json' }
   }).then(response => {
     if (response.ok) {
-      form.reset();  
+      form.reset();
+      showAlert("Mensaje enviado correctamente", "success", "check-circle-fill");
+    } else {
+      showAlert("Error al enviar el mensaje", "danger", "exclamation-octagon");
     }
-    
-  }).catch(error => {
-    alert("Error al enviar el mensaje");
+  }).catch(() => {
+    showAlert("Error al enviar el mensaje", "danger", "exclamation-octagon");
   });
 });
+
 
