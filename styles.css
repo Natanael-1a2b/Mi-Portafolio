@@ -152,6 +152,7 @@
       .btn-outline-light:hover {
          background: rgba(255, 255, 255, 0.1);
          transform: translateY(-3px);
+         color: white;
       }
       
       .hero-img {
