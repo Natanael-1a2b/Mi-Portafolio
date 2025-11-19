@@ -61,7 +61,7 @@
       
       .section-title {
          position: relative;
-         margin-bottom: 60px;
+         margin-bottom: 30px;
          text-align: center;
       }
       
@@ -94,6 +94,7 @@
          position: relative;
          overflow: hidden;
          padding-top: 80px;
+         padding-bottom: 20px;
       }
       
       .hero-content {
@@ -158,6 +159,7 @@
       .hero-img {
          position: relative;
          text-align: center;
+         margin-top: 25px;
       }
       
       .hero-img img {
@@ -377,16 +379,6 @@
             radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.1) 0%, transparent 20%),
             radial-gradient(circle at 80% 30%, rgba(76, 201, 240, 0.1) 0%, transparent 25%);
          z-index: 0;
-      }
-      
-      .floating {
-         animation: floating 6s ease-in-out infinite;
-      }
-      
-      @keyframes floating {
-         0% { transform: translateY(0px); }
-         50% { transform: translateY(-20px); }
-         100% { transform: translateY(0px); }
       }
       
       /* Responsive */
