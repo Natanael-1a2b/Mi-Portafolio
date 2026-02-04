@@ -176,7 +176,7 @@
       .skills-container {
          display: grid;
          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-         gap: 30px;
+         gap: 20px;
          max-width: 900px;
          margin: 0 auto;
       }
@@ -212,6 +212,14 @@
          font-size: 1rem;
          font-weight: 500;
          margin: 0;
+      }
+
+      /* SOLO PARA PC */
+      @media (min-width: 1200px) {
+         .skills-container {
+            grid-template-columns: repeat(7, 1fr);
+            max-width: 1100px; /* un poco más ancho para que no se aprieten */
+         }
       }
       
       .projects-container {
@@ -436,3 +444,190 @@
             padding: 25px;
          }
       }
+
+/* =========================
+   Footer — PRO Version
+========================= */
+.footer-custom {
+  background: linear-gradient(135deg, #020617, #020617, #020617, #020617, #020617);
+  color: #e5e7eb;
+  padding: 4.5rem 1rem 2.2rem;
+}
+
+/* ================= TOP ================= */
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-brand {
+  text-align: center;
+}
+
+.footer-brand h3 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #60a5fa;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.footer-brand p {
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+/* Servicios */
+.footer-services {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.footer-services span {
+  background: rgba(96, 165, 250, 0.12);
+  color: #93c5fd;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(96, 165, 250, 0.22);
+}
+
+/* CTA */
+.footer-cta h4 {
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+  color: #bfdbfe;
+}
+
+.footer-cta p {
+  opacity: 0.9;
+  margin-bottom: 1.3rem;
+  font-size: 0.95rem;
+}
+
+.btn-footer {
+  display: inline-block;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #fff;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+}
+
+.btn-footer:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.5);
+}
+
+/* ================= BOTTOM ================= */
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 2.2rem;
+  text-align: center;
+}
+
+/* Redes sociales */
+.footer-social {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.social-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  color: #93c5fd;
+  font-size: 1.35rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-btn:hover {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(59,130,246,0.5);
+}
+
+.footer-services span:hover{
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(59,130,246,0.5);
+  transition: all 0.4s ease;
+}
+
+/* Navegación */
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.footer-nav a {
+  color: #c7d2fe;
+  font-size: 0.85rem;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.footer-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 1px;
+  background: #60a5fa;
+  transition: width 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: #ffffff;
+}
+
+.footer-nav a:hover::after {
+  width: 100%;
+}
+
+/* Copy */
+.footer-copy {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  letter-spacing: 0.4px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .footer-cta {
+    text-align: center;
+  }
+}
