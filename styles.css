@@ -176,7 +176,7 @@
       .skills-container {
          display: grid;
          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-         gap: 30px;
+         gap: 20px;
          max-width: 900px;
          margin: 0 auto;
       }
@@ -212,6 +212,14 @@
          font-size: 1rem;
          font-weight: 500;
          margin: 0;
+      }
+
+      /* SOLO PARA PC */
+      @media (min-width: 1200px) {
+         .skills-container {
+            grid-template-columns: repeat(7, 1fr);
+            max-width: 1100px; /* un poco más ancho para que no se aprieten */
+         }
       }
       
       .projects-container {
