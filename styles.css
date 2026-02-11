@@ -705,7 +705,7 @@ footer {
    letter-spacing: 0.5px;
 }
 
-/* ================= RESPONSIVE ================= */
+/* =============== RESPONSIVE ================= */
 @media (max-width: 992px) {
    .footer-top {
       grid-template-columns: 1fr;
@@ -717,7 +717,7 @@ footer {
    }
 }
 
-/* =========================
+/* =======================
    Scroll Animations
 ========================= */
 .animate-on-scroll {
@@ -743,7 +743,7 @@ footer {
    transform: scale(0.9);
 }
 
-/* Estado visible */
+/*Estado visible */
 .animate-on-scroll.is-visible {
    opacity: 1;
    transform: none;
