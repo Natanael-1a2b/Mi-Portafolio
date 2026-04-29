@@ -1,0 +1,25 @@
+# Visual Studio
+.vs/
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+
+# Agent skills
+.agents/
+skills-lock.json
