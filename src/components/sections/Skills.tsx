@@ -1,32 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { skills } from '../../data/skills'
+import { asset } from '../../utils/asset'
 import { SectionTitle } from '../ui/SectionTitle'
-import { useWebGLSupport } from '../../hooks/useWebGLSupport'
+import { Keyboard2D } from '../ui/Keyboard2D'
 import type { Skill } from '../../data/skills'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-interface Props {
-  onSkillSelect?: (skill: Skill | null) => void
-  selectedSkill?: Skill | null
+gsap.registerPlugin(ScrollTrigger)
+
+const categoryLabels: Record<string, string> = {
+  backend: 'Backend',
+  frontend: 'Frontend',
+  tools: 'Herramientas & DevOps',
+  ia: 'IA',
 }
 
-export function Skills({ onSkillSelect, selectedSkill: externalSelected }: Props) {
-  const [internalSelected, setInternalSelected] = useState<Skill | null>(null)
-  const webglSupported = useWebGLSupport()
+export function Skills() {
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const prefersReduced = usePreferredMotion()
 
-  const selected = externalSelected !== undefined ? externalSelected : internalSelected
-  const setSelected = onSkillSelect || setInternalSelected
-
-  // Category labels for fallback grid
-  const categories = [
-    { id: 'backend' as const, label: 'Backend', color: 'var(--primary)' },
-    { id: 'frontend' as const, label: 'Frontend', color: 'var(--text-main)' },
-    { id: 'tools' as const, label: 'Herramientas & DevOps', color: 'var(--accent)' },
-    { id: 'ia' as const, label: 'IA & Automatización', color: 'var(--secondary)' },
-  ]
+  useEffect(() => {
+    if (prefersReduced || !sectionRef.current) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.skills-canvas-wrapper',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.skills-layout', start: 'top 80%' } }
+      )
+      gsap.fromTo('.skills-info-panel',
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, scrollTrigger: { trigger: '.skills-layout', start: 'top 80%' } }
+      )
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [prefersReduced])
 
   const renderIcon = (skill: Skill) => {
     if (skill.iconType === 'svg') {
-      // Inline SVG icons for IA category
       const iconMap: Record<string, React.ReactNode> = {
         robot: (
           <svg width="50" height="50" viewBox="0 0 16 16" fill={skill.color}>
@@ -47,58 +59,51 @@ export function Skills({ onSkillSelect, selectedSkill: externalSelected }: Props
       }
       return iconMap[skill.icon] || null
     }
-    return <img src={skill.icon} alt={skill.name} />
+    return <img src={asset(skill.icon)} alt={skill.name} />
   }
 
   return (
-    <section id="habilidades" className="skills-section" style={{ background: 'rgba(10,10,18,0.5)' }}>
+    <section id="habilidades" ref={sectionRef} className="skills-section">
       <div className="container">
         <SectionTitle title="Habilidades" />
 
-        {webglSupported ? (
-          <>
-            <div className="skills-canvas-wrapper" id="skills-canvas-mount" />
-            <div className="skills-info-panel">
-              {selected ? (
-                <>
-                  {selected.iconType !== 'svg' && (
-                    <img src={selected.icon} alt={selected.name} className="skill-icon" />
-                  )}
-                  <h4>{selected.name}</h4>
-                  <p>{selected.description}</p>
-                </>
-              ) : (
-                <p style={{ color: 'var(--text-muted)' }}>
-                  Interactúa con el teclado 3D para explorar mis habilidades
-                </p>
+        <div className="skills-layout">
+          {/* 2D Pseudo-3D Keyboard */}
+          <div className="skills-canvas-wrapper">
+            <Keyboard2D onSkillSelect={setSelectedSkill} selectedSkill={selectedSkill} />
+          </div>
+
+          {/* Info Panel — DOM-based */}
+          <div className={`skills-info-panel ${selectedSkill ? 'active' : ''}`}>
+            <div className="skills-info-glow" style={{ background: selectedSkill?.color || 'transparent' }} />
+            <div className="skills-info-content">
+              <h3
+                className="skills-info-title"
+                style={{
+                  color: selectedSkill?.color || '#fff',
+                  textShadow: selectedSkill ? `0 0 30px ${selectedSkill.color}40` : 'none',
+                }}
+              >
+                {selectedSkill ? selectedSkill.name : 'Tech Stack'}
+              </h3>
+              <p className="skills-info-desc">
+                {selectedSkill ? selectedSkill.description : '💡 Haz clic en una tecnología o habilidad para ver sus detalles.'}
+              </p>
+              {selectedSkill?.category && (
+                <span
+                  className="skills-info-badge"
+                  style={{
+                    color: selectedSkill.color,
+                    borderColor: `${selectedSkill.color}40`,
+                    background: `${selectedSkill.color}10`,
+                  }}
+                >
+                  {categoryLabels[selectedSkill.category] || selectedSkill.category}
+                </span>
               )}
             </div>
-          </>
-        ) : (
-          /* Fallback: HTML skill cards */
-          categories.map((cat) => (
-            <div key={cat.id} style={{ marginBottom: '2rem' }}>
-              <h4 style={{ textAlign: 'center', marginBottom: '1.5rem', fontWeight: 700, color: cat.color }}>
-                {cat.label}
-              </h4>
-              <div className="skills-fallback">
-                {skills
-                  .filter((s) => s.category === cat.id)
-                  .map((skill) => (
-                    <div
-                      key={skill.id}
-                      className="skill-card-fallback"
-                      onClick={() => setSelected(skill === selected ? null : skill)}
-                      style={{ cursor: 'pointer', borderColor: selected?.id === skill.id ? skill.color : undefined }}
-                    >
-                      {renderIcon(skill)}
-                      <h5>{skill.name}</h5>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ))
-        )}
+          </div>
+        </div>
       </div>
     </section>
   )

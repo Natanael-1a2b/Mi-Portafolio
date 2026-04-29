@@ -1,10 +1,13 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { heroContent, personalInfo } from '../../data/personal'
+import { asset } from '../../utils/asset'
 import { MagneticButton } from '../ui/MagneticButton'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
+import gsap from 'gsap'
 
 export function Hero() {
   const subtitleRef = useRef<HTMLSpanElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
   const prefersReduced = usePreferredMotion()
 
   const runTypingEffect = useCallback(() => {
@@ -51,8 +54,37 @@ export function Hero() {
     return cleanup
   }, [runTypingEffect])
 
+  useEffect(() => {
+    if (prefersReduced || !sectionRef.current) return
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      
+      tl.fromTo('.hero-text h1', 
+        { y: 40, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 1, delay: 0.1 }
+      )
+      .fromTo('.subtitle', 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 0.6 }, '-=0.6'
+      )
+      .fromTo('.hero-text p', 
+        { y: 20, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.8 }, '-=0.4'
+      )
+      .fromTo('.hero-btns a', 
+        { y: 20, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.15 }, '-=0.6'
+      )
+      .fromTo('.hero-img', 
+        { scale: 0.85, opacity: 0, rotation: -3 }, 
+        { scale: 1, opacity: 1, rotation: 0, duration: 1.2, ease: 'back.out(1.2)' }, '-=0.8'
+      )
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [prefersReduced])
+
   return (
-    <section id="inicio" className="hero">
+    <section id="inicio" ref={sectionRef} className="hero">
       <div className="container">
         <div className="hero-grid">
           <div className="hero-text">
@@ -72,14 +104,15 @@ export function Hero() {
             </div>
             <p>{heroContent.description}</p>
             <div className="hero-btns">
-              <MagneticButton as="a" className="btn btn-primary" href="#contacto">
+              <MagneticButton as="a" className="btn btn-primary" href="#contacto" strength={0.1}>
                 Contáctame
               </MagneticButton>
               <MagneticButton
                 as="a"
                 className="btn btn-outline"
-                href={personalInfo.cvPath}
+                href={asset(personalInfo.cvPath)}
                 download
+                strength={0.1}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                   <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
@@ -90,7 +123,7 @@ export function Hero() {
             </div>
           </div>
           <div className="hero-img">
-            <img src={personalInfo.profileImage} alt="Claudio Natanael Beltre" />
+            <img src={asset(personalInfo.profileImage)} alt="Claudio Natanael Beltre" />
           </div>
         </div>
       </div>

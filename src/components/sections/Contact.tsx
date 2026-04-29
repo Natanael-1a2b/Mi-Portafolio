@@ -21,10 +21,10 @@ export function Contact() {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.from('.contact-form', {
-        scale: 0.9, opacity: 0, duration: 0.8,
-        scrollTrigger: { trigger: '.contact-form', start: 'top 80%' },
-      })
+      gsap.fromTo('.contact-form', 
+        { scale: 0.9, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.contact-form', start: 'top 80%' } }
+      )
     }, sectionRef)
     return () => ctx.revert()
   }, [prefersReduced])
@@ -55,7 +55,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contacto" ref={sectionRef}>
+    <section id="contacto" ref={sectionRef} className="section-alt">
       <div className="container">
         <SectionTitle title="Contacto" />
         <div className="contact-wrapper">

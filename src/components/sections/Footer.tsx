@@ -1,9 +1,46 @@
+import { useEffect, useRef } from 'react'
 import { personalInfo, footerContent, navLinks } from '../../data/personal'
 import { MagneticButton } from '../ui/MagneticButton'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null)
+  const prefersReduced = usePreferredMotion()
+
+  useEffect(() => {
+    if (prefersReduced || !footerRef.current) return
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 90%',
+        }
+      })
+      
+      tl.fromTo('.footer-brand > *', 
+        { y: 30, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 }
+      )
+      .fromTo('.footer-cta > *', 
+        { y: 30, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
+        '-=0.6'
+      )
+      .fromTo('.footer-bottom', 
+        { opacity: 0 }, 
+        { opacity: 1, duration: 1 },
+        '-=0.4'
+      )
+    }, footerRef)
+    return () => ctx.revert()
+  }, [prefersReduced])
+
   return (
-    <footer className="footer-custom">
+    <footer ref={footerRef} className="footer-custom">
       <div className="container">
         {/* TOP */}
         <div className="footer-top">

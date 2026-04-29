@@ -1,13 +1,14 @@
 export interface Skill {
   id: string
   name: string
-  category: 'backend' | 'frontend' | 'tools' | 'ia'
+  category?: 'backend' | 'frontend' | 'tools' | 'ia'
   icon: string
-  iconType: 'url' | 'local' | 'svg'
+  iconType: 'url' | 'local' | 'svg' | 'none'
   description: string
   color: string
   row: number
   col: number
+  type: 'skill' | 'decorative'
 }
 
 export const skills: Skill[] = [
@@ -21,7 +22,8 @@ export const skills: Skill[] = [
     description: 'Framework robusto para APIs y servicios empresariales.',
     color: '#512BD4',
     row: 0,
-    col: 0,
+    col: 1,
+    type: 'skill',
   },
   {
     id: 'csharp',
@@ -32,7 +34,8 @@ export const skills: Skill[] = [
     description: 'Lenguaje principal para arquitecturas escalables.',
     color: '#68217A',
     row: 0,
-    col: 1,
+    col: 2,
+    type: 'skill',
   },
   {
     id: 'efcore',
@@ -43,7 +46,8 @@ export const skills: Skill[] = [
     description: 'ORM potente con migraciones Code First.',
     color: '#512BD4',
     row: 0,
-    col: 2,
+    col: 3,
+    type: 'skill',
   },
   {
     id: 'sqlserver',
@@ -52,9 +56,10 @@ export const skills: Skill[] = [
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg',
     iconType: 'url',
     description: 'Motor de base de datos relacional empresarial.',
-    color: '#CC2927',
+    color: '#007ACC',
     row: 0,
-    col: 3,
+    col: 4,
+    type: 'skill',
   },
   {
     id: 'python',
@@ -63,9 +68,10 @@ export const skills: Skill[] = [
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
     iconType: 'url',
     description: 'Automatización, scripting y análisis de datos.',
-    color: '#3776AB',
+    color: '#F7DF1E',
     row: 0,
-    col: 4,
+    col: 5,
+    type: 'skill',
   },
 
   // ── Backend row 1 ──
@@ -78,7 +84,8 @@ export const skills: Skill[] = [
     description: 'Backend-as-a-Service con PostgreSQL en tiempo real.',
     color: '#3ECF8E',
     row: 1,
-    col: 0,
+    col: 1,
+    type: 'skill',
   },
 
   // ── Frontend (row 1) ──
@@ -91,7 +98,8 @@ export const skills: Skill[] = [
     description: 'Estructura semántica y accesible para la web.',
     color: '#E34F26',
     row: 1,
-    col: 1,
+    col: 2,
+    type: 'skill',
   },
   {
     id: 'css3',
@@ -102,7 +110,8 @@ export const skills: Skill[] = [
     description: 'Estilos avanzados, animaciones y layouts modernos.',
     color: '#1572B6',
     row: 1,
-    col: 2,
+    col: 3,
+    type: 'skill',
   },
   {
     id: 'bootstrap',
@@ -113,7 +122,8 @@ export const skills: Skill[] = [
     description: 'Framework CSS para prototipos rápidos y responsivos.',
     color: '#7952B3',
     row: 1,
-    col: 3,
+    col: 4,
+    type: 'skill',
   },
   {
     id: 'react',
@@ -124,7 +134,8 @@ export const skills: Skill[] = [
     description: 'Biblioteca para interfaces dinámicas y reactivas.',
     color: '#61DAFB',
     row: 1,
-    col: 4,
+    col: 5,
+    type: 'skill',
   },
 
   // ── Frontend + Tools (row 2) ──
@@ -137,7 +148,8 @@ export const skills: Skill[] = [
     description: 'Lógica del lado cliente y desarrollo full stack.',
     color: '#F7DF1E',
     row: 2,
-    col: 0,
+    col: 1,
+    type: 'skill',
   },
   {
     id: 'git',
@@ -148,18 +160,20 @@ export const skills: Skill[] = [
     description: 'Control de versiones distribuido profesional.',
     color: '#F05032',
     row: 2,
-    col: 1,
+    col: 2,
+    type: 'skill',
   },
   {
     id: 'github',
     name: 'GitHub',
     category: 'tools',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
-    iconType: 'url',
+    icon: '/assets/images/github.png',
+    iconType: 'local',
     description: 'Plataforma de colaboración, CI/CD y open source.',
     color: '#ffffff',
     row: 2,
-    col: 2,
+    col: 3,
+    type: 'skill',
   },
   {
     id: 'visualstudio',
@@ -170,7 +184,8 @@ export const skills: Skill[] = [
     description: 'IDE empresarial para el ecosistema .NET.',
     color: '#5C2D91',
     row: 2,
-    col: 3,
+    col: 4,
+    type: 'skill',
   },
   {
     id: 'vscode',
@@ -181,31 +196,34 @@ export const skills: Skill[] = [
     description: 'Editor ligero, rápido y extensible.',
     color: '#007ACC',
     row: 2,
-    col: 4,
+    col: 5,
+    type: 'skill',
   },
 
-  // ── IA & Tools (row 3) ──
+  // ── IA & Agents (row 3) ──
   {
-    id: 'antigravity',
-    name: 'Antigravity',
-    category: 'tools',
-    icon: '/assets/icons/Google-Antigravity-Icon-Full-Color.png',
-    iconType: 'local',
-    description: 'Agente de codificación avanzado de Google.',
-    color: '#4285F4',
-    row: 3,
-    col: 1,
-  },
-  {
-    id: 'agentes-ia',
-    name: 'Agentes IA',
+    id: 'agents',
+    name: 'Agents',
     category: 'ia',
     icon: 'robot',
     iconType: 'svg',
-    description: 'Sistemas autónomos con razonamiento contextual.',
-    color: '#06b6d4',
+    description: 'Desarrollo de agentes autónomos y asistentes inteligentes.',
+    color: '#8B5CF6',
     row: 3,
     col: 2,
+    type: 'skill',
+  },
+  {
+    id: 'skills',
+    name: 'AI Skills',
+    category: 'ia',
+    icon: 'lightning',
+    iconType: 'svg',
+    description: 'Creación de herramientas y habilidades para potenciar agentes de IA.',
+    color: '#F59E0B',
+    row: 3,
+    col: 3,
+    type: 'skill',
   },
   {
     id: 'mcp',
@@ -213,21 +231,23 @@ export const skills: Skill[] = [
     category: 'ia',
     icon: 'diagram',
     iconType: 'svg',
-    description: 'Protocolo estándar de contexto para agentes.',
-    color: '#6366f1',
-    row: 3,
-    col: 3,
-  },
-  {
-    id: 'skills-ai',
-    name: 'Skills',
-    category: 'ia',
-    icon: 'lightning',
-    iconType: 'svg',
-    description: 'Extensiones modulares de capacidades de IA.',
-    color: '#a855f7',
+    description: 'Integración avanzada utilizando el Model Context Protocol.',
+    color: '#10B981',
     row: 3,
     col: 4,
+    type: 'skill',
+  },
+  {
+    id: 'antigravity',
+    name: 'Antigravity',
+    category: 'tools',
+    icon: 'https://antigravity.google/assets/image/antigravity-logo.png',
+    iconType: 'url',
+    description: 'Entorno de desarrollo avanzado (IDE) impulsado por agentes de IA de Google DeepMind.',
+    color: '#4285F4',
+    row: 2,
+    col: 6,
+    type: 'skill',
   },
 ]
 
@@ -235,5 +255,5 @@ export const skillCategories = [
   { id: 'backend', label: 'Backend', color: '#6366f1' },
   { id: 'frontend', label: 'Frontend', color: '#f8fafc' },
   { id: 'tools', label: 'Herramientas & DevOps', color: '#06b6d4' },
-  { id: 'ia', label: 'IA & Automatización', color: '#a855f7' },
+  { id: 'ia', label: 'Inteligencia Artificial', color: '#8b5cf6' },
 ] as const

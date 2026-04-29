@@ -8,6 +8,7 @@ export interface Project {
   technologies: string[]
   videoId: string
   repoUrl: string
+  gallery?: string[]
 }
 
 export const projects: Project[] = [
@@ -87,5 +88,49 @@ Este proyecto es la base ideal para cualquier aplicación cliente (React, Angula
     ],
     videoId: 'tX7x0HMT11A',
     repoUrl: 'https://github.com/Natanael-1a2b/tienda-online',
+  },
+  {
+    id: 'cine-match',
+    title: 'CineMatch',
+    image: '/assets/images/CineMatch/1.jpeg',
+    shortDescription:
+      'App móvil de catálogo y recomendación de películas con favoritos offline, tráileres integrados y búsqueda avanzada.',
+    fullDescription: `Aplicación móvil desarrollada en Flutter que funciona como un completo catálogo y recomendador de películas. Utiliza la API de TMDB para ofrecer información detallada sobre películas populares, tendencias, nuevos lanzamientos y sugerencias personalizadas.
+
+Características Principales:
+- Tendencias y Populares: Películas más populares del momento y tendencias diarias.
+- Búsqueda Avanzada: Encuentra cualquier película rápidamente.
+- Detalles Completos: Sinopsis, valoración, fecha de lanzamiento, géneros y reparto.
+- Tráileres Integrados: Reproducción de tráileres oficiales de YouTube dentro de la app.
+- Favoritos Offline: Persistencia local con SQLite para acceder sin conexión.
+- Recomendaciones Personalizadas: Sugerencias basadas en las interacciones del usuario.
+- Interfaz Moderna: Dark Theme, animaciones skeleton (shimmer) y navegación intuitiva.
+
+Desarrollado con la colaboración estratégica de herramientas de Inteligencia Artificial para optimización de código y arquitectura.`,
+    badges: ['Flutter', 'Dart', 'SQLite', 'TMDB API'],
+    technologies: [
+      'Flutter',
+      'Dart',
+      'Provider',
+      'SQFlite',
+      'TMDB REST API',
+      'Cached Network Image',
+      'WebView Flutter',
+    ],
+    videoId: '',
+    repoUrl: 'https://github.com/Natanael-1a2b/cine_match',
+    gallery: [
+      '/assets/images/CineMatch/1.jpeg',
+      '/assets/images/CineMatch/2.jpeg',
+      '/assets/images/CineMatch/3.jpeg',
+      '/assets/images/CineMatch/4.jpeg',
+      '/assets/images/CineMatch/5.jpeg',
+      '/assets/images/CineMatch/6.jpeg',
+      '/assets/images/CineMatch/7.jpeg',
+      '/assets/images/CineMatch/8.jpeg',
+      '/assets/images/CineMatch/9.jpeg',
+      '/assets/images/CineMatch/10.jpeg',
+      '/assets/images/CineMatch/11.jpeg',
+    ],
   },
 ]

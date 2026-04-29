@@ -15,20 +15,27 @@ export function About() {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.from('.about-left', {
-        x: -40, opacity: 0, duration: 0.8,
-        scrollTrigger: { trigger: '.about-left', start: 'top 80%' },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.about-grid',
+          start: 'top 85%',
+        }
       })
-      gsap.from('.about-right', {
-        x: 40, opacity: 0, duration: 0.8,
-        scrollTrigger: { trigger: '.about-right', start: 'top 80%' },
-      })
+      tl.fromTo('.about-left', 
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+      )
+      .fromTo('.about-right', 
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+        '-=0.6'
+      )
     }, sectionRef)
     return () => ctx.revert()
   }, [prefersReduced])
 
   return (
-    <section id="sobre-mi" ref={sectionRef}>
+    <section id="sobre-mi" ref={sectionRef} className="section-alt">
       <div className="container">
         <SectionTitle title="Sobre Mí" />
         <div className="about-grid">

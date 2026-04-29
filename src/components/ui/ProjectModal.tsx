@@ -1,6 +1,7 @@
-import { useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project } from '../../data/projects'
+import { asset } from '../../utils/asset'
 
 interface Props {
   project: Project | null
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export function ProjectModal({ project, onClose }: Props) {
+  const [galleryIdx, setGalleryIdx] = useState(0)
+
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -19,6 +22,7 @@ export function ProjectModal({ project, onClose }: Props) {
     if (project) {
       document.addEventListener('keydown', handleEscape)
       document.body.style.overflow = 'hidden'
+      setGalleryIdx(0)
     }
     return () => {
       document.removeEventListener('keydown', handleEscape)
@@ -29,6 +33,9 @@ export function ProjectModal({ project, onClose }: Props) {
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose()
   }
+
+  const gallery = project?.gallery
+  const hasGallery = gallery && gallery.length > 1
 
   return createPortal(
     <div
@@ -45,11 +52,45 @@ export function ProjectModal({ project, onClose }: Props) {
             </button>
           </div>
 
-          <img
-            src={project.image}
-            alt={project.title}
-            className="modal-img"
-          />
+          {hasGallery ? (
+            <div className="modal-gallery">
+              <img
+                src={asset(gallery[galleryIdx])}
+                alt={`${project.title} - ${galleryIdx + 1}`}
+                className="modal-img"
+              />
+              <button
+                className="modal-gallery-btn modal-gallery-prev"
+                onClick={() => setGalleryIdx((i) => (i - 1 + gallery.length) % gallery.length)}
+                aria-label="Anterior"
+              >
+                ‹
+              </button>
+              <button
+                className="modal-gallery-btn modal-gallery-next"
+                onClick={() => setGalleryIdx((i) => (i + 1) % gallery.length)}
+                aria-label="Siguiente"
+              >
+                ›
+              </button>
+              <div className="modal-gallery-dots">
+                {gallery.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`modal-gallery-dot ${i === galleryIdx ? 'active' : ''}`}
+                    onClick={() => setGalleryIdx(i)}
+                    aria-label={`Imagen ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <img
+              src={asset(project.image)}
+              alt={project.title}
+              className="modal-img"
+            />
+          )}
 
           {project.videoId && (
             <iframe
@@ -72,19 +113,6 @@ export function ProjectModal({ project, onClose }: Props) {
           </div>
 
           <p className="modal-desc">{project.fullDescription}</p>
-
-          {project.repoUrl && project.repoUrl !== '#' && (
-            <div style={{ textAlign: 'center' }}>
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Ver Repositorio
-              </a>
-            </div>
-          )}
         </div>
       )}
     </div>,

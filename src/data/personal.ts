@@ -47,6 +47,7 @@ export const navLinks = [
   { href: '#inicio', label: 'Inicio' },
   { href: '#sobre-mi', label: 'Sobre Mí' },
   { href: '#habilidades', label: 'Habilidades' },
+  { href: '#experiencia', label: 'Experiencia' },
   { href: '#proyectos', label: 'Proyectos' },
   { href: '#certificaciones', label: 'Certificaciones' },
   { href: '#contacto', label: 'Contacto' },
