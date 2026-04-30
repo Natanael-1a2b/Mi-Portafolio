@@ -28,9 +28,9 @@ El portafolio ha sido evolucionado de una estructura estática a una aplicación
 - **Lucide React** (Iconografía moderna)
 
 ### Perfil Técnico Destacado
-- **Backend:** .NET 8, C#, ASP.NET Core, EF Core, SQL Server.
+- **Backend:** .NET 8, C#, ASP.NET Core, EF Core, SQL Server, Supabase.
 - **Arquitectura:** Clean Architecture, Onion Architecture, Principios SOLID.
-- **IA:** Desarrollo de agentes autónomos y uso de Model Context Protocol (MCP).
+- **IA & Tools:** Desarrollo de agentes autónomos (Antigravity), MCP, VS Code.
 
 ## 💻 Instalación y Ejecución Local
 

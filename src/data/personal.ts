@@ -7,7 +7,7 @@ export const personalInfo = {
   github: 'https://github.com/Natanael-1a2b',
   whatsapp: 'https://wa.me/18298569592',
   profileImage: '/assets/images/Porfile.jpeg',
-  cvPath: '/assets/Curriculum Claudio N. Beltre R..pdf',
+  cvPath: '/assets/Curriculum Claudio N. Beltre R.pdf',
   formspreeAction: 'https://formspree.io/f/mnnzwnyd',
 }
 
