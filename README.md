@@ -1,60 +1,67 @@
 # Portafolio Profesional - Claudio N. Beltre R.
 
-Este es el repositorio de mi portafolio web personal, diseñado y desarrollado para mostrar mi experiencia, habilidades y proyectos destacados como **Desarrollador Full Stack**.
+Este es el repositorio de mi portafolio web personal, rediseñado y migrado a una arquitectura moderna basada en **React** para ofrecer una experiencia de usuario excepcional.
 
 ## 🚀 Descripción General
 
-El portafolio es una aplicación web responsiva, moderna y dinámica que presenta mi perfil profesional, destacando mi especialización en el ecosistema **.NET**, **Clean Architecture** y desarrollo web moderno. Cuenta con un diseño "Premium" usando técnicas de *glassmorphism*, paletas de colores vibrantes y animaciones dinámicas al hacer scroll.
+El portafolio ha sido evolucionado de una estructura estática a una aplicación web de alto rendimiento utilizando **Vite** y **React**. Presenta un diseño "Premium" que combina la estética *Glassmorphism* con animaciones cinemáticas avanzadas mediante **GSAP**.
 
 ## ✨ Características Principales
 
-- **Diseño Responsivo:** Adaptable a todo tipo de dispositivos (Móviles, Tablets, Escritorio).
-- **UI/UX Moderna:** Interfaz con temática oscura (Dark mode), efectos de desenfoque (*glassmorphism*) y gradientes sutiles.
-- **Animaciones Suaves:** Efectos de aparición interactivos al navegar por la página (*Intersection Observer* en JavaScript).
-- **Formulario de Contacto Funcional:** Integración con *Formspree* para el envío de correos directos de manera asíncrona.
-- **Visualizador de Proyectos:** Uso de modales dinámicos (Bootstrap) para inyectar datos y exponer detalles de proyectos con videos embebidos funcionalmente.
-- **Optimizado para SEO:** Uso adecuado de meta etiquetas y estructura de HTML5 semántico.
+- **Arquitectura React:** Componentización completa para un mantenimiento y escalabilidad superiores.
+- **GSAP Animations:** Animaciones de scroll fluidas y secuencias de entrada cinemáticas en todas las secciones.
+- **Skills Interactivas:** Panel de habilidades con un diseño inspirado en un teclado físico 2D, permitiendo explorar cada tecnología de forma dinámica.
+- **Certificaciones Premium:** Galería de certificados con "Split Layout" interactivo (Lista + Panel de previsualización fija).
+- **Diseño 100% Responsivo:** Optimización profunda para móviles, incluyendo menús inteligentes y adaptabilidad de layouts complejos.
+- **Optimizado con Vite:** Tiempos de carga instantáneos y estructura de archivos optimizada para producción.
 
 ## 🛠️ Tecnologías y Herramientas
 
-### Interfaz (Frontend)
-- **HTML5** & **CSS3** (Variables CSS, Flexbox, CSS Grid)
-- **JavaScript** (ES6+, DOM Manipulation, Fetch API)
-- **Bootstrap 5.3.0** (Grillas, Modales, Carruseles)
-- **Bootstrap Icons** & **Devicons**
+### Core Stack
+- **React 18** (Hooks, Functional Components)
+- **TypeScript** (Tipado estático para robustez)
+- **Vite** (Build tool de última generación)
+
+### Estilos y Animación
+- **CSS3 Moderno** (Variables, Flexbox, Grid, Glassmorphism)
+- **GSAP (GreenSock Animation Platform)** + **ScrollTrigger**
+- **Lucide React** (Iconografía moderna)
 
 ### Perfil Técnico Destacado
-- **Backend:** .NET, C#, ASP.NET Core MVC / Web API, Entity Framework Core, SQL Server.
-- **Arquitectura:** Clean Architecture, Onion Architecture, Principios SOLID, Patrón Repository.
-- **Seguridad:** ASP.NET Identity (Autenticación y Autorización).
-
-## 📂 Proyectos Destacados Incluidos
-
-1. **Net Series +**: Plataforma de Streaming desarrollada con ASP.NET Core MVC bajo Clean Architecture y patrón Repository, separando lógicas de negocio, acceso a datos e IU.
-2. **Internet Banking**: Sistema bancario seguro construido con Onion Architecture, con gestión de roles y encriptación robusta usando ASP.NET Identity.
-3. **Mercado API**: API RESTful construida sobre .NET 8 utilizando DTOs, estructurada con Onion Architecture y documentada profesionalmente con Swagger.
+- **Backend:** .NET 8, C#, ASP.NET Core, EF Core, SQL Server, Supabase.
+- **Arquitectura:** Clean Architecture, Onion Architecture, Principios SOLID.
+- **IA & Tools:** Desarrollo de agentes autónomos (Antigravity), MCP, VS Code.
 
 ## 💻 Instalación y Ejecución Local
 
-Para visualizar el portafolio en tu entorno de desarrollo local, sigue estos pasos:
+Para ejecutar el proyecto localmente:
 
 1. **Clonar este repositorio:**
    ```bash
    git clone https://github.com/Natanael-1a2b/Mi-Portafolio.git
    ```
 
-2. **Abrir el proyecto:**
-   - Navega a la carpeta descargada.
-   - Abre el archivo `index.html` directamente en cualquier navegador moderno (Chrome, Firefox, Edge, Safari).
-   - *Recomendación:* Utiliza una extensión como **Live Server** en Visual Studio Code para recarga automática y visualización sobre un servidor local `http://127.0.0.1`.
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Iniciar servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Construir para producción:**
+   ```bash
+   npm run build
+   ```
 
 ## 📬 Contacto y Enlaces
 
-- **Portafolio en Vivo:** [*(https://natanael-1a2b.github.io/Mi-Portafolio/)*](#)
+- **Portafolio en Vivo:** [https://Natanael-1a2b.github.io/Mi-Portafolio/](https://Natanael-1a2b.github.io/Mi-Portafolio/)
 - **Email:** [natanaelbeltre03@gmail.com](mailto:natanaelbeltre03@gmail.com)
-- **Teléfono:** 829-856-9592
 - **LinkedIn:** [Claudio Natanael Beltre Rosario](https://www.linkedin.com/in/claudio-natanael-beltre-rosario-38a580327/)
 - **GitHub:** [@Natanael-1a2b](https://github.com/Natanael-1a2b)
 
 ---
-*Diseñado y desarrollado para demostrar excelencia técnica por Claudio N. Beltre R. © 2026*
+*Diseñado y desarrollado para demostrar excelencia técnica y estética por Claudio N. Beltre R. © 2026*

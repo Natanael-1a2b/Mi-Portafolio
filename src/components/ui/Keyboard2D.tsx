@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { skills, skillCategories } from '../../data/skills'
-import { useIsMobile } from '../../hooks/useIsMobile'
 import type { Skill } from '../../data/skills'
 import { asset } from '../../utils/asset'
 
@@ -10,8 +9,6 @@ interface Props {
 }
 
 export function Keyboard2D({ onSkillSelect, selectedSkill }: Props) {
-  const isMobile = useIsMobile()
-
   const visibleSkills = skills
 
   // Group by category for the control panel layout
