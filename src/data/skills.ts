@@ -199,6 +199,18 @@ export const skills: Skill[] = [
     col: 5,
     type: 'skill',
   },
+  {
+    id: 'vercel',
+    name: 'Vercel',
+    category: 'tools',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg',
+    iconType: 'url',
+    description: 'Plataforma de despliegue y alojamiento para aplicaciones modernas.',
+    color: '#000000',
+    row: 3,
+    col: 1,
+    type: 'skill',
+  },
 
   // ── IA & Agents (row 3) ──
   {
