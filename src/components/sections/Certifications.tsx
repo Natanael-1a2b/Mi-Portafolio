@@ -18,11 +18,11 @@ export function Certifications() {
     const ctx = gsap.context(() => {
       gsap.fromTo('.cert-list',
         { x: -50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%' } }
+        { x: 0, opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )
       gsap.fromTo('.cert-preview',
         { x: 50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%' } }
+        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )
     }, sectionRef)
     return () => ctx.revert()
@@ -59,7 +59,6 @@ export function Certifications() {
                 src={asset(activeCert.image)}
                 alt={activeCert.title}
                 loading="lazy"
-                key={activeCert.id} /* Force re-render for CSS transitions if needed */
               />
             </div>
             <div className="cert-preview-info">

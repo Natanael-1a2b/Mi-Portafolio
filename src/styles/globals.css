@@ -727,9 +727,10 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   overflow: hidden;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   background: rgba(255, 255, 255, 0.02);
   aspect-ratio: 4/3;
+  will-change: transform;
 }
 
 .cert-thumb-item img {
@@ -737,23 +738,24 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   height: 100%;
   object-fit: cover;
   opacity: 0.5;
-  transition: all 0.4s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .cert-thumb-item:hover img {
   opacity: 0.8;
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .cert-thumb-item.active {
   border-color: var(--primary);
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
-  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.18);
+  transform: translateY(-4px);
 }
 
 .cert-thumb-item.active img {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.04);
 }
 
 .cert-thumb-overlay {
@@ -766,8 +768,9 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   font-weight: 600;
   text-align: center;
   opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  will-change: opacity, transform;
 }
 
 .cert-thumb-item.active .cert-thumb-overlay,
@@ -781,12 +784,14 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   top: 100px;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  background: rgba(15, 15, 26, 0.6);
-  backdrop-filter: blur(15px);
+  background: rgba(15, 15, 26, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(99, 102, 241, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
+  will-change: transform;
 }
 
 .cert-preview-img-wrapper {
@@ -803,7 +808,7 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   height: auto;
   display: block;
   object-fit: contain;
-  transition: transform 0.5s ease;
+  transition: opacity 0.25s ease;
 }
 
 .cert-preview-info {
