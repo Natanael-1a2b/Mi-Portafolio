@@ -707,6 +707,233 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   box-shadow: 0 0 6px rgba(99, 102, 241, 0.5);
 }
 
+/* ── GitHub Stats ── */
+.gh-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.gh-stat-item {
+  position: relative;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  overflow: hidden;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.gh-stat-item:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.15), 0 0 50px rgba(168, 85, 247, 0.06);
+  transform: translateY(-4px);
+}
+
+.gh-stat-icon {
+  color: var(--accent);
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gh-stat-icon--stars { color: #f1e05a; }
+.gh-stat-icon--forks { color: var(--secondary); }
+.gh-stat-icon--commits { color: #10b981; }
+.gh-stat-icon--prs { color: var(--accent); }
+.gh-stat-icon--followers { color: var(--primary); }
+
+.gh-stat-item:hover .gh-stat-icon {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.gh-stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 30%, var(--text-muted));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gh-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Languages Card */
+.gh-lang-card {
+  margin-top: 1.25rem;
+  padding: 2rem;
+}
+
+.gh-lang-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--text-main);
+}
+
+.gh-lang-bar {
+  display: flex;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 1.25rem;
+}
+
+.gh-lang-bar-segment {
+  height: 100%;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gh-lang-bar-segment:first-child {
+  border-radius: 999px 0 0 999px;
+}
+
+.gh-lang-bar-segment:last-child {
+  border-radius: 0 999px 999px 0;
+}
+
+.gh-lang-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.gh-lang-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.gh-lang-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.gh-lang-name {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.gh-lang-pct {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Streak Card */
+.gh-streak-card {
+  position: relative;
+  margin-top: 1.25rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gh-streak-card img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  display: block;
+  transition: opacity 0.4s ease;
+}
+
+.gh-streak-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* Skeleton loader */
+.gh-stat-skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
+.gh-stat-skeleton-shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.06) 40%,
+    rgba(168, 85, 247, 0.08) 60%,
+    transparent 100%
+  );
+  animation: gh-shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes gh-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Error state */
+.gh-stats-error-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* CTA */
+.gh-stats-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 992px) {
+  .gh-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .gh-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .gh-stat-item {
+    min-height: 110px;
+    padding: 1rem 0.75rem;
+  }
+  .gh-stat-value {
+    font-size: 1.6rem;
+  }
+  .gh-lang-card {
+    padding: 1.25rem;
+  }
+}
+
 /* ── Certifications Split Layout ── */
 .cert-split-layout {
   display: grid;
