@@ -107,6 +107,7 @@ async function main() {
           color: languageColors[name] || '#94a3b8',
         };
       })
+      .filter(lang => lang.percentage > 0)
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 8);
       
