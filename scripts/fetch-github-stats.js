@@ -10,11 +10,12 @@ async function fetchGH(endpoint, options = {}) {
     ...options.headers,
   };
   if (TOKEN) {
-    headers['Authorization'] = `token ${TOKEN}`;
+    headers['Authorization'] = `Bearer ${TOKEN.trim()}`;
   }
   const response = await fetch(`https://api.github.com${endpoint}`, { ...options, headers });
   if (!response.ok) {
-    throw new Error(`Failed to fetch ${endpoint}: ${response.statusText} (${response.status})`);
+    const errorText = await response.text().catch(() => 'No response body');
+    throw new Error(`Failed to fetch ${endpoint}: ${response.statusText} (${response.status}) - ${errorText}`);
   }
   return response.json();
 }
