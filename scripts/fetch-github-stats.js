@@ -32,12 +32,20 @@ async function main() {
     console.log('Obteniendo repositorios...');
     // Si hay un PAT personalizado (no el GITHUB_TOKEN por defecto), podemos obtener repos privados.
     const hasCustomPAT = process.env.GH_PAT && process.env.GH_PAT.trim() !== '';
+    
+    if (hasCustomPAT) {
+      console.log('✅ Se detectó PORTFOLIO_TOKEN. Consultando repositorios públicos y privados...');
+    } else {
+      console.log('⚠️ No se detectó PORTFOLIO_TOKEN (está vacío). Consultando solo repositorios públicos por defecto...');
+    }
+
     const reposEndpoint = hasCustomPAT 
       ? '/user/repos?per_page=100&affiliation=owner' 
       : `/users/${USERNAME}/repos?per_page=100`;
       
     const repos = await fetchGH(reposEndpoint);
     const ownRepos = repos.filter(r => !r.fork);
+    console.log(`📊 Se encontraron ${ownRepos.length} repositorios propios (excluyendo forks).`);
     
     const totalStars = ownRepos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
     const totalForks = ownRepos.reduce((sum, r) => sum + (r.forks_count || 0), 0);
@@ -93,7 +101,7 @@ async function main() {
     const result = {
       lastUpdated: new Date().toISOString(),
       user: {
-        public_repos: user.public_repos,
+        public_repos: ownRepos.length,
         followers: user.followers,
         following: user.following,
       },
