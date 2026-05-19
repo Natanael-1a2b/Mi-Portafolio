@@ -56,13 +56,21 @@ async function main() {
     const prsData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:pr`).catch(() => ({ total_count: 0 }));
     const issuesData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:issue+is:issue`).catch(() => ({ total_count: 0 }));
     
-    // Distribución de lenguajes
+    // Distribución de lenguajes real (consultando cada repositorio)
+    console.log('Calculando distribución exacta de lenguajes...');
     const langMap = {};
     let totalSize = 0;
-    for (const repo of ownRepos) {
-      if (repo.language && repo.size > 0) {
-        langMap[repo.language] = (langMap[repo.language] || 0) + repo.size;
-        totalSize += repo.size;
+    
+    // Obtenemos los lenguajes de todos los repositorios en paralelo
+    const langPromises = ownRepos.map(repo => 
+      fetchGH(`/repos/${repo.owner.login}/${repo.name}/languages`).catch(() => ({}))
+    );
+    const reposLanguages = await Promise.all(langPromises);
+    
+    for (const repoLangs of reposLanguages) {
+      for (const [lang, bytes] of Object.entries(repoLangs)) {
+        langMap[lang] = (langMap[lang] || 0) + bytes;
+        totalSize += bytes;
       }
     }
     
