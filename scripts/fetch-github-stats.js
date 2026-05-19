@@ -98,11 +98,15 @@ async function main() {
     };
     
     const languages = Object.entries(langMap)
-      .map(([name, size]) => ({
-        name,
-        percentage: totalSize > 0 ? Math.round((size / totalSize) * 100) : 0,
-        color: languageColors[name] || '#94a3b8',
-      }))
+      .map(([name, size]) => {
+        let rawPct = totalSize > 0 ? (size / totalSize) * 100 : 0;
+        let percentage = rawPct > 0 && rawPct < 1 ? 1 : Math.round(rawPct);
+        return {
+          name,
+          percentage,
+          color: languageColors[name] || '#94a3b8',
+        };
+      })
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 8);
       
