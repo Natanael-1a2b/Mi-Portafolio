@@ -16,7 +16,7 @@ export function Certifications() {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.fromTo('.cert-list',
+      gsap.fromTo('.cert-thumb-grid',
         { x: -50, opacity: 0 },
         { x: 0, opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )

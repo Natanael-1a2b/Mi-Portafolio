@@ -14,7 +14,7 @@ const streakColors = {
   sideNums: 'a855f7',
   currStreakLabel: '6366f1',
   sideLabels: 'f8fafc',
-  dates: '94a3b8',
+  dates: '0a0a12', // Oculto con el color del fondo
 }
 
 export const streakCardUrl = `https://streak-stats.demolab.com/?user=${githubConfig.username}&hide_border=true&locale=es&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`

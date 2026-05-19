@@ -85,7 +85,7 @@ export function GitHubStats() {
         </svg>
       ),
       value: data.public_repos,
-      label: 'Repositorios Públicos',
+      label: 'Total de Repositorios',
       colorClass: '',
     },
     {
