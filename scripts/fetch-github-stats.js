@@ -100,7 +100,9 @@ async function main() {
     const languages = Object.entries(langMap)
       .map(([name, size]) => {
         let rawPct = totalSize > 0 ? (size / totalSize) * 100 : 0;
-        let percentage = rawPct > 0 && rawPct < 1 ? 1 : Math.round(rawPct);
+        let percentage = rawPct > 0 && rawPct < 1 
+          ? parseFloat(rawPct.toFixed(2)) 
+          : Math.round(rawPct);
         return {
           name,
           percentage,
