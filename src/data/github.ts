@@ -2,6 +2,7 @@ export const githubConfig = {
   username: 'Natanael-1a2b',
   profileUrl: 'https://github.com/Natanael-1a2b',
   apiBase: 'https://api.github.com',
+  dataUrl: 'https://raw.githubusercontent.com/Natanael-1a2b/Mi-Portafolio/github-stats-data/github-stats.json',
 }
 
 // Streak card (demolab.com is the maintained host — works reliably)
@@ -45,58 +46,48 @@ export interface GitHubStatsResult {
 }
 
 export async function fetchGitHubData(): Promise<GitHubStatsResult | null> {
+  try {
+    const response = await fetch(githubConfig.dataUrl)
+    if (!response.ok) {
+      throw new Error('No se pudo obtener el JSON estático')
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.warn('Error fetching static GitHub stats, falling back to live public API or default values', error)
+    return fetchGitHubDataFallback()
+  }
+}
+
+async function fetchGitHubDataFallback(): Promise<GitHubStatsResult | null> {
   const u = githubConfig.username
   try {
-    const [userRes, reposRes, commitsRes, prsRes, issuesRes] = await Promise.all([
+    const [userRes, reposRes] = await Promise.all([
       fetch(`${githubConfig.apiBase}/users/${u}`),
       fetch(`${githubConfig.apiBase}/users/${u}/repos?per_page=100&sort=updated`),
-      fetch(`${githubConfig.apiBase}/search/commits?q=author:${u}`, {
-        headers: { Accept: 'application/vnd.github.cloak-preview+json' },
-      }),
-      fetch(`${githubConfig.apiBase}/search/issues?q=author:${u}+type:pr`),
-      fetch(`${githubConfig.apiBase}/search/issues?q=author:${u}+type:issue+is:issue`),
     ])
-
     if (!userRes.ok || !reposRes.ok) return null
 
-    const user: GitHubUserData = await userRes.json()
-    const repos: GitHubRepo[] = await reposRes.json()
-    const commitsData = commitsRes.ok ? await commitsRes.json() : { total_count: 0 }
-    const prsData = prsRes.ok ? await prsRes.json() : { total_count: 0 }
-    const issuesData = issuesRes.ok ? await issuesRes.json() : { total_count: 0 }
+    const user = await userRes.json()
+    const repos = await reposRes.json()
+    const ownRepos = repos.filter((r: any) => !r.fork)
 
-    const ownRepos = repos.filter(r => !r.fork)
-
-    const totalStars = ownRepos.reduce((sum, r) => sum + r.stargazers_count, 0)
-    const totalForks = ownRepos.reduce((sum, r) => sum + r.forks_count, 0)
-
-    // Calculate language distribution by repo size
-    const langMap: Record<string, number> = {}
-    let totalSize = 0
-    for (const repo of ownRepos) {
-      if (repo.language && repo.size > 0) {
-        langMap[repo.language] = (langMap[repo.language] || 0) + repo.size
-        totalSize += repo.size
-      }
-    }
-
-    const languages = Object.entries(langMap)
-      .map(([name, size]) => ({
-        name,
-        percentage: Math.round((size / totalSize) * 100),
-        color: languageColors[name] || '#94a3b8',
-      }))
-      .sort((a, b) => b.percentage - a.percentage)
-      .slice(0, 8)
+    const totalStars = ownRepos.reduce((sum: number, r: any) => sum + r.stargazers_count, 0)
+    const totalForks = ownRepos.reduce((sum: number, r: any) => sum + r.forks_count, 0)
 
     return {
-      user,
+      user: {
+        public_repos: user.public_repos,
+        followers: user.followers,
+        following: user.following,
+        public_gists: user.public_gists || 0
+      },
       totalStars,
       totalForks,
-      totalCommits: commitsData.total_count || 0,
-      totalPRs: prsData.total_count || 0,
-      totalIssues: issuesData.total_count || 0,
-      languages,
+      totalCommits: 0,
+      totalPRs: 0,
+      totalIssues: 0,
+      languages: []
     }
   } catch {
     return null
