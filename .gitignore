@@ -23,3 +23,7 @@ dist/
 # Agent skills
 .agents/
 skills-lock.json
+
+# Agent handoff and configurations
+.agent/
+agent/
