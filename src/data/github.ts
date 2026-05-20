@@ -5,7 +5,7 @@ export const githubConfig = {
   dataUrl: 'https://raw.githubusercontent.com/Natanael-1a2b/Mi-Portafolio/github-stats-data/github-stats.json',
 }
 
-// Streak card (demolab.com is the maintained host — works reliably)
+// Streak card (herokuapp.com is the original host and currently stable)
 const streakColors = {
   bg: '0a0a12',
   ring: '6366f1',
@@ -17,7 +17,7 @@ const streakColors = {
   dates: '0a0a12', // Oculto con el color del fondo
 }
 
-export const streakCardUrl = `https://streak-stats.demolab.com/?user=${githubConfig.username}&hide_border=true&locale=es&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`
+export const streakCardUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${githubConfig.username}&hide_border=true&locale=es&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`
 
 export interface GitHubUserData {
   public_repos: number
