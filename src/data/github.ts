@@ -93,27 +93,3 @@ async function fetchGitHubDataFallback(): Promise<GitHubStatsResult | null> {
     return null
   }
 }
-
-// GitHub language colors
-const languageColors: Record<string, string> = {
-  'JavaScript': '#f1e05a',
-  'TypeScript': '#3178c6',
-  'C#': '#178600',
-  'Python': '#3572A5',
-  'HTML': '#e34c26',
-  'CSS': '#563d7c',
-  'Java': '#b07219',
-  'C++': '#f34b7d',
-  'C': '#555555',
-  'PHP': '#4F5D95',
-  'Ruby': '#701516',
-  'Go': '#00ADD8',
-  'Rust': '#dea584',
-  'Swift': '#F05138',
-  'Kotlin': '#A97BFF',
-  'Dart': '#00B4AB',
-  'Shell': '#89e051',
-  'Vue': '#41b883',
-  'SCSS': '#c6538c',
-  'Astro': '#ff5a03',
-}
