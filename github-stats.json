@@ -1,0 +1,55 @@
+{
+  "lastUpdated": "2026-05-31T13:56:48.523Z",
+  "user": {
+    "public_repos": 21,
+    "followers": 1,
+    "following": 1
+  },
+  "totalStars": 8,
+  "totalForks": 0,
+  "totalCommits": 482,
+  "totalPRs": 9,
+  "totalIssues": 10,
+  "languages": [
+    {
+      "name": "TypeScript",
+      "percentage": 28,
+      "color": "#3178c6"
+    },
+    {
+      "name": "HTML",
+      "percentage": 24,
+      "color": "#e34c26"
+    },
+    {
+      "name": "CSS",
+      "percentage": 20,
+      "color": "#563d7c"
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 11,
+      "color": "#f1e05a"
+    },
+    {
+      "name": "Dart",
+      "percentage": 8,
+      "color": "#00B4AB"
+    },
+    {
+      "name": "Python",
+      "percentage": 5,
+      "color": "#3572A5"
+    },
+    {
+      "name": "C#",
+      "percentage": 4,
+      "color": "#178600"
+    },
+    {
+      "name": "PHP",
+      "percentage": 0.25,
+      "color": "#4F5D95"
+    }
+  ]
+}
