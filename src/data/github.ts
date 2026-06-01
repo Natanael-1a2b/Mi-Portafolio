@@ -7,14 +7,14 @@ export const githubConfig = {
 
 // Streak card (herokuapp.com is the original host and currently stable)
 const streakColors = {
-  bg: '0a0a12',
+  bg: '00000000',
   ring: '6366f1',
   fire: '06b6d4',
   currStreakNum: 'f8fafc',
   sideNums: 'a855f7',
   currStreakLabel: '6366f1',
   sideLabels: 'f8fafc',
-  dates: '0a0a12', // Oculto con el color del fondo
+  dates: '00000000', // Oculto haciéndolo transparente
 }
 
 export const streakCardUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${githubConfig.username}&hide_border=true&locale=es&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`
@@ -24,6 +24,10 @@ export interface GitHubUserData {
   followers: number
   following: number
   public_gists: number
+  avatar_url?: string
+  name?: string
+  created_at?: string
+  login?: string
 }
 
 export interface GitHubRepo {
@@ -80,7 +84,11 @@ async function fetchGitHubDataFallback(): Promise<GitHubStatsResult | null> {
         public_repos: user.public_repos,
         followers: user.followers,
         following: user.following,
-        public_gists: user.public_gists || 0
+        public_gists: user.public_gists || 0,
+        avatar_url: user.avatar_url,
+        name: user.name,
+        created_at: user.created_at,
+        login: user.login,
       },
       totalStars,
       totalForks,

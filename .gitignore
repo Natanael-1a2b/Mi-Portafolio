@@ -27,3 +27,6 @@ skills-lock.json
 # Agent handoff and configurations
 .agent/
 agent/
+
+# Playwright artifacts
+.playwright-mcp/
