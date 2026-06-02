@@ -15,7 +15,7 @@ export const projects: Project[] = [
   {
     id: 'net-series',
     title: 'Net Series +',
-    image: '/assets/images/ITLA TV/portada.png',
+    image: '/assets/images/ITLA TV/portada.webp',
     shortDescription:
       'Plataforma de streaming con catálogo de series, filtros inteligentes, reproductor integrado y gestión de contenido.',
     fullDescription: `Plataforma de Streaming desarrollada con ASP.NET Core MVC, implementando una Arquitectura Limpia (Clean Architecture) para desacoplar reglas de negocio, acceso a datos e interfaz de usuario.
@@ -40,7 +40,7 @@ El proyecto permite la gestión completa de contenido multimedia (CRUD), filtros
   {
     id: 'internet-banking',
     title: 'Internet Banking',
-    image: '/assets/images/Internet Banking/portada.png',
+    image: '/assets/images/Internet Banking/portada.webp',
     shortDescription:
       'Aplicación web de Internet Banking con roles de administrador y cliente, que permite gestionar usuarios, realizar pagos, transferencias y avances de efectivo con seguridad y control total.',
     fullDescription: `Sistema bancario robusto desarrollado con ASP.NET Core MVC bajo una Arquitectura Onion para garantizar escalabilidad y mantenibilidad.
@@ -67,7 +67,7 @@ Este proyecto demuestra mi capacidad para manejar datos sensibles y construir ap
   {
     id: 'mercado-api',
     title: 'Mercado API',
-    image: '/assets/images/Mercado API/portada.png',
+    image: '/assets/images/Mercado API/portada.webp',
     shortDescription:
       'API RESTful que permite gestionar productos y categorías con operaciones CRUD, documentación interactiva en Swagger y persistencia en SQL Server.',
     fullDescription: `API RESTful diseñada para servir como backend de sistemas de comercio electrónico escalables. Construida sobre .NET 8, implementa una Arquitectura Onion para garantizar la independencia de frameworks y bases de datos.
@@ -92,7 +92,7 @@ Este proyecto es la base ideal para cualquier aplicación cliente (React, Angula
   {
     id: 'cine-match',
     title: 'CineMatch',
-    image: '/assets/images/CineMatch/1.jpeg',
+    image: '/assets/images/CineMatch/1.webp',
     shortDescription:
       'App móvil de catálogo y recomendación de películas con favoritos offline, tráileres integrados y búsqueda avanzada.',
     fullDescription: `Aplicación móvil desarrollada en Flutter que funciona como un completo catálogo y recomendador de películas. Utiliza la API de TMDB para ofrecer información detallada sobre películas populares, tendencias, nuevos lanzamientos y sugerencias personalizadas.
@@ -120,17 +120,17 @@ Desarrollado con la colaboración estratégica de herramientas de Inteligencia A
     videoId: '',
     repoUrl: 'https://github.com/Natanael-1a2b/cine_match',
     gallery: [
-      '/assets/images/CineMatch/1.jpeg',
-      '/assets/images/CineMatch/2.jpeg',
-      '/assets/images/CineMatch/3.jpeg',
-      '/assets/images/CineMatch/4.jpeg',
-      '/assets/images/CineMatch/5.jpeg',
-      '/assets/images/CineMatch/6.jpeg',
-      '/assets/images/CineMatch/7.jpeg',
-      '/assets/images/CineMatch/8.jpeg',
-      '/assets/images/CineMatch/9.jpeg',
-      '/assets/images/CineMatch/10.jpeg',
-      '/assets/images/CineMatch/11.jpeg',
+      '/assets/images/CineMatch/1.webp',
+      '/assets/images/CineMatch/2.webp',
+      '/assets/images/CineMatch/3.webp',
+      '/assets/images/CineMatch/4.webp',
+      '/assets/images/CineMatch/5.webp',
+      '/assets/images/CineMatch/6.webp',
+      '/assets/images/CineMatch/7.webp',
+      '/assets/images/CineMatch/8.webp',
+      '/assets/images/CineMatch/9.webp',
+      '/assets/images/CineMatch/10.webp',
+      '/assets/images/CineMatch/11.webp',
     ],
   },
 ]
