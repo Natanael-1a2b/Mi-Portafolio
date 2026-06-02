@@ -70,14 +70,11 @@ export function GitHubStats() {
     )
   }
 
-  const { user, totalStars, totalCommits, totalPRs, totalIssues, languages } = data;
+  const { user, totalStars, totalForks, totalCommits, totalPRs, totalIssues, languages } = data;
   
   const totalContributions = totalCommits + totalPRs + totalIssues;
   
-  // Calculate join date
-  const joinDateText = user.created_at 
-    ? `Se unió en ${new Date(user.created_at).getFullYear()}`
-    : 'Se unió recientemente';
+  // Calculamos las métricas extra en lugar de la fecha de unión
 
   // Format donut gradient
   let currentPercentage = 0;
@@ -115,9 +112,22 @@ export function GitHubStats() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#a855f7' }}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 <span><strong>{user.public_repos}</strong> Repositorios Públicos</span>
               </div>
+
               <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#2dd4bf' }}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span>{joinDateText}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#eab308' }}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span><strong>{languages.length}</strong> Lenguajes utilizados</span>
+              </div>
+              <div className="gh-profile-stat-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#10b981' }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Desarrollador Full Stack</span>
+              </div>
+              <div className="gh-profile-stat-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#3b82f6' }}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Colaborador Activo</span>
+              </div>
+              <div className="gh-profile-stat-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#ec4899' }}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>Apasionado por el Código</span>
               </div>
             </div>
           </div>
@@ -130,7 +140,9 @@ export function GitHubStats() {
 
           {/* Row 2: Summary Stats & Streak */}
           <div className="gh-card gh-card-summary">
-            <div className="gh-summary-item">
+            <div className="gh-card-title" style={{ width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>Resumen General</div>
+            <div className="gh-summary-row" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+              <div className="gh-summary-item">
               <div className="gh-summary-icon" style={{ color: '#fbbf24' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
               <div className="gh-summary-value">{totalStars}</div>
               <div className="gh-summary-label">Total Stars</div>
@@ -150,9 +162,11 @@ export function GitHubStats() {
               <div className="gh-summary-value">{totalIssues}</div>
               <div className="gh-summary-label">Issues</div>
             </div>
+            </div>
           </div>
 
           <div className="gh-card gh-card-streak">
+            <div className="gh-card-title" style={{ width: '100%', marginBottom: '0', marginTop: '1rem', textAlign: 'center' }}>Racha de Contribuciones</div>
             <img src={streakCardUrl} alt="GitHub Streak" loading="lazy" />
           </div>
 
@@ -186,23 +200,34 @@ export function GitHubStats() {
           </div>
 
           <div className="gh-card gh-card-insights">
-            <div className="gh-card-title">Insights</div>
-            <div className="gh-insight-item">
-              <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.2)' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <div className="gh-card-title" style={{ textAlign: 'center', width: '100%', marginBottom: '0.5rem' }}>Insights</div>
+            <div className="gh-insights-row">
+              <div className="gh-insight-item">
+                <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.2)' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <div className="gh-insight-content">
+                  <h4>¡Gran crecimiento!</h4>
+                  <p>Tus contribuciones han sido muy constantes este último año.</p>
+                </div>
               </div>
-              <div className="gh-insight-content">
-                <h4>¡Gran crecimiento!</h4>
-                <p>Tus contribuciones han sido muy constantes este último año.</p>
+              <div className="gh-insight-item">
+                <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.2)' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div className="gh-insight-content">
+                  <h4>Sigue así 💪</h4>
+                  <p>Mantén tu racha de contribuciones para seguir creciendo.</p>
+                </div>
               </div>
-            </div>
-            <div className="gh-insight-item">
-              <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.2)' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-              <div className="gh-insight-content">
-                <h4>Sigue así 💪</h4>
-                <p>Mantén tu racha de contribuciones para seguir creciendo.</p>
+              <div className="gh-insight-item">
+                <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', color: '#a855f7', borderColor: 'rgba(168, 85, 247, 0.2)' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <div className="gh-insight-content">
+                  <h4>Enfoque Moderno</h4>
+                  <p>La mayor parte de tus proyectos recientes utilizan React y TypeScript.</p>
+                </div>
               </div>
             </div>
           </div>
