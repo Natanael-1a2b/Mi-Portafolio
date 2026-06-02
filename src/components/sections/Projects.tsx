@@ -79,7 +79,20 @@ export function Projects() {
             >
               <div className="project-glare"></div>
               <div className="project-img">
-                <img src={asset(proj.image)} alt={proj.title} loading="lazy" decoding="async" />
+                {proj.repoUrl && proj.repoUrl !== '#' && !proj.repoUrl.includes('github.com') && (
+                  <div className="live-indicator">
+                    <span className="live-dot"></span>
+                    En Producción
+                  </div>
+                )}
+                <img src={asset(proj.image)} alt="" className="project-img-blur" aria-hidden="true" />
+                <img 
+                  src={asset(proj.image)} 
+                  alt={proj.title} 
+                  className={`project-img-main ${proj.id === 'cine-match' ? 'mobile-zoom' : ''}`} 
+                  loading="lazy" 
+                  decoding="async" 
+                />
                 <div className="project-overlay-btn">
                   <span>Ver Proyecto</span>
                 </div>

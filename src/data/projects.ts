@@ -9,33 +9,132 @@ export interface Project {
   videoId: string
   repoUrl: string
   gallery?: string[]
+  desktopGallery?: string[]
+  mobileGallery?: string[]
+  isPWA?: boolean
 }
 
 export const projects: Project[] = [
   {
-    id: 'net-series',
-    title: 'Net Series +',
-    image: '/assets/images/ITLA TV/portada.webp',
-    shortDescription:
-      'Plataforma de streaming con catálogo de series, filtros inteligentes, reproductor integrado y gestión de contenido.',
-    fullDescription: `Plataforma de Streaming desarrollada con ASP.NET Core MVC, implementando una Arquitectura Limpia (Clean Architecture) para desacoplar reglas de negocio, acceso a datos e interfaz de usuario.
+    id: 'gestor-pwa',
+    title: 'Gestor de Tareas y Hábitos',
+    image: '/assets/images/Gestor de tareas/portada.webp',
+    shortDescription: 'Plataforma integral de productividad (PWA) con gestión de tareas, calendario interactivo y seguimiento de hábitos diario.',
+    fullDescription: `Este proyecto es una plataforma de productividad diseñada para usuarios que necesitan organizar tareas, seguir hábitos y mantener una visión clara de su progreso a través de visualizaciones interactivas.
 
-Características Técnicas:
-- Patrón Repository: Abstracción de la capa de datos para facilitar pruebas unitarias y mantenimiento.
-- ViewModels: Validación estricta de datos en la capa de presentación.
-- Entity Framework Core: Gestión eficiente de la base de datos con enfoque Code First.
+Desarrollada como PWA: Permite instalación directa sin pasar por App Stores, ofrece funcionamiento Offline y tiempos de carga instantáneos gracias a los Service Workers.
 
-El proyecto permite la gestión completa de contenido multimedia (CRUD), filtros dinámicos y reproducción integrada, demostrando el dominio de patrones de diseño empresariales.`,
-    badges: ['C#', 'HTML', 'SQL', 'ASP.NET Core'],
+Características Principales:
+- Gestión de tareas con prioridades, fechas de vencimiento, etiquetas y filtros avanzados. Tablero Kanban incluido.
+- Vista de calendario para visualizar tareas diarias y carga semanal/mensual.
+- Sistema de seguimiento de hábitos con estados rápidos, analíticas y cronogramas tipo "contribution graph".
+- Drag & Drop accesible para reordenar hábitos y mover tareas entre estados.
+- Autenticación y panel de administración seguro.`,
+    badges: ['React', 'Supabase', 'PWA', 'Vercel'],
     technologies: [
-      'ASP.NET Core MVC',
-      'Clean Architecture',
-      'Repository Pattern',
-      'SQL Server',
-      'Bootstrap',
+      'React 19 (TypeScript)',
+      'Vite & vite-plugin-pwa',
+      'Zustand (Estado Global)',
+      'Supabase (PostgreSQL + Auth)',
+      '@dnd-kit (Drag & Drop)',
+      'Recharts & lucide-react',
+      'Vercel (Deploy)'
     ],
-    videoId: 'hg5kiG2qwww',
-    repoUrl: '#',
+    videoId: '',
+    repoUrl: 'https://gestor-de-tareas-3uce.vercel.app/',
+    isPWA: true,
+    gallery: [
+      '/assets/images/Gestor de tareas/pc/1.webp',
+      '/assets/images/Gestor de tareas/pc/2.webp',
+      '/assets/images/Gestor de tareas/pc/3.webp',
+      '/assets/images/Gestor de tareas/pc/4.webp',
+      '/assets/images/Gestor de tareas/pc/5.webp',
+      '/assets/images/Gestor de tareas/pc/6.webp',
+      '/assets/images/Gestor de tareas/pc/7.webp',
+      '/assets/images/Gestor de tareas/pc/8.webp',
+      '/assets/images/Gestor de tareas/pc/9.webp',
+      '/assets/images/Gestor de tareas/pc/10.webp',
+      '/assets/images/Gestor de tareas/pc/11.webp',
+      '/assets/images/Gestor de tareas/pc/12.webp',
+      '/assets/images/Gestor de tareas/pc/13.webp',
+      '/assets/images/Gestor de tareas/pc/14.webp',
+      '/assets/images/Gestor de tareas/pc/15.webp',
+      '/assets/images/Gestor de tareas/pc/16.webp',
+      '/assets/images/Gestor de tareas/pc/17.webp',
+      '/assets/images/Gestor de tareas/pc/18.webp',
+      '/assets/images/Gestor de tareas/Movile/m1.webp',
+      '/assets/images/Gestor de tareas/Movile/m2.webp',
+      '/assets/images/Gestor de tareas/Movile/m3.webp',
+      '/assets/images/Gestor de tareas/Movile/m4.webp',
+      '/assets/images/Gestor de tareas/Movile/m5.webp',
+      '/assets/images/Gestor de tareas/Movile/m6.webp',
+      '/assets/images/Gestor de tareas/Movile/m7.webp',
+      '/assets/images/Gestor de tareas/Movile/m8.webp',
+      '/assets/images/Gestor de tareas/Movile/m9.webp',
+      '/assets/images/Gestor de tareas/Movile/m10.webp',
+      '/assets/images/Gestor de tareas/Movile/m11.webp',
+      '/assets/images/Gestor de tareas/Movile/m12.webp',
+      '/assets/images/Gestor de tareas/Movile/m13.webp',
+      '/assets/images/Gestor de tareas/Movile/m14.webp',
+      '/assets/images/Gestor de tareas/Movile/m15.webp',
+      '/assets/images/Gestor de tareas/Movile/m16.webp',
+      '/assets/images/Gestor de tareas/Movile/m17.webp',
+      '/assets/images/Gestor de tareas/Movile/m18.webp',
+      '/assets/images/Gestor de tareas/Movile/m19.webp',
+      '/assets/images/Gestor de tareas/Movile/m20.webp',
+      '/assets/images/Gestor de tareas/Movile/m21.webp',
+      '/assets/images/Gestor de tareas/Movile/m22.webp',
+      '/assets/images/Gestor de tareas/Movile/m23.webp',
+      '/assets/images/Gestor de tareas/Movile/m24.webp'
+    ],
+    desktopGallery: [
+      '/assets/images/Gestor de tareas/pc/8.webp',
+      '/assets/images/Gestor de tareas/pc/2.webp',
+      '/assets/images/Gestor de tareas/pc/6.webp',
+      '/assets/images/Gestor de tareas/pc/14.webp',
+      '/assets/images/Gestor de tareas/pc/3.webp',
+      '/assets/images/Gestor de tareas/pc/12.webp',
+      '/assets/images/Gestor de tareas/pc/10.webp',
+      '/assets/images/Gestor de tareas/pc/1.webp',
+      '/assets/images/Gestor de tareas/pc/15.webp',
+      '/assets/images/Gestor de tareas/pc/17.webp',
+      '/assets/images/Gestor de tareas/pc/9.webp',
+      '/assets/images/Gestor de tareas/pc/5.webp',
+      '/assets/images/Gestor de tareas/pc/11.webp',
+      '/assets/images/Gestor de tareas/pc/18.webp',
+      '/assets/images/Gestor de tareas/pc/16.webp',
+      '/assets/images/Gestor de tareas/pc/4.webp',
+      '/assets/images/Gestor de tareas/pc/13.webp',
+      '/assets/images/Gestor de tareas/pc/7.webp'
+    ],
+    mobileGallery: [
+      '/assets/images/Gestor de tareas/Movile/m23.webp',
+      '/assets/images/Gestor de tareas/Movile/m9.webp',
+      '/assets/images/Gestor de tareas/Movile/m20.webp',
+      '/assets/images/Gestor de tareas/Movile/m17.webp',
+      '/assets/images/Gestor de tareas/Movile/m6.webp',
+      '/assets/images/Gestor de tareas/Movile/m26.webp',
+      '/assets/images/Gestor de tareas/Movile/m4.webp',
+      '/assets/images/Gestor de tareas/Movile/m3.webp',
+      '/assets/images/Gestor de tareas/Movile/m21.webp',
+      '/assets/images/Gestor de tareas/Movile/m11.webp',
+      '/assets/images/Gestor de tareas/Movile/m8.webp',
+      '/assets/images/Gestor de tareas/Movile/m19.webp',
+      '/assets/images/Gestor de tareas/Movile/m12.webp',
+      '/assets/images/Gestor de tareas/Movile/m10.webp',
+      '/assets/images/Gestor de tareas/Movile/m5.webp',
+      '/assets/images/Gestor de tareas/Movile/m15.webp',
+      '/assets/images/Gestor de tareas/Movile/m25.webp',
+      '/assets/images/Gestor de tareas/Movile/m7.webp',
+      '/assets/images/Gestor de tareas/Movile/m1.webp',
+      '/assets/images/Gestor de tareas/Movile/m14.webp',
+      '/assets/images/Gestor de tareas/Movile/m16.webp',
+      '/assets/images/Gestor de tareas/Movile/m24.webp',
+      '/assets/images/Gestor de tareas/Movile/m2.webp',
+      '/assets/images/Gestor de tareas/Movile/m18.webp',
+      '/assets/images/Gestor de tareas/Movile/m13.webp',
+      '/assets/images/Gestor de tareas/Movile/m22.webp'
+    ]
   },
   {
     id: 'internet-banking',
@@ -62,6 +161,31 @@ Este proyecto demuestra mi capacidad para manejar datos sensibles y construir ap
       'Bootstrap',
     ],
     videoId: '_ELNRanI3vg',
+    repoUrl: '#',
+  },
+  {
+    id: 'net-series',
+    title: 'Net Series +',
+    image: '/assets/images/ITLA TV/portada.webp',
+    shortDescription:
+      'Plataforma de streaming con catálogo de series, filtros inteligentes, reproductor integrado y gestión de contenido.',
+    fullDescription: `Plataforma de Streaming desarrollada con ASP.NET Core MVC, implementando una Arquitectura Limpia (Clean Architecture) para desacoplar reglas de negocio, acceso a datos e interfaz de usuario.
+
+Características Técnicas:
+- Patrón Repository: Abstracción de la capa de datos para facilitar pruebas unitarias y mantenimiento.
+- ViewModels: Validación estricta de datos en la capa de presentación.
+- Entity Framework Core: Gestión eficiente de la base de datos con enfoque Code First.
+
+El proyecto permite la gestión completa de contenido multimedia (CRUD), filtros dinámicos y reproducción integrada, demostrando el dominio de patrones de diseño empresariales.`,
+    badges: ['C#', 'HTML', 'SQL', 'ASP.NET Core'],
+    technologies: [
+      'ASP.NET Core MVC',
+      'Clean Architecture',
+      'Repository Pattern',
+      'SQL Server',
+      'Bootstrap',
+    ],
+    videoId: 'hg5kiG2qwww',
     repoUrl: '#',
   },
   {
