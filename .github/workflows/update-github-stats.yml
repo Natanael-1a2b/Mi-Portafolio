@@ -2,7 +2,7 @@ name: Update GitHub Stats
 
 on:
   schedule:
-    - cron: '0 */12 * * *' # Se ejecuta cada 12 horas
+    - cron: '0 */6 * * *' # Se ejecuta cada 6 horas
   workflow_dispatch: # Permite ejecución manual desde la pestaña Actions
 
 permissions:

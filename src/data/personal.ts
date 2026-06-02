@@ -6,7 +6,7 @@ export const personalInfo = {
   linkedIn: 'https://www.linkedin.com/in/claudio-natanael-beltre-rosario-38a580327/',
   github: 'https://github.com/Natanael-1a2b',
   whatsapp: 'https://wa.me/18298569592',
-  profileImage: '/assets/images/Porfile.jpeg',
+  profileImage: '/assets/images/Porfile.webp',
   cvPath: '/assets/Curriculum Claudio N. Beltre R.pdf',
   formspreeAction: 'https://formspree.io/f/mnnzwnyd',
 }
