@@ -2,41 +2,49 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const inputDir = path.resolve('public/assets/images/certificaciones');
-const outputDir = path.resolve('public/assets/images/certificaciones/optimized');
+const baseDir = path.resolve('public/assets/images');
 
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
+async function processDirectory(dir) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
 
-async function optimizeImages() {
-  const files = fs.readdirSync(inputDir);
-  
-  for (const file of files) {
-    const ext = path.extname(file).toLowerCase();
-    if (['.jpg', '.jpeg', '.png'].includes(ext)) {
-      const inputPath = path.join(inputDir, file);
-      const filenameWithoutExt = path.basename(file, ext);
-      const outputPath = path.join(outputDir, `${filenameWithoutExt}.webp`);
-      
-      try {
-        console.log(`Optimizing ${file}...`);
-        await sharp(inputPath)
-          .resize({ width: 1200, withoutEnlargement: true }) // Reducir resolución máxima
-          .webp({ quality: 80 }) // Convertir a WebP con buena compresión
-          .toFile(outputPath);
-        console.log(`Done: ${filenameWithoutExt}.webp`);
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    
+    if (entry.isDirectory()) {
+      // Omitir carpetas optimizadas
+      if (entry.name !== 'optimized') {
+        await processDirectory(fullPath);
+      }
+    } else {
+      const ext = path.extname(entry.name).toLowerCase();
+      if (['.jpg', '.jpeg', '.png'].includes(ext)) {
+        const filenameWithoutExt = path.basename(entry.name, ext);
+        const outputPath = path.join(dir, `${filenameWithoutExt}.webp`);
         
-        // Opcional: reemplazar el original o moverlo
-        fs.copyFileSync(outputPath, path.join(inputDir, `${filenameWithoutExt}.webp`));
-      } catch (err) {
-        console.error(`Error optimizing ${file}:`, err);
+        // Skip if webp already exists
+        if (fs.existsSync(outputPath)) {
+          continue;
+        }
+
+        try {
+          console.log(`Optimizing ${fullPath}...`);
+          await sharp(fullPath)
+            .resize({ width: 1200, withoutEnlargement: true }) // Reducir resolución máxima
+            .webp({ quality: 80 }) // Convertir a WebP
+            .toFile(outputPath);
+          console.log(`Created: ${outputPath}`);
+        } catch (err) {
+          console.error(`Error optimizing ${fullPath}:`, err);
+        }
       }
     }
   }
-  
-  // Limpiar carpeta temporal si se desea
-  console.log('All images optimized!');
 }
 
-optimizeImages();
+async function run() {
+  console.log('Starting optimization for all images...');
+  await processDirectory(baseDir);
+  console.log('All images optimized to WebP!');
+}
+
+run();

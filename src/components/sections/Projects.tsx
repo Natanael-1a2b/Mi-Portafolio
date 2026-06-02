@@ -20,15 +20,17 @@ export function Projects() {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.project-card').forEach((card) => {
-        const img = card.querySelector('.project-img img')
-        const tl = gsap.timeline({
-          scrollTrigger: { trigger: card, start: 'top 85%' },
-        })
-
-        tl.fromTo(card, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 })
-        if (img) tl.fromTo(img, { scale: 1.05 }, { scale: 1, duration: 0.6 }, '-=0.4')
-      })
+      gsap.fromTo('.project-card',
+        { y: 50, opacity: 0 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          duration: 0.8, 
+          stagger: 0.15, 
+          clearProps: "all", 
+          scrollTrigger: { trigger: '.projects-grid', start: 'top 85%', once: true } 
+        }
+      )
     }, sectionRef)
     return () => ctx.revert()
   }, [prefersReduced])
@@ -38,9 +40,16 @@ export function Projects() {
       if (isMobile) return
       const card = e.currentTarget
       const rect = card.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width - 0.5
-      const y = (e.clientY - rect.top) / rect.height - 0.5
-      card.style.transform = `perspective(1000px) rotateX(${y * -4}deg) rotateY(${x * 4}deg) translateY(-5px)`
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      const xPct = (x / rect.width) - 0.5
+      const yPct = (y / rect.height) - 0.5
+      card.style.transform = `perspective(1000px) rotateX(${yPct * -6}deg) rotateY(${xPct * 6}deg) translateY(-5px)`
+      
+      const glare = card.querySelector('.project-glare') as HTMLElement
+      if (glare) {
+        glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, transparent 60%)`
+      }
     },
     [isMobile],
   )
@@ -66,9 +75,14 @@ export function Projects() {
               onMouseMove={handleTilt}
               onMouseLeave={handleTiltReset}
               onMouseEnter={handleTiltEnter}
+              onClick={() => setSelected(proj)}
             >
+              <div className="project-glare"></div>
               <div className="project-img">
-                <img src={asset(proj.image)} alt={proj.title} loading="lazy" />
+                <img src={asset(proj.image)} alt={proj.title} loading="lazy" decoding="async" />
+                <div className="project-overlay-btn">
+                  <span>Ver Proyecto</span>
+                </div>
               </div>
               <div className="project-content">
                 <h3>{proj.title}</h3>
@@ -77,11 +91,6 @@ export function Projects() {
                   {proj.badges.map((b) => (
                     <span key={b} className="badge">{b}</span>
                   ))}
-                </div>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: 'auto' }}>
-                  <button className="btn btn-primary btn-sm" onClick={() => setSelected(proj)}>
-                    Detalles
-                  </button>
                 </div>
               </div>
             </div>
