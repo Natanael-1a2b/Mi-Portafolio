@@ -70,7 +70,7 @@ export function GitHubStats() {
     )
   }
 
-  const { user, totalStars, totalForks, totalCommits, totalPRs, totalIssues, languages } = data;
+  const { user, totalStars, totalCommits, totalPRs, totalIssues, languages } = data;
   
   const totalContributions = totalCommits + totalPRs + totalIssues;
   
