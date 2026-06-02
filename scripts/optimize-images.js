@@ -21,16 +21,12 @@ async function processDirectory(dir) {
         const filenameWithoutExt = path.basename(entry.name, ext);
         const outputPath = path.join(dir, `${filenameWithoutExt}.webp`);
         
-        // Skip if webp already exists
-        if (fs.existsSync(outputPath)) {
-          continue;
-        }
+        // Forzar sobreescritura para recuperar la calidad perdida
 
         try {
           console.log(`Optimizing ${fullPath}...`);
           await sharp(fullPath)
-            .resize({ width: 1200, withoutEnlargement: true }) // Reducir resolución máxima
-            .webp({ quality: 80 }) // Convertir a WebP
+            .webp({ lossless: true, effort: 6 }) // Compresión sin pérdida (texto 100% nítido)
             .toFile(outputPath);
           console.log(`Created: ${outputPath}`);
         } catch (err) {
