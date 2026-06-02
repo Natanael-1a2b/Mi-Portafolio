@@ -79,7 +79,7 @@ export function Projects() {
             >
               <div className="project-glare"></div>
               <div className="project-img">
-                {proj.repoUrl && proj.repoUrl !== '#' && !proj.repoUrl.includes('github.com') && (
+                {proj.repoUrl && proj.repoUrl !== '#' && (
                   <div className="live-indicator">
                     <span className="live-dot"></span>
                     En Producción

@@ -211,7 +211,7 @@ Este proyecto es la base ideal para cualquier aplicación cliente (React, Angula
       'DTOs',
     ],
     videoId: 'tX7x0HMT11A',
-    repoUrl: 'https://github.com/Natanael-1a2b/tienda-online',
+    repoUrl: '#',
   },
   {
     id: 'cine-match',
@@ -242,7 +242,7 @@ Desarrollado con la colaboración estratégica de herramientas de Inteligencia A
       'WebView Flutter',
     ],
     videoId: '',
-    repoUrl: 'https://github.com/Natanael-1a2b/cine_match',
+    repoUrl: '#',
     gallery: [
       '/assets/images/CineMatch/1.webp',
       '/assets/images/CineMatch/2.webp',

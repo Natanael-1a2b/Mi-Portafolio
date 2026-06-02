@@ -167,7 +167,7 @@ export const skills: Skill[] = [
     id: 'github',
     name: 'GitHub',
     category: 'tools',
-    icon: '/assets/images/github.png',
+    icon: '/assets/images/github.webp',
     iconType: 'local',
     description: 'Plataforma de colaboración, CI/CD y open source.',
     color: '#ffffff',

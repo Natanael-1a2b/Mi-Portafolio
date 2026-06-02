@@ -906,22 +906,6 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   box-shadow: 0 8px 25px rgba(255, 60, 0, 0.5);
 }
 
-.github-link-btn {
-  display: inline-block;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white !important;
-  padding: 1rem 2.5rem;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-decoration: none;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-.github-link-btn:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.1);
-}
 
 /* Modal Gallery (for mobile app screenshots) */
 .modal-gallery {

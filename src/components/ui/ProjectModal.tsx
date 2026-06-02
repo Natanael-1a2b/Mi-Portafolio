@@ -167,12 +167,14 @@ export function ProjectModal({ project, onClose }: Props) {
           )}
 
           {project.videoId && (
-            <iframe
-              className="modal-video"
-              src={`https://www.youtube.com/embed/${project.videoId}?rel=0`}
-              title={`Video de ${project.title}`}
-              allowFullScreen
-            />
+            <div className="modal-video-wrapper" style={{ width: '100%' }}>
+              <iframe
+                className="modal-video"
+                src={`https://www.youtube.com/embed/${project.videoId}?rel=0`}
+                title={`Video de ${project.title}`}
+                allowFullScreen
+              />
+            </div>
           )}
 
           <div className="modal-techs">
@@ -194,9 +196,9 @@ export function ProjectModal({ project, onClose }: Props) {
                 href={project.repoUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className={project.repoUrl.includes('github.com') ? "github-link-btn" : "live-link-btn"}
+                className="live-link-btn"
               >
-                {project.repoUrl.includes('github.com') ? "Ver Código en GitHub" : "Ir a la Aplicación en Producción"}
+                Ir a la Aplicación en Producción
               </a>
             </div>
           )}
