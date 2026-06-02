@@ -18,11 +18,11 @@ export function Certifications() {
     const ctx = gsap.context(() => {
       gsap.fromTo('.cert-thumb-grid',
         { x: -50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
+        { x: 0, opacity: 1, duration: 0.8, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )
       gsap.fromTo('.cert-preview',
         { x: 50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
+        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )
     }, sectionRef)
     return () => ctx.revert()
@@ -44,7 +44,7 @@ export function Certifications() {
                 className={`cert-thumb-item ${i === current ? 'active' : ''}`}
                 onClick={() => setCurrent(i)}
               >
-                <img src={asset(cert.image)} alt={cert.title} loading="lazy" />
+                <img src={asset(cert.image)} alt={cert.title} loading="lazy" decoding="async" />
                 <div className="cert-thumb-overlay">
                   Ver Certificado
                 </div>
@@ -59,6 +59,7 @@ export function Certifications() {
                 src={asset(activeCert.image)}
                 alt={activeCert.title}
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="cert-preview-info">

@@ -1281,9 +1281,7 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   top: 100px;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  background: rgba(15, 15, 26, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(15, 15, 26, 0.98);
   border: 1px solid var(--border-glass);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   display: flex;
