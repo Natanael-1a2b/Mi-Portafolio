@@ -1229,7 +1229,6 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   background: rgba(255, 255, 255, 0.02);
   aspect-ratio: 4/3;
-  will-change: transform;
 }
 
 .cert-thumb-item img {
@@ -1238,7 +1237,6 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   object-fit: cover;
   opacity: 0.5;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  will-change: transform, opacity;
 }
 
 .cert-thumb-item:hover img {
@@ -1269,7 +1267,6 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.25s ease, transform 0.25s ease;
-  will-change: opacity, transform;
 }
 
 .cert-thumb-item.active .cert-thumb-overlay,
@@ -1290,7 +1287,6 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  will-change: transform;
 }
 
 .cert-preview-img-wrapper {
