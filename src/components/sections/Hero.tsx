@@ -127,10 +127,11 @@ export function Hero() {
       </div>
       <div className="container">
         <div className="hero-grid">
+          <div className="hero-badge-top">
+            INGENIERO DE SOFTWARE
+          </div>
+
           <div className="hero-text">
-            <div className="hero-badge-top">
-              INGENIERO DE SOFTWARE
-            </div>
             <h1>
               {heroContent.title}{' '}
               <span className="highlight">{heroContent.titleHighlight}</span>

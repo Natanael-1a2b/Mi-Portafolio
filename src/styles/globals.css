@@ -301,6 +301,10 @@ section {
 }
 
 .hero-badge-top {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  align-self: end;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -313,6 +317,11 @@ section {
   font-weight: 700;
   letter-spacing: 2px;
   margin-bottom: 1.5rem;
+}
+
+.hero-text {
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .hero-badge-icon {
@@ -529,6 +538,8 @@ section {
 
 /* Layout columns */
 .hero-right-col {
+  grid-column: 2;
+  grid-row: 1 / span 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -671,16 +682,31 @@ section {
 
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 0;
     text-align: center;
   }
 
   .hero-text {
-    order: 1;
+    grid-column: 1;
+    grid-row: auto;
+    order: 3;
+    margin-top: 0;
   }
 
   .hero-right-col {
+    grid-column: 1;
+    grid-row: auto;
     order: 2;
+    min-height: auto;
+  }
+
+  .hero-badge-top {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    order: 1;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
   }
 
   .hero-text h1 {
@@ -696,11 +722,6 @@ section {
     font-size: 1rem;
     margin-bottom: 28px;
     max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-badge-top {
     margin-left: auto;
     margin-right: auto;
   }
