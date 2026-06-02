@@ -1070,6 +1070,7 @@ section { padding: clamp(4rem, 8vw, 6rem) 0; position: relative; z-index: 1; }
   color: var(--text-muted);
   line-height: 1.5;
 }
+.gh-lang-bar-segment:first-child {
   border-radius: 999px 0 0 999px;
 }
 
