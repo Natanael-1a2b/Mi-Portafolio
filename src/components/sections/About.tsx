@@ -1,12 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { aboutContent, personalInfo } from '../../data/personal'
 import { SectionTitle } from '../ui/SectionTitle'
-import { GlassCard } from '../ui/GlassCard'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
+
+interface InfoItem {
+  label: string
+  value: string
+  href?: string
+  external?: boolean
+  icon: ReactNode
+}
 
 export function About() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -19,66 +26,164 @@ export function About() {
         scrollTrigger: {
           trigger: '.about-grid',
           start: 'top 85%',
-        }
+        },
       })
-      tl.fromTo('.about-left', 
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-      )
-      .fromTo('.about-right', 
+
+      tl.fromTo(
+        '.about-left',
         { y: 40, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
-        '-=0.6'
       )
+        .fromTo(
+          '.about-timeline-item',
+          { x: -20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
+          '-=0.45',
+        )
+        .fromTo(
+          '.about-right',
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+          '-=0.65',
+        )
     }, sectionRef)
     return () => ctx.revert()
   }, [prefersReduced])
 
+  const infoItems: InfoItem[] = [
+    {
+      label: 'Nombre',
+      value: personalInfo.name,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 21a8 8 0 0 0-16 0" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      ),
+    },
+    {
+      label: 'Teléfono',
+      value: personalInfo.phone,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8.09 9.63a16 16 0 0 0 6.28 6.28l1.19-1.19a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92z" />
+        </svg>
+      ),
+    },
+    {
+      label: 'Email',
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m3 7 9 6 9-6" />
+        </svg>
+      ),
+    },
+    {
+      label: 'LinkedIn',
+      value: 'Ver Perfil Profesional',
+      href: personalInfo.linkedIn,
+      external: true,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-1 1.82-2.05 3.75-2.05 4.01 0 4.75 2.64 4.75 6.08V21h-4v-5.62c0-1.34-.03-3.07-1.87-3.07-1.88 0-2.17 1.46-2.17 2.97V21h-4V9z" />
+        </svg>
+      ),
+    },
+    {
+      label: 'GitHub',
+      value: 'Ver Repositorios',
+      href: personalInfo.github,
+      external: true,
+      icon: (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.83 2.82 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.48-1.34-5.48-5.95 0-1.31.47-2.39 1.24-3.23-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.46c1.02 0 2.04.14 3 .4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.77.84 1.24 1.92 1.24 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58A12 12 0 0 0 12 .5z" />
+        </svg>
+      ),
+    },
+  ]
+
   return (
-    <section id="sobre-mi" ref={sectionRef} className="section-alt">
+    <section id="sobre-mi" ref={sectionRef} className="section-alt about-section premium-glass">
+      {/* 1. Fondo & Atmósfera */}
+      <div className="about-background-fx" aria-hidden="true">
+        <div className="bg-pattern-dots"></div>
+        <div className="ambient-orb orb-blue"></div>
+        <div className="ambient-orb orb-purple"></div>
+        <div className="decorative-ring ring-1"></div>
+        <div className="decorative-ring ring-2"></div>
+        <div className="decorative-ring ring-3"></div>
+        <div className="scan-lines"></div>
+        <div className="floating-particles">
+          <div className="particle p1"></div>
+          <div className="particle p2"></div>
+          <div className="particle p3"></div>
+          <div className="particle p4"></div>
+          <div className="particle p5"></div>
+          <div className="particle p6"></div>
+          <div className="particle p7"></div>
+          <div className="particle p8"></div>
+          <div className="particle p9"></div>
+          <div className="particle p10"></div>
+        </div>
+      </div>
+
       <div className="container">
-        <SectionTitle title="Sobre Mí" />
+        {/* 2. Título Principal con Halo */}
+        <div className="about-title-wrapper">
+          <div className="title-halo"></div>
+          <SectionTitle title="Sobre Mí" />
+        </div>
         <div className="about-grid">
           <div className="about-left">
-            <h3>Perfil Profesional</h3>
-            {aboutContent.paragraphs.map((p, i) => (
-              <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
-            ))}
+            <div className="about-timeline">
+              {aboutContent.paragraphs.map((p, i) => (
+                <div className="about-timeline-item" key={i}>
+                  <span className="about-timeline-dot" aria-hidden="true"></span>
+                  <p dangerouslySetInnerHTML={{ __html: p }} />
+                </div>
+              ))}
+            </div>
           </div>
+
           <div className="about-right">
-            <GlassCard glow className="info-card">
-              <h5><strong>Información Personal</strong></h5>
-              <div className="info-item">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style={{color:'var(--accent)'}}>
-                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                </svg>
-                <div><strong>Nombre:</strong> {personalInfo.name}</div>
+            <div className="info-card">
+              <div className="info-card-glow" aria-hidden="true"></div>
+              <div className="info-card-header">
+                <div className="info-card-avatar" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21a8 8 0 0 0-16 0" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </div>
+                <div>
+                  <h3>Información Personal</h3>
+                  <span className="info-card-rule" aria-hidden="true"></span>
+                </div>
               </div>
-              <div className="info-item">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style={{color:'var(--accent)'}}>
-                  <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/>
-                </svg>
-                <div><strong>Teléfono:</strong> {personalInfo.phone}</div>
+
+              <div className="info-list">
+                {infoItems.map(item => (
+                  <div className="info-item" key={item.label}>
+                    <span className="info-icon" aria-hidden="true">
+                      {item.icon}
+                    </span>
+                    <div className="info-content">
+                      <strong>{item.label}:</strong>
+                      {item.href ? (
+                        <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener noreferrer' : undefined}>
+                          {item.value}
+                        </a>
+                      ) : (
+                        <span>{item.value}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="info-item">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style={{color:'var(--accent)'}}>
-                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.708 2.825L15 11.105V5.383zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741zM1 11.105l4.708-2.897L1 5.383v5.722z"/>
-                </svg>
-                <div><strong>Email:</strong> <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a></div>
-              </div>
-              <div className="info-item">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style={{color:'var(--accent)'}}>
-                  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                </svg>
-                <div><strong>LinkedIn:</strong> <a href={personalInfo.linkedIn} target="_blank" rel="noopener noreferrer">Ver Perfil Profesional</a></div>
-              </div>
-              <div className="info-item">
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style={{color:'var(--accent)'}}>
-                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                </svg>
-                <div><strong>GitHub:</strong> <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">Ver Repositorios</a></div>
-              </div>
-            </GlassCard>
+            </div>
           </div>
         </div>
       </div>

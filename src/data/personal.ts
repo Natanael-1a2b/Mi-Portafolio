@@ -26,10 +26,10 @@ export const heroContent = {
 
 export const aboutContent = {
   paragraphs: [
-    'Ingeniero de Software con una fuerte especialización en el ecosistema .NET. Mi experiencia se centra en el diseño y desarrollo de arquitecturas escalables, desde APIs RESTful de alto rendimiento hasta aplicaciones web modernas.',
-    'Me caracterizo por un aprendizaje acelerado y una capacidad innata para resolver problemas complejos. No solo escribo código; diseño soluciones que aportan valor real al negocio, priorizando la seguridad, la mantenibilidad y las mejores prácticas de la industria (SOLID, Clean Architecture).',
+    'Ingeniero de Software con una fuerte especialización en el ecosistema <span class="tech-badge tech-badge-blue">.NET</span> y <span class="tech-badge tech-badge-cyan">React</span>. Mi experiencia se centra en el diseño y desarrollo de arquitecturas escalables, desde <span class="neon-text">APIs RESTful</span> de alto rendimiento hasta aplicaciones web modernas.',
+    'Me caracterizo por un aprendizaje acelerado y una capacidad innata para resolver problemas complejos. No solo escribo código; diseño soluciones que aportan valor real al negocio, priorizando la seguridad, la mantenibilidad y las mejores prácticas de la industria (<span class="neon-text">SOLID</span>, <span class="neon-text">Clean Architecture</span>).',
     'Mi objetivo es seguir construyendo sistemas que marquen la diferencia, colaborando en equipos donde la excelencia técnica sea la norma.',
-    'Actualmente exploro el desarrollo con <strong>Agentes de IA</strong>, integrando protocolos como <strong>MCP (Model Context Protocol)</strong> y <strong>Skills</strong> para crear soluciones inteligentes y automatizadas que potencian la productividad y la innovación.',
+    'Actualmente exploro el desarrollo con <span class="tech-badge tech-badge-purple">Agentes de IA</span>, integrando protocolos como <span class="neon-text">MCP (Model Context Protocol)</span> y <span class="neon-text">Skills</span> para crear soluciones inteligentes y automatizadas que potencian la productividad y la innovación.',
   ],
 }
 

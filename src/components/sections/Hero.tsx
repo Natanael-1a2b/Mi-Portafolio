@@ -124,6 +124,18 @@ export function Hero() {
       <div className="hero-bg-effects">
         <div className="glow-1"></div>
         <div className="glow-2"></div>
+        <div className="floating-particles">
+          <div className="particle p1"></div>
+          <div className="particle p2"></div>
+          <div className="particle p3"></div>
+          <div className="particle p4"></div>
+          <div className="particle p5"></div>
+          <div className="particle p6"></div>
+          <div className="particle p7"></div>
+          <div className="particle p8"></div>
+          <div className="particle p9"></div>
+          <div className="particle p10"></div>
+        </div>
       </div>
       <div className="container">
         <div className="hero-grid">
