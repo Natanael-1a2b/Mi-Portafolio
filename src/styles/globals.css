@@ -4498,3 +4498,570 @@ textarea.form-control {
 
 
 
+
+/* =========================================
+   SKILL DETAIL CARD & TECH CHIP STATES
+   ========================================= */
+
+.skill-detail-card {
+  position: relative;
+  margin-top: 2rem;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(8, 16, 35, 0.95) 0%, rgba(3, 6, 15, 0.98) 100%);
+  border: none;
+  padding: 2rem 2.5rem;
+  transform-origin: top center;
+  overflow: hidden;
+}
+
+.skill-detail-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #8B5CF6, #EC4899, #00BFFF, #3B82F6);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.skill-detail-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.skill-detail-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: var(--detail-accent);
+}
+
+.skill-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skill-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.skill-detail-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid var(--detail-accent, rgba(255, 255, 255, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--detail-glow);
+}
+
+.skill-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.skill-detail-name {
+  font-family: var(--font-sans);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--skills-text-primary, #fff);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.02em;
+}
+
+.skill-detail-desc {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--skills-text-secondary, rgba(255, 255, 255, 0.6));
+  line-height: 1.7;
+}
+
+.skill-detail-projects {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.skill-detail-projects-label {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--detail-accent);
+  white-space: nowrap;
+}
+
+.skill-detail-projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-detail-project-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.skill-detail-project-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.tech-chip-selected {
+  transform: translateY(-4px) scale(1.05);
+  background: var(--chip-bg-hover);
+  border-color: var(--chip-gradient-from) !important;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px var(--chip-glow-color);
+}
+
+.tech-chip-selected .tech-chip-inner {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px var(--chip-glow-color));
+}
+
+.tech-chip {
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .skill-detail-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .skill-detail-card {
+    padding: 1.5rem;
+  }
+  .skill-detail-projects {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  .skill-detail-projects-list {
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   CATEGORY CARDS
+   ========================================= */
+
+.category-card {
+  position: relative;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(8, 16, 35, 0.9) 0%, rgba(3, 6, 15, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-accent);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.2), inset 0 0 20px rgba(0, 191, 255, 0.05);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 40px rgba(0, 191, 255, 0.4), inset 0 0 30px rgba(0, 191, 255, 0.1);
+}
+
+.category-card-inner {
+  position: relative;
+  padding: 1.55rem 1.5rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  z-index: 2;
+  background: radial-gradient(circle at top right, rgba(0, 191, 255, 0.15) 0%, transparent 70%);
+}
+
+.category-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.85rem;
+  position: relative;
+  min-height: 62px;
+}
+
+.category-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+.category-illustration {
+  position: absolute;
+  top: -24px;
+  right: 8px;
+  width: 132px;
+  height: 132px;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 0;
+}
+
+.category-card:hover .category-illustration {
+  transform: scale(1.1) translateY(-10px);
+}
+
+.category-illustration img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.category-card-body {
+  margin-bottom: 0.85rem;
+  position: relative;
+  z-index: 5;
+}
+
+.category-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.45rem, 1.75vw, 1.85rem);
+  font-weight: 800;
+  color: var(--skills-text-primary);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  max-width: calc(100% - 88px);
+}
+.category-title::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--card-gradient-from), var(--card-gradient-to));
+  border-radius: 2px;
+  margin-top: 8px;
+  box-shadow: 0 0 10px var(--card-accent);
+}
+
+.category-desc {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--skills-text-secondary);
+  line-height: 1.5;
+  max-width: 96%;
+}
+
+.category-card-footer {
+  position: relative;
+  z-index: 5;
+  margin-top: auto;
+  padding-top: 0.15rem;
+}
+
+.tech-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* =========================================
+   TECH CHIPS (STATIC ICONS)
+   ========================================= */
+
+.tech-chip {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(0, 191, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.tech-chip-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.tech-chip:hover, .tech-chip-selected {
+  transform: translateY(-4px) scale(1.05);
+  background: var(--chip-bg-hover);
+  border-color: var(--chip-gradient-from) !important;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px var(--chip-glow-color);
+}
+
+.tech-chip:hover .tech-chip-inner, .tech-chip-selected .tech-chip-inner {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px var(--chip-glow-color));
+}
+
+/* =========================================
+   SKILL DETAIL CARD
+   ========================================= */
+
+.skill-detail-card {
+  position: relative;
+  margin-top: 2rem;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(8, 16, 35, 0.95) 0%, rgba(3, 6, 15, 0.98) 100%);
+  border: none;
+  padding: 2rem 2.5rem;
+  transform-origin: top center;
+  overflow: hidden;
+}
+
+.skill-detail-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1.5px;
+  background: linear-gradient(90deg, #8B5CF6, #EC4899, #00BFFF, #3B82F6);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.skill-detail-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.skill-detail-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: var(--detail-accent);
+}
+
+.skill-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skill-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.skill-detail-icon {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid var(--detail-accent, rgba(255, 255, 255, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--detail-glow);
+}
+
+.skill-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.skill-detail-name {
+  font-family: var(--font-sans);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--skills-text-primary, #fff);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.02em;
+}
+
+.skill-detail-desc {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--skills-text-secondary, rgba(255, 255, 255, 0.6));
+  line-height: 1.7;
+}
+
+.skill-detail-projects {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.skill-detail-projects-label {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--detail-accent);
+  white-space: nowrap;
+}
+
+.skill-detail-projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-detail-project-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.skill-detail-project-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .skill-detail-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .skill-detail-card {
+    padding: 1.5rem;
+  }
+  .skill-detail-projects {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  .skill-detail-projects-list {
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   SKILLS GRID
+   ========================================= */
+.skills-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (max-width: 1180px) {
+  .skills-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .category-card-inner {
+    padding: 1.55rem;
+  }
+
+  .category-title {
+    max-width: calc(100% - 122px);
+  }
+
+  .category-illustration {
+    width: 152px;
+    height: 152px;
+  }
+}
+
+@media (max-width: 700px) {
+  .skills-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-title {
+    max-width: calc(100% - 100px);
+  }
+}
+
+.skill-detail-card {
+  padding: 1.5rem 2rem;
+}
+
+.skill-detail-content {
+  gap: 1rem;
+}
+
+.skill-detail-header {
+  gap: 1.15rem;
+  align-items: center;
+}
+
+.skill-detail-desc {
+  line-height: 1.5;
+}
+
+.skill-detail-projects {
+  padding-top: 1rem;
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .skill-detail-card {
+    padding: 1.25rem;
+  }
+}

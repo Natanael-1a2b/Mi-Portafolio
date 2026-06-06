@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import type { Skill } from '../../data/skills'
 import { skillCategories } from '../../data/skills'
-import { BentoCell } from './BentoCell'
+import { CategoryCard } from './CategoryCard'
+import { SkillDetailCard } from './SkillDetailCard'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export function BentoGrid({ skills }: Props) {
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null)
   const gridRef = useRef<HTMLDivElement>(null)
   const prefersReduced = usePreferredMotion()
 
@@ -29,25 +30,13 @@ export function BentoGrid({ skills }: Props) {
   useEffect(() => {
     if (prefersReduced || !gridRef.current) return
     const ctx = gsap.context(() => {
-      gsap.fromTo('.bento-category-header',
-        { opacity: 0, x: -10 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.4,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
-        }
-      )
-      gsap.fromTo('.bento-category-row .bento-cell',
-        { y: 20, opacity: 0, scale: 0.95 },
+      gsap.fromTo('.category-card',
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.04,
+          duration: 0.6,
+          stagger: 0.1,
           ease: 'power2.out',
           scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
         }
@@ -56,49 +45,34 @@ export function BentoGrid({ skills }: Props) {
     return () => ctx.revert()
   }, [prefersReduced])
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedId(null)
-    }
-    window.addEventListener('keydown', handleEscape)
-    return () => window.removeEventListener('keydown', handleEscape)
-  }, [])
+  const handleSelectSkill = (skill: Skill) => {
+    setSelectedSkill(prev => prev?.id === skill.id ? null : skill)
+  }
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (gridRef.current && !gridRef.current.contains(e.target as Node)) {
-        setSelectedId(null)
-      }
-    }
-    document.addEventListener('click', handleClickOutside)
-    return () => document.removeEventListener('click', handleClickOutside)
-  }, [])
+  const handleCloseDetail = () => {
+    setSelectedSkill(null)
+  }
 
   return (
-    <div className="bento-categories-wrapper" ref={gridRef}>
-      {groupedSkills.map(group => (
-        <div key={group.category.id} className="bento-category-group">
-          <h3
-            className="bento-category-header"
-            style={{ color: group.category.accent }}
-          >
-            {group.category.label}
-          </h3>
-          <div className="bento-category-row">
-            {group.skills.map(skill => (
-              <BentoCell
-                key={skill.id}
-                skill={skill}
-                isSelected={selectedId === skill.id}
-                onSelect={() =>
-                  setSelectedId(selectedId === skill.id ? null : skill.id)
-                }
-                showCategory={false}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
+    <div ref={gridRef}>
+      <div className="skills-category-grid">
+        {groupedSkills.map(group => (
+          <CategoryCard
+            key={group.category.id}
+            category={group.category}
+            skills={group.skills}
+            selectedSkillId={selectedSkill?.id ?? null}
+            onSelectSkill={handleSelectSkill}
+          />
+        ))}
+      </div>
+
+      {selectedSkill && (
+        <SkillDetailCard
+          skill={selectedSkill}
+          onClose={handleCloseDetail}
+        />
+      )}
     </div>
   )
 }

@@ -7,10 +7,9 @@ interface Props {
   skill: Skill
   isSelected: boolean
   onSelect: () => void
-  showCategory?: boolean
 }
 
-export function BentoCell({ skill, isSelected, onSelect, showCategory = true }: Props) {
+export function BentoCell({ skill, isSelected, onSelect }: Props) {
   const [imageError, setImageError] = useState(false)
   const cellRef = useRef<HTMLDivElement>(null)
 

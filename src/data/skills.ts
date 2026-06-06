@@ -276,8 +276,48 @@ export const skills: Skill[] = [
 ]
 
 export const skillCategories = [
-  { id: 'backend', label: 'Backend', gradientFrom: '#6366F1', gradientTo: '#8B5CF6', accent: '#A78BFA' },
-  { id: 'frontend', label: 'Frontend', gradientFrom: '#EC4899', gradientTo: '#F472B6', accent: '#F9A8D4' },
-  { id: 'tools', label: 'Tools', gradientFrom: '#06B6D4', gradientTo: '#22D3EE', accent: '#67E8F9' },
-  { id: 'ia', label: 'IA', gradientFrom: '#8B5CF6', gradientTo: '#C084FC', accent: '#D8B4FE' },
+  {
+    id: 'backend',
+    label: 'Backend Engineering',
+    description: 'Arquitectura y desarrollo de servicios web y APIs robustas, seguras y escalables.',
+    icon: 'server',
+    iconType: 'svg',
+    illustration: '/assets/illustrations/backend.png',
+    gradientFrom: '#00BFFF',
+    gradientTo: '#3B82F6',
+    accent: '#00BFFF'
+  },
+  {
+    id: 'frontend',
+    label: 'Frontend Development',
+    description: 'Interfaces modernas, intuitivas y centradas en la experiencia de usuario.',
+    icon: 'monitor',
+    iconType: 'svg',
+    illustration: '/assets/illustrations/frontend.png',
+    gradientFrom: '#00BFFF',
+    gradientTo: '#3B82F6',
+    accent: '#00BFFF'
+  },
+  {
+    id: 'tools',
+    label: 'DevOps & Herramientas',
+    description: 'Buenas prácticas, control de versiones y herramientas que potencian mi flujo.',
+    icon: 'terminal',
+    iconType: 'svg',
+    illustration: '/assets/illustrations/tools.png',
+    gradientFrom: '#00BFFF',
+    gradientTo: '#3B82F6',
+    accent: '#00BFFF'
+  },
+  {
+    id: 'ia',
+    label: 'IA & Automatización',
+    description: 'Soluciones inteligentes que automatizan procesos y generan valor.',
+    icon: 'brain',
+    iconType: 'svg',
+    illustration: '/assets/illustrations/ia.png',
+    gradientFrom: '#00BFFF',
+    gradientTo: '#3B82F6',
+    accent: '#00BFFF'
+  },
 ] as const

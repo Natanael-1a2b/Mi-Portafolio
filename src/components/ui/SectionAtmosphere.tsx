@@ -80,7 +80,7 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
               ) : (
                 <>
                   <div className="ambient-orb orb-blue"></div>
-                  <div className="ambient-orb orb-purple"></div>
+                  <div className="ambient-orb orb-blue" style={{ opacity: 0.6, transform: "scale(1.2) translate(10%, -20%)" }}></div>
                 </>
               )}
             </>
@@ -108,3 +108,4 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
     </div>
   )
 })
+

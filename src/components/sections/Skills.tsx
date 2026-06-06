@@ -32,7 +32,7 @@ export function Skills() {
 
   return (
     <section id="habilidades" ref={sectionRef} className="skills-bento-section">
-      <SectionAtmosphere variant="minimal" glowPosition="center" />
+      <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" particles={6} />
       
       <div className="container relative z-10" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="Habilidades" />
