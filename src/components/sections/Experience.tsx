@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { experiences } from '../../data/experience'
 import { SectionTitle } from '../ui/SectionTitle'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -49,8 +50,9 @@ export function Experience() {
   }, [prefersReduced])
 
   return (
-    <section id="experiencia" ref={sectionRef} className="section-alt">
-      <div className="container">
+    <section id="experiencia" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+      <SectionAtmosphere variant="minimal" glowPosition="center" />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="Experiencia Laboral" />
         <div className="timeline">
           <div className="timeline-line" />

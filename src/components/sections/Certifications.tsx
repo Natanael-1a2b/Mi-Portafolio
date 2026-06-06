@@ -4,6 +4,7 @@ import { asset } from '../../utils/asset'
 import { SectionTitle } from '../ui/SectionTitle'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -31,8 +32,9 @@ export function Certifications() {
   const activeCert = certifications[current]
 
   return (
-    <section id="certificaciones" ref={sectionRef} style={{ background: 'rgba(10,10,18,0.5)' }}>
-      <div className="container">
+    <section id="certificaciones" ref={sectionRef} style={{ background: 'rgba(10,10,18,0.5)', position: 'relative' }}>
+      <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="Certificaciones" />
         
         <div className="cert-split-layout">

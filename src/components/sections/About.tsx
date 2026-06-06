@@ -1,6 +1,7 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import { aboutContent, personalInfo } from '../../data/personal'
 import { SectionTitle } from '../ui/SectionTitle'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -108,27 +109,7 @@ export function About() {
   return (
     <section id="sobre-mi" ref={sectionRef} className="section-alt about-section premium-glass">
       {/* 1. Fondo & Atmósfera */}
-      <div className="about-background-fx" aria-hidden="true">
-        <div className="bg-pattern-dots"></div>
-        <div className="ambient-orb orb-blue"></div>
-        <div className="ambient-orb orb-purple"></div>
-        <div className="decorative-ring ring-1"></div>
-        <div className="decorative-ring ring-2"></div>
-        <div className="decorative-ring ring-3"></div>
-        <div className="scan-lines"></div>
-        <div className="floating-particles">
-          <div className="particle p1"></div>
-          <div className="particle p2"></div>
-          <div className="particle p3"></div>
-          <div className="particle p4"></div>
-          <div className="particle p5"></div>
-          <div className="particle p6"></div>
-          <div className="particle p7"></div>
-          <div className="particle p8"></div>
-          <div className="particle p9"></div>
-          <div className="particle p10"></div>
-        </div>
-      </div>
+      <SectionAtmosphere variant="about" />
 
       <div className="container">
         {/* 2. Título Principal con Halo */}

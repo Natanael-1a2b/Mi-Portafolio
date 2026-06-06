@@ -3,6 +3,7 @@ import { personalInfo } from '../../data/personal'
 import { SectionTitle } from '../ui/SectionTitle'
 import { GlassCard } from '../ui/GlassCard'
 import { MagneticButton } from '../ui/MagneticButton'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -55,8 +56,9 @@ export function Contact() {
   }
 
   return (
-    <section id="contacto" ref={sectionRef} className="section-alt">
-      <div className="container">
+    <section id="contacto" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+      <SectionAtmosphere variant="contact" />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="Contacto" />
         <div className="contact-wrapper">
           <GlassCard className="contact-form">

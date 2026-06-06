@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { personalInfo, footerContent, navLinks } from '../../data/personal'
 import { MagneticButton } from '../ui/MagneticButton'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -40,8 +41,9 @@ export function Footer() {
   }, [prefersReduced])
 
   return (
-    <footer ref={footerRef} className="footer-custom">
-      <div className="container">
+    <footer ref={footerRef} className="footer-custom" style={{ position: 'relative' }}>
+      <SectionAtmosphere variant="contact" particles={0} />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         {/* TOP */}
         <div className="footer-top">
           <div className="footer-brand">

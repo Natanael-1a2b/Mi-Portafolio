@@ -3,6 +3,7 @@ import { projects } from '../../data/projects'
 import { asset } from '../../utils/asset'
 import { SectionTitle } from '../ui/SectionTitle'
 import { ProjectModal } from '../ui/ProjectModal'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import { useIsMobile } from '../../hooks/useIsMobile'
 import gsap from 'gsap'
@@ -64,8 +65,9 @@ export function Projects() {
   }, [isMobile])
 
   return (
-    <section id="proyectos" ref={sectionRef} className="section-alt">
-      <div className="container">
+    <section id="proyectos" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+      <SectionAtmosphere variant="projects" />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="Proyectos Destacados" />
         <div className="projects-grid">
           {projects.map((proj) => (

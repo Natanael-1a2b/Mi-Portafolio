@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { githubConfig, fetchGitHubData, streakCardUrl, GitHubStatsResult } from '../../data/github'
 import { SectionTitle } from '../ui/SectionTitle'
+import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -42,8 +43,9 @@ export function GitHubStats() {
 
   if (loading) {
     return (
-      <section id="github" ref={sectionRef} className="section-alt">
-        <div className="container">
+      <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+        <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <SectionTitle title="GitHub & Actividad" />
           <div className="gh-dashboard">
             {[...Array(6)].map((_, i) => (
@@ -59,8 +61,9 @@ export function GitHubStats() {
 
   if (error || !data) {
     return (
-      <section id="github" ref={sectionRef} className="section-alt">
-        <div className="container">
+      <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+        <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
           <SectionTitle title="GitHub & Actividad" />
           <div className="gh-stats-error-box glass-card">
             <p>No se pudieron cargar las estadísticas</p>
@@ -87,8 +90,9 @@ export function GitHubStats() {
   const donutGradient = gradientStops.length > 0 ? `conic-gradient(${gradientStops.join(', ')})` : 'conic-gradient(#333 0% 100%)';
 
   return (
-    <section id="github" ref={sectionRef} className="section-alt">
-      <div className="container">
+    <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+      <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="GitHub & Actividad" />
 
         <div className="gh-dashboard">
