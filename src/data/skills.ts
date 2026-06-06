@@ -111,7 +111,7 @@ export const skills: Skill[] = [
     detailedDescription: 'JavaScript es el lenguaje que une todo mi trabajo web. Desde manipulación del DOM hasta APIs modernas como Intersection Observer y Web Audio, lo uso para crear experiencias interactivas que van más allá de renderizar componentes.',
     color: '#F7DF1E',
     size: 'lg',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa'],
   },
   {
     id: 'html5',
@@ -135,7 +135,7 @@ export const skills: Skill[] = [
     detailedDescription: 'CSS es donde mi código se convierte en diseño. Grid, Flexbox, animaciones con keyframes, variables custom y media queries — uso todo el poder de CSS moderno para crear layouts que respiran y transiciones que se sienten físicas.',
     color: '#1572B6',
     size: 'md',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa'],
   },
   {
     id: 'bootstrap',
@@ -161,7 +161,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Git es parte de mi flujo diario. Branches, merges, rebases, cherry-picks — manejo el historial de mis proyectos con disciplina y commits descriptivos que cuentan la historia del código.',
     color: '#F05032',
     size: 'md',
-    relatedProjectIds: [],
+    relatedProjectIds: ['internet-banking', 'net-series', 'mercado-api', 'gestor-pwa', 'cine-match'],
   },
   {
     id: 'github',
@@ -173,7 +173,7 @@ export const skills: Skill[] = [
     detailedDescription: 'GitHub es mi plataforma de trabajo. Repositorios, pull requests, GitHub Actions para CI/CD, y GitHub Pages para deploy. Es donde mi código vive y colabora con el mundo.',
     color: '#ffffff',
     size: 'md',
-    relatedProjectIds: [],
+    relatedProjectIds: ['internet-banking', 'net-series', 'mercado-api', 'gestor-pwa', 'cine-match'],
   },
   {
     id: 'visualstudio',
@@ -197,7 +197,7 @@ export const skills: Skill[] = [
     detailedDescription: 'VS Code es mi editor para todo lo que no es .NET: React, Python, scripts, configuraciones. Su ecosistema de extensiones y su velocidad lo hacen indispensable en mi día a día.',
     color: '#007ACC',
     size: 'sm',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['cine-match'],
   },
   {
     id: 'vercel',
@@ -221,7 +221,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Antigravity es el IDE agentic de Google DeepMind que uso para desarrollo asistido por IA. Pair programming con agentes que entienden contexto, refactorizan código y aceleran mi flujo de trabajo de formas que no creía posibles.',
     color: '#ffffff',
     size: 'md',
-    relatedProjectIds: [],
+    relatedProjectIds: ['gestor-pwa'],
   },
 
   // ── IA ──
@@ -235,7 +235,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Diseño y construyo agentes autónomos que pueden razonar, usar herramientas y completar tareas complejas. Desde asistentes conversacionales hasta agentes de código, exploro los límites de lo que la IA puede hacer de forma autónoma.',
     color: '#8B5CF6',
     size: 'md',
-    relatedProjectIds: [],
+    relatedProjectIds: ['gestor-pwa'],
   },
   {
     id: 'skills',
@@ -247,7 +247,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Creo skills reutilizables que extienden las capacidades de los agentes de IA. Cada skill es un paquete de instrucciones, scripts y recursos que permite al agente realizar tareas especializadas con precisión.',
     color: '#F59E0B',
     size: 'sm',
-    relatedProjectIds: [],
+    relatedProjectIds: ['gestor-pwa'],
   },
   {
     id: 'mcp',
@@ -259,7 +259,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Uso el Model Context Protocol para conectar agentes de IA con herramientas externas, APIs y servicios. MCP es el estándar que permite a los modelos de lenguaje interactuar con el mundo real de forma estructurada y segura.',
     color: '#06B6D4',
     size: 'sm',
-    relatedProjectIds: [],
+    relatedProjectIds: ['gestor-pwa'],
   },
   {
     id: 'codex',
@@ -271,7 +271,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Codex es el modelo de OpenAI especializado en generación y comprensión de código. Lo uso para pair programming, autocompletado inteligente, refactorización y exploración de codebases. Es mi copiloto cuando la complejidad del código supera la intuición.',
     color: '#ffffff',
     size: 'md',
-    relatedProjectIds: [],
+    relatedProjectIds: ['gestor-pwa'],
   },
 ]
 

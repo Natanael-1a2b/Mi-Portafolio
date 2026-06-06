@@ -50,8 +50,8 @@ export function Experience() {
   }, [prefersReduced])
 
   return (
-    <section id="experiencia" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
-      <SectionAtmosphere variant="minimal" glowPosition="center" />
+    <section id="experiencia" ref={sectionRef} className="experience-section section-alt" style={{ position: 'relative' }}>
+      <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" particles={5} />
       <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <SectionTitle title="Experiencia Laboral" />
         <div className="timeline">
