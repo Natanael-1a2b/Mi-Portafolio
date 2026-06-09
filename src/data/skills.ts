@@ -138,18 +138,6 @@ export const skills: Skill[] = [
     relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa'],
   },
   {
-    id: 'typescript',
-    name: 'TypeScript',
-    category: 'frontend',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-    iconType: 'url',
-    description: 'Superset tipado de JavaScript para aplicaciones escalables.',
-    detailedDescription: 'TypeScript es mi herramienta principal para frontend y backend con tipado estático. Lo uso para escribir código más predecible, con mejor autocompletado y detección temprana de errores.',
-    color: '#3178C6',
-    size: 'xl',
-    relatedProjectIds: ['gestor-pwa'],
-  },
-  {
     id: 'crystalreports',
     name: 'Crystal Reports',
     category: 'tools',

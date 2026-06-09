@@ -21,6 +21,7 @@ function findSkillByName(name: string) {
 
 const techIconMap: Record<string, string> = {
   tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+  typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
 }
 
 function getDurationText(startDate: string, endDate: string): string {
