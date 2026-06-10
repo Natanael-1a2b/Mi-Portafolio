@@ -26,10 +26,10 @@ export const heroContent = {
 
 export const aboutContent = {
   paragraphs: [
-    'Ingeniero de Software con una fuerte especialización en el ecosistema <span class="tech-badge tech-badge-blue">.NET</span> y <span class="tech-badge tech-badge-cyan">React</span>. Mi experiencia se centra en el diseño y desarrollo de arquitecturas escalables, desde <span class="neon-text">APIs RESTful</span> de alto rendimiento hasta aplicaciones web modernas.',
-    'Me caracterizo por un aprendizaje acelerado y una capacidad innata para resolver problemas complejos. No solo escribo código; diseño soluciones que aportan valor real al negocio, priorizando la seguridad, la mantenibilidad y las mejores prácticas de la industria (<span class="neon-text">SOLID</span>, <span class="neon-text">Clean Architecture</span>).',
-    'Mi objetivo es seguir construyendo sistemas que marquen la diferencia, colaborando en equipos donde la excelencia técnica sea la norma.',
-    'Actualmente exploro el desarrollo con <span class="tech-badge tech-badge-purple">Agentes de IA</span>, integrando protocolos como <span class="neon-text">MCP (Model Context Protocol)</span> y <span class="neon-text">Skills</span> para crear soluciones inteligentes y automatizadas que potencian la productividad y la innovación.',
+    'Mi base técnica la construí en el <span class="tech-badge tech-badge-blue">ITLA</span>, y actualmente curso la carrera de Ingeniería de Software en la universidad, especializado en el ecosistema <span class="tech-badge tech-badge-blue">.NET</span> y <span class="tech-badge tech-badge-cyan">React</span>. Construyo aplicaciones completas con arquitecturas limpias —APIs RESTful con Clean Architecture, frontends modulares con React— y las llevo hasta producción con usuarios reales.',
+    'En <span class="tech-badge tech-badge-purple">SPN Software</span> trabajé con sistemas usados por miles de usuarios, donde aprendí Crystal Reports y refiné mi SQL resolviendo incidencias en producción. Hoy desarrollo un sistema web completo para la <span class="neon-text">Iglesia Bautista Cristo Jesús (IBCJ)</span> con React + Supabase, atendiendo a más de 50 miembros activos —y perfeccionando el frontend en el proceso.',
+    'Lo que me mueve es diseñar arquitecturas que resuelvan problemas reales de negocio. No solo código que funcione: código que escale, que sea mantenible, y que alguien más pueda entender sin llamarme a las 2 AM. Cada proyecto es una oportunidad de aplicar principios SOLID, patrones de diseño y sentido común.',
+    'Hoy integro <span class="tech-badge tech-badge-purple">Agentes de IA</span> en mi flujo de trabajo usando protocolos como <span class="neon-text">MCP (Model Context Protocol)</span> y Skills, combinando mi base técnica con herramientas que multiplican la productividad y la innovación.',
   ],
 }
 
