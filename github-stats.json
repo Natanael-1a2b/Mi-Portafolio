@@ -1,0 +1,62 @@
+{
+  "lastUpdated": "2026-06-10T20:26:11.698Z",
+  "user": {
+    "public_repos": 12,
+    "followers": 1,
+    "following": 1,
+    "avatar_url": "https://avatars.githubusercontent.com/u/195616463?v=4",
+    "name": "Claudio N. Beltre",
+    "created_at": "2025-01-19T03:24:37Z",
+    "login": "Natanael-1a2b",
+    "total_repos": 26
+  },
+  "totalStars": 9,
+  "totalForks": 0,
+  "totalCommits": 577,
+  "totalPRs": 11,
+  "totalIssues": 10,
+  "languages": [
+    {
+      "name": "C#",
+      "percentage": 30,
+      "color": "#178600"
+    },
+    {
+      "name": "HTML",
+      "percentage": 24,
+      "color": "#e34c26"
+    },
+    {
+      "name": "TypeScript",
+      "percentage": 19,
+      "color": "#3178c6"
+    },
+    {
+      "name": "CSS",
+      "percentage": 9,
+      "color": "#563d7c"
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 6,
+      "color": "#f1e05a"
+    },
+    {
+      "name": "SCSS",
+      "percentage": 5,
+      "color": "#c6538c"
+    },
+    {
+      "name": "Dart",
+      "percentage": 4,
+      "color": "#00B4AB"
+    },
+    {
+      "name": "Python",
+      "percentage": 3,
+      "color": "#3572A5"
+    }
+  ],
+  "totalContributions": 634,
+  "totalReviews": 36
+}
