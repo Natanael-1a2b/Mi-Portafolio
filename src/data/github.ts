@@ -17,7 +17,7 @@ const streakColors = {
   dates: '00000000', // Oculto haciéndolo transparente
 }
 
-export const streakCardUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${githubConfig.username}&hide_border=true&locale=es&timezone=America/New_York&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`
+export const streakCardUrl = `https://streak-stats.demolab.com/?user=${githubConfig.username}&hide_border=true&locale=es&timezone=America/New_York&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`
 
 export interface GitHubUserData {
   public_repos: number
