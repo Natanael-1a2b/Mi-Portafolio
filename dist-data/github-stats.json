@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-31T20:02:23.982Z",
+  "lastUpdated": "2026-06-10T19:43:39.267Z",
   "user": {
-    "public_repos": 10,
+    "public_repos": 12,
     "followers": 1,
     "following": 1,
     "avatar_url": "https://avatars.githubusercontent.com/u/195616463?v=4",
@@ -11,38 +11,38 @@
   },
   "totalStars": 6,
   "totalForks": 0,
-  "totalCommits": 287,
-  "totalPRs": 5,
+  "totalCommits": 335,
+  "totalPRs": 7,
   "totalIssues": 0,
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 35,
+      "percentage": 37,
       "color": "#3178c6"
     },
     {
-      "name": "HTML",
-      "percentage": 22,
-      "color": "#e34c26"
-    },
-    {
       "name": "CSS",
-      "percentage": 19,
+      "percentage": 23,
       "color": "#563d7c"
     },
     {
+      "name": "HTML",
+      "percentage": 19,
+      "color": "#e34c26"
+    },
+    {
       "name": "JavaScript",
-      "percentage": 10,
+      "percentage": 9,
       "color": "#f1e05a"
     },
     {
       "name": "Dart",
-      "percentage": 9,
+      "percentage": 8,
       "color": "#00B4AB"
     },
     {
       "name": "C#",
-      "percentage": 5,
+      "percentage": 4,
       "color": "#178600"
     },
     {

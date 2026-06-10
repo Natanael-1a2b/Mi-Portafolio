@@ -116,7 +116,7 @@ async function main() {
     const result = {
       lastUpdated: new Date().toISOString(),
       user: {
-        public_repos: ownRepos.length,
+        public_repos: user.public_repos,
         followers: user.followers,
         following: user.following,
         avatar_url: user.avatar_url,
