@@ -148,7 +148,7 @@ export function Hero() {
             <p>{heroContent.description}</p>
             <div className="hero-btns">
               <MagneticButton as="a" className="btn btn-primary" href="#contacto" strength={0.1}>
-                Hablemos de tu proyecto <span style={{ marginLeft: '8px' }}>→</span>
+                Hablemos de tu proyecto <span className="hero-arrow">→</span>
               </MagneticButton>
               <MagneticButton
                 as="a"
@@ -157,7 +157,7 @@ export function Hero() {
                 download
                 strength={0.1}
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                   <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
                   <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                 </svg>
@@ -182,11 +182,11 @@ export function Hero() {
             <div className="hero-img-wrapper">
               <div className="hero-img">
                 <div className="neon-ring"></div>
-                <img src={asset('/assets/images/hero-profile-nobg.png')} alt="Claudio Natanael Beltre" />
+                <img src={asset('/assets/images/hero-profile-nobg.png')} alt="Claudio Natanael Beltre" loading="eager" />
 
                 <div className="floating-badge badge-1 glass-panel">
                   <div className="badge-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
                       <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
                       <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
@@ -199,7 +199,7 @@ export function Hero() {
                 </div>
                 <div className="floating-badge badge-2 glass-panel">
                   <div className="badge-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                       <line x1="3" y1="9" x2="21" y2="9"></line>
                       <line x1="9" y1="21" x2="9" y2="9"></line>
@@ -212,7 +212,7 @@ export function Hero() {
                 </div>
                 <div className="floating-badge badge-3 glass-panel">
                   <div className="badge-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                       <polyline points="2 12 12 17 22 12"></polyline>
                       <polyline points="2 17 12 22 22 17"></polyline>
@@ -225,7 +225,7 @@ export function Hero() {
                 </div>
                 <div className="floating-badge badge-4 glass-panel">
                   <div className="badge-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
                       <rect x="9" y="9" width="6" height="6"></rect>
                       <line x1="9" y1="1" x2="9" y2="4"></line>
@@ -258,8 +258,8 @@ export function Hero() {
               </div>
               <div className="stat-separator"></div>
               <div className="stat-item">
-                <span className="stat-number">100%</span>
-                <span className="stat-label">Compromiso</span>
+                <span className="stat-number">3</span>
+                <span className="stat-label">Apps en producción</span>
               </div>
             </div>
           </div>

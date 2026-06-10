@@ -9,25 +9,6 @@
   background-color: var(--bg-main);
 }
 
-.hero-bg-effects {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(ellipse at center, transparent 30%, black 100%);
-    -webkit-mask-image: radial-gradient(ellipse at center, transparent 30%, black 100%);
-    opacity: 0.8;
-  }
-}
-
 .glow-1,
 .glow-2 {
   position: absolute;
@@ -112,10 +93,12 @@
 }
 
 .highlight {
-  background: linear-gradient(90deg, #00BFFF, #3B82F6, #8B5CF6);
+  background: linear-gradient(90deg, #00BFFF, #3B82F6, #8B5CF6, #00BFFF);
+  background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease infinite;
 }
 
 .hero-badge-icon {
@@ -129,11 +112,16 @@
   gap: 20px;
 }
 
+.hero-arrow {
+  margin-left: 8px;
+}
+
 .hero-img-wrapper {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
+  animation: float-slow 6s ease-in-out infinite;
 
   &::before {
     content: '';
@@ -187,7 +175,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -50%);
   width: 85%;
   aspect-ratio: 3/4;
   border-radius: 50px;
@@ -201,6 +189,7 @@
   mask-image: linear-gradient(to bottom, black 50%, transparent 92%);
   -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 92%);
   z-index: 1;
+  animation: breathe-border 4s ease-in-out infinite;
 
   &::after {
     content: '';
@@ -313,6 +302,13 @@
   letter-spacing: 1px;
 }
 
+.stat-separator {
+  width: 1px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
 .tech-container {
   display: flex;
   flex-direction: column;
@@ -350,6 +346,7 @@
   &:hover {
     border-color: rgba(0, 191, 255, 0.3);
     box-shadow: 0 0 15px rgba(0, 191, 255, 0.08);
+    transform: translateY(-2px);
   }
 
   img {
@@ -425,7 +422,7 @@
   }
 
   .hero-text h1 {
-    font-size: 2.2rem;
+    font-size: clamp(2.5rem, 8vw, 3.8rem);
     margin-bottom: 16px;
   }
 
@@ -511,10 +508,6 @@
   .hero-text p { margin: 0 auto 40px; }
   .hero-btns { justify-content: center; }
   .hero-img { order: -1; max-width: 320px; margin: 0 auto; }
-}
-
-@include respond(tb) {
-  .hero-text h1 { font-size: clamp(2.5rem, 8vw, 3.8rem); }
 }
 
 @include respond(md) {

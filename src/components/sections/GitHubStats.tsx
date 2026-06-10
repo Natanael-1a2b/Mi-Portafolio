@@ -203,39 +203,6 @@ export function GitHubStats() {
             </div>
           </div>
 
-          <div className="gh-card gh-card-insights">
-            <div className="gh-card-title" style={{ textAlign: 'center', width: '100%', marginBottom: '0.5rem' }}>Insights</div>
-            <div className="gh-insights-row">
-              <div className="gh-insight-item">
-                <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.2)' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                </div>
-                <div className="gh-insight-content">
-                  <h4>¡Gran crecimiento!</h4>
-                  <p>Tus contribuciones han sido muy constantes este último año.</p>
-                </div>
-              </div>
-              <div className="gh-insight-item">
-                <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.2)' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                </div>
-                <div className="gh-insight-content">
-                  <h4>Sigue así 💪</h4>
-                  <p>Mantén tu racha de contribuciones para seguir creciendo.</p>
-                </div>
-              </div>
-              <div className="gh-insight-item">
-                <div className="gh-insight-icon" style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', color: '#a855f7', borderColor: 'rgba(168, 85, 247, 0.2)' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                </div>
-                <div className="gh-insight-content">
-                  <h4>Enfoque Moderno</h4>
-                  <p>La mayor parte de tus proyectos recientes utilizan React y TypeScript.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
