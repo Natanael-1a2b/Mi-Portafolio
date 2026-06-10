@@ -189,6 +189,69 @@ El proyecto permite la gestión completa de contenido multimedia (CRUD), filtros
     repoUrl: '#',
   },
   {
+    id: 'jovenes-involucrados-2026',
+    title: 'Jóvenes involucrados 2026',
+    image: '/assets/images/Jovenes Involucrados 2026/mobile/13.jpeg',
+    shortDescription:
+      'Progressive Web App de preguntas y respuestas bíblicas con 152 preguntas, modo offline, autoevaluación, algoritmo de repaso inteligente y diseño glassmorphism premium.',
+    fullDescription: `Aplicación tipo flashcards diseñada para el estudio de doctrina bíblica del retiro "Jóvenes Involucrados 2026" de la Iglesia Bautista Cristo Jesús (IBCJ). 100% offline y sin frameworks.
+
+El proyecto consta de 152 preguntas distribuidas en 4 categorías: Hora Silenciosa, Discipulado, Memorización (versículos) y Lecciones.
+
+Características Principales:
+- PWA Offline-First: Instalable en cualquier dispositivo, funciona sin internet.
+- Autoevaluación: Responde, revela la respuesta y autoevalúa tu conocimiento.
+- Algoritmo de Repaso Inteligente: Las preguntas falladas se agregan automáticamente a una lista de repaso.
+- Rachas (Streaks): Registro de días consecutivos de estudio para mantener motivación.
+- Progreso Persistente: Guardado automático en localStorage, retoma donde lo dejaste.
+- Búsqueda en Tiempo Real: Explora las 152 preguntas con filtros por categoría.
+- Score y Confetti: Anillo de puntaje animado y partículas al completar una categoría.
+- Atajos de Teclado y Swipe: Navegación rápida con teclado o gestos táctiles.
+- Diseño Premium: Glassmorphism, modo oscuro, animaciones fluidas y sonidos envolventes.
+
+Construida 100% con tecnologías web estándar vanilla, sin frameworks pesados ni dependencias externas.`,
+    badges: ['PWA', 'Vanilla JS', 'Offline First', 'HTML/CSS/JS'],
+    technologies: [
+      'HTML5',
+      'CSS3',
+      'JavaScript ES6+',
+      'Service Workers',
+      'Web App Manifest',
+      'Web Audio API',
+      'Canvas API',
+      'localStorage',
+      'Vercel',
+    ],
+    videoId: '',
+    repoUrl: 'https://jovenes-involucrados-2025.vercel.app/',
+    isPWA: true,
+    desktopGallery: [
+      '/assets/images/Jovenes Involucrados 2026/pc/1.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/2.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/3.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/4.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/5.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/6.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/7.png',
+      '/assets/images/Jovenes Involucrados 2026/pc/8.png',
+    ],
+    mobileGallery: [
+      '/assets/images/Jovenes Involucrados 2026/mobile/1.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/2.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/3.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/4.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/5.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/6.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/7.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/8.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/9.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/10.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/11.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/12.jpeg',
+      '/assets/images/Jovenes Involucrados 2026/mobile/13.jpeg',
+    ],
+  },
+  {
     id: 'mercado-api',
     title: 'Mercado API',
     image: '/assets/images/Mercado API/portada.webp',
@@ -255,69 +318,6 @@ Desarrollado con la colaboración estratégica de herramientas de Inteligencia A
       '/assets/images/CineMatch/9.webp',
       '/assets/images/CineMatch/10.webp',
       '/assets/images/CineMatch/11.webp',
-    ],
-  },
-  {
-    id: 'jovenes-involucrados-2026',
-    title: 'Jóvenes involucrados 2026',
-    image: '/assets/images/Jovenes Involucrados 2026/mobile/13.jpeg',
-    shortDescription:
-      'Progressive Web App de preguntas y respuestas bíblicas con 152 preguntas, modo offline, autoevaluación, algoritmo de repaso inteligente y diseño glassmorphism premium.',
-    fullDescription: `Aplicación tipo flashcards diseñada para el estudio de doctrina bíblica del retiro "Jóvenes Involucrados 2026" de la Iglesia Bautista Cristo Jesús (IBCJ). 100% offline y sin frameworks.
-
-El proyecto consta de 152 preguntas distribuidas en 4 categorías: Hora Silenciosa, Discipulado, Memorización (versículos) y Lecciones.
-
-Características Principales:
-- PWA Offline-First: Instalable en cualquier dispositivo, funciona sin internet.
-- Autoevaluación: Responde, revela la respuesta y autoevalúa tu conocimiento.
-- Algoritmo de Repaso Inteligente: Las preguntas falladas se agregan automáticamente a una lista de repaso.
-- Rachas (Streaks): Registro de días consecutivos de estudio para mantener motivación.
-- Progreso Persistente: Guardado automático en localStorage, retoma donde lo dejaste.
-- Búsqueda en Tiempo Real: Explora las 152 preguntas con filtros por categoría.
-- Score y Confetti: Anillo de puntaje animado y partículas al completar una categoría.
-- Atajos de Teclado y Swipe: Navegación rápida con teclado o gestos táctiles.
-- Diseño Premium: Glassmorphism, modo oscuro, animaciones fluidas y sonidos envolventes.
-
-Construida 100% con tecnologías web estándar vanilla, sin frameworks pesados ni dependencias externas.`,
-    badges: ['PWA', 'Vanilla JS', 'Offline First', 'HTML/CSS/JS'],
-    technologies: [
-      'HTML5',
-      'CSS3',
-      'JavaScript ES6+',
-      'Service Workers',
-      'Web App Manifest',
-      'Web Audio API',
-      'Canvas API',
-      'localStorage',
-      'Vercel',
-    ],
-    videoId: '',
-    repoUrl: 'https://jovenes-involucrados-2025.vercel.app/',
-    isPWA: true,
-    desktopGallery: [
-      '/assets/images/Jovenes Involucrados 2026/pc/1.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/2.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/3.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/4.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/5.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/6.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/7.png',
-      '/assets/images/Jovenes Involucrados 2026/pc/8.png',
-    ],
-    mobileGallery: [
-      '/assets/images/Jovenes Involucrados 2026/mobile/1.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/2.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/3.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/4.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/5.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/6.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/7.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/8.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/9.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/10.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/11.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/12.jpeg',
-      '/assets/images/Jovenes Involucrados 2026/mobile/13.jpeg',
     ],
   },
 ]
