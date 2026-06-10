@@ -91,7 +91,7 @@ export function Projects() {
                 <img 
                   src={asset(proj.image)} 
                   alt={proj.title} 
-                  className={`project-img-main ${proj.id === 'cine-match' ? 'mobile-zoom' : ''}`} 
+                  className={`project-img-main ${proj.id === 'cine-match' || proj.id === 'jovenes-involucrados-2026' ? 'mobile-zoom' : ''}`} 
                   loading="lazy" 
                   decoding="async" 
                 />
