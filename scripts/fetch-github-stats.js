@@ -50,11 +50,70 @@ async function main() {
     const totalStars = ownRepos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
     const totalForks = ownRepos.reduce((sum, r) => sum + (r.forks_count || 0), 0);
     
-    console.log('Obteniendo estadísticas de commits, PRs e Issues...');
-    // Realizamos búsquedas en la API
-    const commitsData = await fetchGH(`/search/commits?q=author:${USERNAME}`).catch(() => ({ total_count: 0 }));
-    const prsData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:pr`).catch(() => ({ total_count: 0 }));
-    const issuesData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:issue+is:issue`).catch(() => ({ total_count: 0 }));
+    console.log('Obteniendo contribuciones reales (GraphQL)...');
+    // Usamos GraphQL para obtener el mismo número que el perfil de GitHub
+    let totalContributions = 0;
+    let totalReviews = 0;
+    let totalCommits = 0;
+    let totalPRs = 0;
+    let totalIssues = 0;
+    
+    if (TOKEN) {
+      try {
+        const graphqlQuery = {
+          query: `query {
+            user(login: "${USERNAME}") {
+              createdAt
+              contributionsCollection(from: "${user.created_at}", to: "${new Date().toISOString()}") {
+                contributionCalendar { totalContributions }
+                totalCommitContributions
+                totalPullRequestContributions
+                totalIssueContributions
+                totalPullRequestReviewContributions
+              }
+            }
+          }`
+        };
+        const graphqlRes = await fetch('https://api.github.com/graphql', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${TOKEN}`, 'User-Agent': 'github-stats-fetcher' },
+          body: JSON.stringify(graphqlQuery),
+        });
+        if (graphqlRes.ok) {
+          const graphqlData = await graphqlRes.json();
+          const cc = graphqlData.data?.user?.contributionsCollection;
+          if (cc) {
+            totalContributions = cc.contributionCalendar.totalContributions;
+            totalCommits = cc.totalCommitContributions;
+            totalPRs = cc.totalPullRequestContributions;
+            totalIssues = cc.totalIssueContributions;
+            totalReviews = cc.totalPullRequestReviewContributions;
+            console.log(`✅ GraphQL: ${totalContributions} contribuciones totales (${totalCommits} commits, ${totalPRs} PRs, ${totalIssues} issues, ${totalReviews} reviews)`);
+          }
+        } else {
+          throw new Error(`GraphQL error: ${graphqlRes.status}`);
+        }
+      } catch (e) {
+        console.warn('⚠️ GraphQL falló, usando Search API como fallback...', e.message);
+        // Fallback a Search API
+        const commitsData = await fetchGH(`/search/commits?q=author:${USERNAME}`).catch(() => ({ total_count: 0 }));
+        const prsData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:pr`).catch(() => ({ total_count: 0 }));
+        const issuesData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:issue+is:issue`).catch(() => ({ total_count: 0 }));
+        totalCommits = commitsData.total_count || 0;
+        totalPRs = prsData.total_count || 0;
+        totalIssues = issuesData.total_count || 0;
+        totalContributions = totalCommits + totalPRs + totalIssues;
+      }
+    } else {
+      console.log('⚠️ Sin token, usando Search API público...');
+      const commitsData = await fetchGH(`/search/commits?q=author:${USERNAME}`).catch(() => ({ total_count: 0 }));
+      const prsData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:pr`).catch(() => ({ total_count: 0 }));
+      const issuesData = await fetchGH(`/search/issues?q=author:${USERNAME}+type:issue+is:issue`).catch(() => ({ total_count: 0 }));
+      totalCommits = commitsData.total_count || 0;
+      totalPRs = prsData.total_count || 0;
+      totalIssues = issuesData.total_count || 0;
+      totalContributions = totalCommits + totalPRs + totalIssues;
+    }
     
     // Distribución de lenguajes real (consultando cada repositorio)
     console.log('Calculando distribución exacta de lenguajes...');
@@ -62,7 +121,7 @@ async function main() {
     let totalSize = 0;
     
     // Obtenemos los lenguajes de todos los repositorios en paralelo
-    const langPromises = ownRepos.map(repo => 
+    const langPromises = repos.map(repo => 
       fetchGH(`/repos/${repo.owner.login}/${repo.name}/languages`).catch(() => ({}))
     );
     const reposLanguages = await Promise.all(langPromises);
@@ -111,12 +170,13 @@ async function main() {
       })
       .filter(lang => lang.percentage > 0)
       .sort((a, b) => b.percentage - a.percentage)
-      .slice(0, 8);
+      .slice(0, 15);
       
     const result = {
       lastUpdated: new Date().toISOString(),
       user: {
         public_repos: user.public_repos,
+        total_repos: repos.length,
         followers: user.followers,
         following: user.following,
         avatar_url: user.avatar_url,
@@ -126,9 +186,11 @@ async function main() {
       },
       totalStars,
       totalForks,
-      totalCommits: commitsData.total_count || 0,
-      totalPRs: prsData.total_count || 0,
-      totalIssues: issuesData.total_count || 0,
+      totalContributions,
+      totalCommits,
+      totalPRs,
+      totalIssues,
+      totalReviews,
       languages,
     };
     

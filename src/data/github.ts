@@ -2,7 +2,9 @@ export const githubConfig = {
   username: 'Natanael-1a2b',
   profileUrl: 'https://github.com/Natanael-1a2b',
   apiBase: 'https://api.github.com',
-  dataUrl: 'https://raw.githubusercontent.com/Natanael-1a2b/Mi-Portafolio/github-stats-data/github-stats.json',
+  dataUrl: import.meta.env.DEV
+    ? `${import.meta.env.BASE_URL}github-stats.json`
+    : 'https://raw.githubusercontent.com/Natanael-1a2b/Mi-Portafolio/github-stats-data/github-stats.json',
 }
 
 // Streak card (herokuapp.com is the original host and currently stable)
@@ -21,9 +23,10 @@ export const streakCardUrl = `https://streak-stats.demolab.com/?user=${githubCon
 
 export interface GitHubUserData {
   public_repos: number
+  total_repos: number
+  public_gists?: number
   followers: number
   following: number
-  public_gists: number
   avatar_url?: string
   name?: string
   created_at?: string
@@ -43,9 +46,11 @@ export interface GitHubStatsResult {
   user: GitHubUserData
   totalStars: number
   totalForks: number
+  totalContributions?: number
   totalCommits: number
   totalPRs: number
   totalIssues: number
+  totalReviews?: number
   languages: { name: string; percentage: number; color: string }[]
 }
 
@@ -82,6 +87,7 @@ async function fetchGitHubDataFallback(): Promise<GitHubStatsResult | null> {
     return {
       user: {
         public_repos: user.public_repos,
+        total_repos: user.public_repos,
         followers: user.followers,
         following: user.following,
         public_gists: user.public_gists || 0,
@@ -92,9 +98,11 @@ async function fetchGitHubDataFallback(): Promise<GitHubStatsResult | null> {
       },
       totalStars,
       totalForks,
+      totalContributions: 0,
       totalCommits: 0,
       totalPRs: 0,
       totalIssues: 0,
+      totalReviews: 0,
       languages: []
     }
   } catch {
