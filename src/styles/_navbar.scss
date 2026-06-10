@@ -1,0 +1,126 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(5, 8, 22, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1px 0 rgba(59, 130, 246, 0.10), 0 5px 40px rgba(59, 130, 246, 0.08);
+  transition: all 0.4s ease;
+
+  &.scrolled {
+    padding: 12px 0;
+    background: rgba(5, 8, 22, 0.95);
+    box-shadow: 0 1px 0 rgba(59, 130, 246, 0.15), 0 10px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.6rem;
+  @include gradient-text(var(--accent), var(--primary));
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+
+  &:hover,
+  &.active {
+    color: var(--accent);
+    background: rgba(0, 191, 255, 0.08);
+  }
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+
+  span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  &.open span {
+    &:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    &:nth-child(2) { opacity: 0; }
+    &:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  }
+}
+
+@include respond(lg) {
+  .navbar.menu-open {
+    backdrop-filter: none;
+    background: transparent;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background: rgba(10, 10, 18, 0.98);
+    backdrop-filter: blur(15px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+
+    &.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+  }
+
+  .hamburger {
+    display: flex;
+    position: relative;
+    z-index: 1000;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .navbar-brand {
+    position: relative;
+    z-index: 1000;
+  }
+
+  .nav-link {
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+  }
+}

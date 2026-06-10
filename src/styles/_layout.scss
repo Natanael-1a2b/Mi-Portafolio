@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-inline: clamp(1.5rem, 5vw, 3rem);
+}
+
+section {
+  padding: clamp(4rem, 8vw, 6rem) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-alt {
+  background: linear-gradient(180deg, rgba(10, 15, 46, 0.5) 0%, transparent 100%);
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  }
+}

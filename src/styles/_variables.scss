@@ -1,0 +1,32 @@
+:root {
+  --bg-dark: #050816;
+  --bg-space: #0A0F2E;
+  --bg-deep: #101935;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --primary: #3B82F6;
+  --secondary: #A855F7;
+  --accent: #00BFFF;
+  --neon-violet: #8B5CF6;
+  --text-main: #FFFFFF;
+  --text-light: #CBD5E1;
+  --text-muted: #94A3B8;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --shadow-neon: 0 0 20px rgba(59, 130, 246, 0.15);
+  --glow-blue: 0 0 30px rgba(0, 191, 255, 0.20), 0 0 60px rgba(0, 191, 255, 0.10);
+  --glow-violet: 0 0 30px rgba(168, 85, 247, 0.25), 0 0 60px rgba(168, 85, 247, 0.10);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+}
+
+$breakpoints: (
+  'xs': 360px,
+  'sm': 480px,
+  'md': 576px,
+  'tb': 768px,
+  'lg': 992px,
+  'xl': 1024px,
+  'xxl': 1400px
+);
