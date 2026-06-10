@@ -111,7 +111,7 @@ export const skills: Skill[] = [
     detailedDescription: 'JavaScript es el lenguaje que une todo mi trabajo web. Desde manipulación del DOM hasta APIs modernas como Intersection Observer y Web Audio, lo uso para crear experiencias interactivas que van más allá de renderizar componentes.',
     color: '#F7DF1E',
     size: 'lg',
-    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026'],
   },
   {
     id: 'html5',
@@ -123,7 +123,7 @@ export const skills: Skill[] = [
     detailedDescription: 'HTML semántico es la base de todo lo que construyo en la web. Uso etiquetas con intención, cuido la accesibilidad y estructuro documentos que son legibles tanto por humanos como por motores de búsqueda.',
     color: '#E34F26',
     size: 'md',
-    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026'],
   },
   {
     id: 'css3',
@@ -135,7 +135,7 @@ export const skills: Skill[] = [
     detailedDescription: 'CSS es donde mi código se convierte en diseño. Grid, Flexbox, animaciones con keyframes, variables custom y media queries — uso todo el poder de CSS moderno para crear layouts que respiran y transiciones que se sienten físicas.',
     color: '#1572B6',
     size: 'md',
-    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026'],
   },
   {
     id: 'crystalreports',
@@ -233,9 +233,9 @@ export const skills: Skill[] = [
     detailedDescription: 'Antigravity es el IDE agentic de Google DeepMind que uso para desarrollo asistido por IA. Pair programming con agentes que entienden contexto, refactorizan código y aceleran mi flujo de trabajo de formas que no creía posibles.',
     color: '#ffffff',
     size: 'md',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['gestor-pwa', 'jovenes-involucrados-2026'],
   },
-
+ 
   // ── IA ──
   {
     id: 'agents',
