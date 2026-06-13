@@ -50,7 +50,7 @@
 
 @mixin section-content {
   position: relative;
-  z-index: 10;
+  z-index: var(--z-content);
 }
 
 @mixin section-outer {

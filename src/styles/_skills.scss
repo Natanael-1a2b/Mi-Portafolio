@@ -746,7 +746,7 @@
     inset: 0;
     border-radius: 20px;
     padding: 1.5px;
-    background: linear-gradient(90deg, #8B5CF6, #EC4899, #00BFFF, #3B82F6);
+    background: linear-gradient(90deg, var(--neon-violet), var(--color-danger), var(--accent), var(--primary));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -773,7 +773,7 @@
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: var(--text-main);
     border-color: var(--detail-accent);
   }
 }
@@ -865,7 +865,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    color: #fff;
+    color: var(--text-main);
   }
 }
 

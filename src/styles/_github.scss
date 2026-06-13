@@ -42,7 +42,7 @@
 
 .gh-stat-icon--stars { color: #f1e05a; }
 .gh-stat-icon--forks { color: var(--secondary); }
-.gh-stat-icon--commits { color: #10b981; }
+.gh-stat-icon--commits { color: var(--color-success); }
 .gh-stat-icon--prs { color: var(--accent); }
 .gh-stat-icon--followers { color: var(--primary); }
 
@@ -51,7 +51,7 @@
   font-weight: 800;
   letter-spacing: -1px;
   line-height: 1;
-  @include gradient-text(#fff 30%, var(--text-muted));
+  @include gradient-text(var(--text-main) 30%, var(--text-muted));
 
   @include respond(md) { font-size: 1.6rem; }
 }
@@ -134,7 +134,7 @@
   gap: 1rem;
   color: var(--text-muted);
 
-  svg { color: #ef4444; }
+  svg { color: var(--color-error); }
 }
 
 /* ── GitHub Dashboard ── */
@@ -264,7 +264,11 @@
 
 /* Summary */
 .gh-summary-item { text-align: center; flex: 1; }
-.gh-summary-icon { display: flex; justify-content: center; margin-bottom: 0.5rem; color: var(--secondary); }
+.gh-summary-icon { display: flex; justify-content: center; margin-bottom: 0.5rem; }
+.gh-summary-icon--stars { color: var(--color-warning); }
+.gh-summary-icon--commits { color: var(--secondary); }
+.gh-summary-icon--prs { color: var(--color-success); }
+.gh-summary-icon--issues { color: var(--color-error); }
 .gh-summary-value { font-size: 1.5rem; font-weight: 800; color: var(--text-main); line-height: 1.2; }
 .gh-summary-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
@@ -388,4 +392,11 @@
   display: flex;
   justify-content: center;
   margin-top: 2.5rem;
+}
+
+.gh-section-skeleton {
+  min-height: 600px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-lg);
+  margin: 2rem 0;
 }

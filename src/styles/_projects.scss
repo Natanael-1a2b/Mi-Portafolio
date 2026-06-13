@@ -107,7 +107,7 @@
 
   &:hover {
     background: rgba(255, 255, 255, 0.25);
-    color: #fff;
+    color: var(--text-main);
     transform: translateY(-50%) scale(1.05);
   }
 }
@@ -164,7 +164,7 @@
   right: 1rem;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(4px);
-  color: #fff;
+  color: var(--text-main);
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -180,9 +180,9 @@
 .live-dot {
   width: 8px;
   height: 8px;
-  background: #10b981;
+  background: var(--color-success);
   border-radius: 50%;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 8px var(--color-success);
   animation: pulse-dot 2s infinite;
 }
 
@@ -190,7 +190,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 2000;
+  z-index: calc(var(--z-modal) * 2);
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(8px);
   @include flex-center;
@@ -206,10 +206,21 @@
       transform: scale(1.01);
     }
   }
+
+  &.closing {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease-in;
+
+    .modal-box {
+      transform: scale(0.9);
+      transition: transform 0.24s ease-in;
+    }
+  }
 }
 
 .modal-box {
-  background: #0f0f1a;
+  background: var(--bg-dark);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-xl);
   max-width: 720px;
@@ -445,7 +456,7 @@
 .fullscreen-overlay {
   position: fixed;
   inset: 0;
-  z-index: 3000;
+  z-index: calc(var(--z-overlay) / 2);
   background: rgba(0, 0, 0, 0.95);
   @include flex-center;
   cursor: zoom-out;

@@ -21,6 +21,35 @@
   --radius-lg: 20px;
   --radius-xl: 24px;
   --radius-full: 999px;
+  --z-base: 1;
+  --z-content: 10;
+  --z-dropdown: 100;
+  --z-sticky: 100;
+  --z-modal: 1000;
+  --z-overlay: 10000;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #38bdf8;
+  --color-danger: #ec4899;
+  --color-cyan: #06b6d4;
+  --color-indigo: #6366f1;
+  --color-blue-400: #60A5FA;
+  --color-purple-400: #A78BFA;
+  --color-cyan-400: #22D3EE;
+  --color-emerald-400: #34d399;
+  --color-red-400: #f87171;
+  --fs-h1: 3.5rem;
+  --fs-h2: 2.5rem;
+  --fs-h3: 1.5rem;
+  --fs-h4: 1.25rem;
+  --fs-body: 1rem;
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.75rem;
+  --fw-bold: 700;
+  --fw-semibold: 600;
+  --fw-medium: 500;
+  --fw-regular: 400;
 }
 
 $breakpoints: (

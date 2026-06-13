@@ -54,7 +54,7 @@ export function CategoryCard({ category, skills, selectedSkillId, onSelectSkill 
           </svg>
         ),
       }
-      return <div style={{ color: category.accent }}>{iconMap[category.icon] || null}</div>
+      return <div style={{ color: category.accent }} aria-hidden="true">{iconMap[category.icon] || null}</div>
     }
 
     return (

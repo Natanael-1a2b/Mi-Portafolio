@@ -26,7 +26,7 @@ export function Projects() {
         { 
           y: 0, 
           opacity: 1, 
-          duration: 0.8, 
+          duration: 0.4, 
           stagger: 0.15, 
           clearProps: "all", 
           scrollTrigger: { trigger: '.projects-grid', start: 'top 85%', once: true } 
@@ -67,7 +67,7 @@ export function Projects() {
   return (
     <section id="proyectos" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
       <SectionAtmosphere variant="projects" />
-      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="container">
         <SectionTitle title="Proyectos Destacados" />
         <div className="projects-grid">
           {projects.map((proj) => (
@@ -87,10 +87,12 @@ export function Projects() {
                     En Producción
                   </div>
                 )}
-                <img src={asset(proj.image)} alt="" className="project-img-blur" aria-hidden="true" />
+                <img src={asset(proj.image)} alt="" className="project-img-blur" aria-hidden="true" width={600} height={400} />
                 <img 
                   src={asset(proj.image)} 
                   alt={proj.title} 
+                  width={600} 
+                  height={400}
                   className={`project-img-main ${proj.id === 'cine-match' || proj.id === 'jovenes-involucrados-2026' ? 'mobile-zoom' : ''}`} 
                   loading="lazy" 
                   decoding="async" 

@@ -19,11 +19,11 @@ export function Certifications() {
     const ctx = gsap.context(() => {
       gsap.fromTo('.cert-thumb-grid',
         { x: -50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
+        { x: 0, opacity: 1, duration: 0.4, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )
       gsap.fromTo('.cert-preview',
         { x: 50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, delay: 0.2, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
+        { x: 0, opacity: 1, duration: 0.4, delay: 0.15, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
       )
     }, sectionRef)
     return () => ctx.revert()
@@ -34,7 +34,7 @@ export function Certifications() {
   return (
     <section id="certificaciones" ref={sectionRef} style={{ background: 'rgba(10,10,18,0.5)', position: 'relative' }}>
       <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
-      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="container">
         <SectionTitle title="Certificaciones" />
         
         <div className="cert-split-layout">
@@ -46,7 +46,7 @@ export function Certifications() {
                 className={`cert-thumb-item ${i === current ? 'active' : ''}`}
                 onClick={() => setCurrent(i)}
               >
-                <img src={asset(cert.image)} alt={cert.title} loading="lazy" decoding="async" />
+                <img src={asset(cert.image)} alt={cert.title} width={200} height={140} loading="lazy" decoding="async" />
                 <div className="cert-thumb-overlay">
                   Ver Certificado
                 </div>
@@ -60,6 +60,8 @@ export function Certifications() {
               <img
                 src={asset(activeCert.image)}
                 alt={activeCert.title}
+                width={400}
+                height={280}
                 loading="lazy"
                 decoding="async"
               />

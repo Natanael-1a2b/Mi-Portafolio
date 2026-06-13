@@ -35,7 +35,7 @@ export function BentoGrid({ skills }: Props) {
         {
           y: 0,
           opacity: 1,
-          duration: 0.6,
+          duration: 0.4,
           stagger: 0.1,
           ease: 'power2.out',
           scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
