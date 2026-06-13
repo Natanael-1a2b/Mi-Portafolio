@@ -14,7 +14,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: #00BFFF;
+  color: var(--accent);
   background: rgba(0, 191, 255, 0.08);
   border: 1px solid rgba(0, 191, 255, 0.2);
   margin-bottom: 1.2rem;
@@ -27,7 +27,7 @@
 .exp-section-title {
   font-size: clamp(2.4rem, 8vw, 3.2rem);
   font-weight: 900;
-  color: #fff;
+  color: var(--text-main);
   letter-spacing: -0.03em;
   margin: 0 0 1rem;
   line-height: 1.1;
@@ -37,7 +37,7 @@
 }
 
 .exp-title-gradient {
-  @include gradient-text(#00BFFF, #8B5CF6);
+  @include gradient-text(var(--accent), var(--neon-violet));
   background-clip: text;
 }
 
@@ -71,7 +71,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, transparent 0%, #00BFFF 10%, #8B5CF6 60%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, var(--accent) 10%, var(--neon-violet) 60%, transparent 100%);
   transform: translateX(-50%);
   box-shadow: 0 0 20px rgba(0, 191, 255, 0.25);
 
@@ -131,8 +131,8 @@
   top: 32px;
   width: 18px;
   height: 18px;
-  background: #050816;
-  border: 3px solid #00BFFF;
+  background: var(--bg-dark);
+  border: 3px solid var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 18px rgba(0, 191, 255, 0.7), 0 0 36px rgba(139, 92, 246, 0.3);
   z-index: 25;
@@ -261,7 +261,7 @@
 .badge-active {
   background: rgba(0, 20, 40, 0.7);
   border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34d399;
+  color: var(--color-emerald-400);
 }
 
 .badge-duration {
@@ -317,7 +317,7 @@
   font-size: clamp(1.3rem, 4vw, 1.5rem);
   font-weight: 800;
   margin: 0;
-  color: #fff;
+  color: var(--text-main);
   letter-spacing: -0.02em;
   line-height: 1.15;
 
@@ -330,7 +330,7 @@
 .exp-position {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #00BFFF;
+  color: var(--accent);
   margin: 0;
   letter-spacing: 0.3px;
 
@@ -379,7 +379,7 @@
   border-radius: 50%;
   background: rgba(0, 191, 255, 0.12);
   border: 1.5px solid rgba(0, 191, 255, 0.35);
-  color: #00BFFF;
+  color: var(--accent);
   flex-shrink: 0;
   margin-top: 2px;
   transition: all 0.3s ease;
@@ -466,7 +466,7 @@
   border-radius: 10px;
   background: rgba(0,191,255,0.08);
   border: 1px solid rgba(0,191,255,0.18);
-  color: #00BFFF;
+  color: var(--accent);
   flex-shrink: 0;
   transition: all 0.3s ease;
 
@@ -491,7 +491,7 @@
 .metric-value {
   font-size: 1.2rem;
   font-weight: 900;
-  color: #fff;
+  color: var(--text-main);
   letter-spacing: -0.02em;
   line-height: 1;
 
@@ -541,12 +541,12 @@
     }
   }
 
-  .exp-position { color: #8B5CF6; }
+  .exp-position { color: var(--neon-violet); }
 
   .hl-check {
     background: rgba(139, 92, 246, 0.12);
     border-color: rgba(139, 92, 246, 0.35);
-    color: #8B5CF6;
+    color: var(--neon-violet);
 
     .timeline-card:hover & {
       background: rgba(139, 92, 246, 0.2);
@@ -556,7 +556,7 @@
   }
 
   .metric-icon {
-    color: #8B5CF6;
+    color: var(--neon-violet);
     background: rgba(139,92,246,0.08);
     border-color: rgba(139,92,246,0.18);
 

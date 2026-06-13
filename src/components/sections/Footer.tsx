@@ -24,17 +24,17 @@ export function Footer() {
       
       tl.fromTo('.footer-brand > *', 
         { y: 30, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 }
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 }
       )
       .fromTo('.footer-cta > *', 
         { y: 30, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
-        '-=0.6'
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
+        '-=0.3'
       )
       .fromTo('.footer-bottom', 
         { opacity: 0 }, 
-        { opacity: 1, duration: 1 },
-        '-=0.4'
+        { opacity: 1, duration: 0.5 },
+        '-=0.3'
       )
     }, footerRef)
     return () => ctx.revert()
@@ -43,7 +43,7 @@ export function Footer() {
   return (
     <footer ref={footerRef} className="footer-custom" style={{ position: 'relative' }}>
       <SectionAtmosphere variant="contact" particles={0} />
-      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="container">
         {/* TOP */}
         <div className="footer-top">
           <div className="footer-brand">

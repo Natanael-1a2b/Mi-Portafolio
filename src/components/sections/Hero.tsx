@@ -64,45 +64,25 @@ export function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      tl.fromTo('.hero-badge-top',
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, delay: 0.1 }
+      // Group 1 — Title area: badge + h1 + subtitle
+      tl.fromTo('.hero-badge-top, .hero-text h1, .subtitle',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 }
       )
-        .fromTo('.hero-text h1',
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 }, '-=0.4'
-        )
-        .fromTo('.subtitle',
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6 }, '-=0.6'
-        )
-        .fromTo('.hero-text p',
+        // Group 2 — Description + CTA
+        .fromTo('.hero-text p, .hero-btns a',
           { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 }, '-=0.4'
+          { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 }, '-=0.3'
         )
-        .fromTo('.hero-btns a',
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, stagger: 0.15 }, '-=0.6'
-        )
-        .fromTo('.hero-img',
+        // Group 3 — Visual: image + neon ring
+        .fromTo('.hero-img, .neon-ring',
           { scale: 0.85, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1.2, ease: 'back.out(1.2)' }, '-=0.8'
+          { scale: 1, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'back.out(1.2)' }, '-=0.3'
         )
-        .fromTo('.neon-ring',
-          { opacity: 0, scale: 0.8 },
-          { opacity: 1, scale: 1, duration: 1.5 }, '-=1'
-        )
-        .fromTo('.floating-badge',
-          { y: 20, opacity: 0, scale: 0.9 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.1 }, '-=0.8'
-        )
-        .fromTo('.tech-container',
+        // Group 4 — Below fold: badges + tech + stats
+        .fromTo('.floating-badge, .tech-container, .stats-container',
           { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 }, '-=0.4'
-        )
-        .fromTo('.stats-container',
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 }, '-=0.6'
+          { y: 0, opacity: 1, duration: 0.4, stagger: 0.08 }, '-=0.3'
         )
 
       // Float animations
@@ -170,7 +150,7 @@ export function Hero() {
               <div className="tech-logos">
                 {bottomTechs.map(tech => (
                   <div key={tech.id} className="tech-logo-item">
-                    <img src={asset(tech.icon)} alt={tech.name} />
+                    <img src={asset(tech.icon)} alt={tech.name} width={22} height={22} />
                     <span>{tech.name}</span>
                   </div>
                 ))}
@@ -182,7 +162,7 @@ export function Hero() {
             <div className="hero-img-wrapper">
               <div className="hero-img">
                 <div className="neon-ring"></div>
-                <img src={asset('/assets/images/hero-profile-nobg.png')} alt="Claudio Natanael Beltre" loading="eager" />
+                <img src={asset('/assets/images/hero-profile-nobg.png')} alt="Claudio Natanael Beltre" width={400} height={533} loading="eager" />
 
                 <div className="floating-badge badge-1 glass-panel">
                   <div className="badge-icon">
@@ -194,7 +174,7 @@ export function Hero() {
                   </div>
                   <div className="badge-info">
                     <strong>Backend</strong>
-                    <span className="badge-subtext"><span className="status-dot" style={{ backgroundColor: '#10b981' }}></span> APIs robustas</span>
+                    <span className="badge-subtext"><span className="status-dot status-dot--green"></span> APIs robustas</span>
                   </div>
                 </div>
                 <div className="floating-badge badge-2 glass-panel">
@@ -207,7 +187,7 @@ export function Hero() {
                   </div>
                   <div className="badge-info">
                     <strong>Frontend</strong>
-                    <span className="badge-subtext"><span className="status-dot" style={{ backgroundColor: '#3b82f6' }}></span> UI/UX intuitivas</span>
+                    <span className="badge-subtext"><span className="status-dot status-dot--blue"></span> UI/UX intuitivas</span>
                   </div>
                 </div>
                 <div className="floating-badge badge-3 glass-panel">
@@ -220,7 +200,7 @@ export function Hero() {
                   </div>
                   <div className="badge-info">
                     <strong>Arquitectura</strong>
-                    <span className="badge-subtext"><span className="status-dot" style={{ backgroundColor: '#a855f7' }}></span> Escalable</span>
+                    <span className="badge-subtext"><span className="status-dot status-dot--purple"></span> Escalable</span>
                   </div>
                 </div>
                 <div className="floating-badge badge-4 glass-panel">
@@ -240,7 +220,7 @@ export function Hero() {
                   </div>
                   <div className="badge-info">
                     <strong>IA & Agents</strong>
-                    <span className="badge-subtext"><span className="status-dot" style={{ backgroundColor: '#f59e0b' }}></span> Soluciones inteligentes</span>
+                    <span className="badge-subtext"><span className="status-dot status-dot--amber"></span> Soluciones inteligentes</span>
                   </div>
                 </div>
               </div>

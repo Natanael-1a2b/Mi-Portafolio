@@ -33,19 +33,19 @@ export function About() {
       tl.fromTo(
         '.about-left',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+        { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' },
       )
         .fromTo(
           '.about-timeline-item',
           { x: -20, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
-          '-=0.45',
+          { x: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: 'power3.out' },
+          '-=0.3',
         )
         .fromTo(
           '.about-right',
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
-          '-=0.65',
+          { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' },
+          '-=0.35',
         )
     }, sectionRef)
     return () => ctx.revert()

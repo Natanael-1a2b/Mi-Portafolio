@@ -8,10 +8,15 @@
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
   font-size: 0.95rem;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(139, 92, 246, 0.15);
 
@@ -24,15 +29,20 @@
 
 .btn-outline {
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-card);
   color: var(--text-main);
   backdrop-filter: blur(8px);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.1);
     border-color: rgba(0, 191, 255, 0.3);
     transform: translateY(-2px);
     box-shadow: 0 0 20px rgba(0, 191, 255, 0.08);
+  }
+
+  &:active {
+    transform: scale(0.97);
+    background: rgba(255, 255, 255, 0.04);
   }
 }
 
@@ -45,7 +55,7 @@
 .btn-footer {
   display: inline-block;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #fff;
+  color: var(--text-main);
   padding: 0.85rem 2rem;
   border-radius: var(--radius-full);
   font-weight: 600;
@@ -56,6 +66,10 @@
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 }
 
@@ -74,5 +88,9 @@
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(255, 60, 0, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 }

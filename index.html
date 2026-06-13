@@ -16,20 +16,34 @@
   <title>Portafolio | Claudio N. Beltre R.</title>
 
   <!-- Favicons -->
-  <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./assets/icons/favicon.ico" type="image/x-icon" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/icons/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="./assets/icons/android-chrome-512x512.png">
+  <link rel="manifest" href="./site.webmanifest">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://natanael-1a2b.github.io/Mi-Portafolio/">
+  <meta property="og:image" content="./og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Portafolio de Claudio N. Beltre R. - Desarrollador Full Stack">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="./og-image.svg">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
   <div id="root"></div>
   <script type="module" src="./src/main.tsx"></script>
 </body>

@@ -32,7 +32,7 @@ export function GitHubStats() {
       gsap.fromTo('.gh-card',
         { y: 30, opacity: 0 },
         {
-          y: 0, opacity: 1, duration: 0.6, stagger: 0.1,
+          y: 0, opacity: 1, duration: 0.4, stagger: 0.08,
           ease: 'power3.out',
           scrollTrigger: { trigger: '.gh-dashboard', start: 'top 85%', once: true },
         }
@@ -45,7 +45,7 @@ export function GitHubStats() {
     return (
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
         <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
-        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+        <div className="container">
           <SectionTitle title="GitHub & Actividad" />
           <div className="gh-dashboard">
             {[...Array(6)].map((_, i) => (
@@ -63,9 +63,9 @@ export function GitHubStats() {
     return (
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
         <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
-        <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-          <SectionTitle title="GitHub & Actividad" />
-          <div className="gh-stats-error-box glass-card">
+          <div className="container">
+            <SectionTitle title="GitHub & Actividad" />
+            <div className="gh-stats-error-box glass-card">
             <p>No se pudieron cargar las estadísticas</p>
           </div>
         </div>
@@ -92,7 +92,7 @@ export function GitHubStats() {
   return (
     <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
       <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
-      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="container">
         <SectionTitle title="GitHub & Actividad" />
 
         <div className="gh-dashboard">
@@ -100,7 +100,7 @@ export function GitHubStats() {
           <div className="gh-card gh-card-profile">
             <div className="gh-profile-header">
               <div className="gh-profile-avatar">
-                <img src={user.avatar_url || `https://github.com/${githubConfig.username}.png`} alt={user.name || githubConfig.username} />
+                <img src={user.avatar_url || `https://github.com/${githubConfig.username}.png`} alt={user.name || githubConfig.username} width={80} height={80} />
               </div>
               <div className="gh-profile-info">
                 <h3>{user.name || githubConfig.username}</h3>
@@ -108,29 +108,29 @@ export function GitHubStats() {
               </div>
             </div>
             <div className="gh-profile-stats">
-              <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#38bdf8' }}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <div className="gh-profile-stat-item" style={{ color: 'var(--color-info)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 <span><strong>{totalContributions.toLocaleString()}</strong> Contribuciones en GitHub</span>
               </div>
-              <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#a855f7' }}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              <div className="gh-profile-stat-item" style={{ color: 'var(--secondary)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 <span><strong>{user.public_repos}</strong> Repositorios Públicos</span>
               </div>
 
-              <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#eab308' }}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <div className="gh-profile-stat-item" style={{ color: 'var(--color-warning)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 <span><strong>{languages.length}</strong> Lenguajes utilizados</span>
               </div>
-              <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#10b981' }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div className="gh-profile-stat-item" style={{ color: 'var(--color-success)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <span>Desarrollador Full Stack</span>
               </div>
-              <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#3b82f6' }}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <div className="gh-profile-stat-item" style={{ color: 'var(--primary)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 <span>Colaborador Activo</span>
               </div>
-              <div className="gh-profile-stat-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#ec4899' }}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <div className="gh-profile-stat-item" style={{ color: 'var(--color-danger)' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 <span>Apasionado por el Código</span>
               </div>
             </div>
@@ -139,7 +139,7 @@ export function GitHubStats() {
           <div className="gh-card gh-card-chart">
             <div className="gh-card-title">Contribuciones en el último mes</div>
             {/* Usando GitHub Readme Activity Graph */}
-            <img src={`https://github-readme-activity-graph.vercel.app/graph?username=${githubConfig.username}&bg_color=00000000&color=a855f7&line=6366f1&point=fff&area=true&hide_border=true&hide_title=true`} alt="Activity Graph" />
+            <img src={`https://github-readme-activity-graph.vercel.app/graph?username=${githubConfig.username}&bg_color=00000000&color=a855f7&line=6366f1&point=fff&area=true&hide_border=true&hide_title=true`} alt="Activity Graph" title="Gráfico de contribuciones del último mes" />
           </div>
 
           {/* Row 2: Summary Stats & Streak */}
@@ -147,22 +147,22 @@ export function GitHubStats() {
             <div className="gh-card-title" style={{ width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>Resumen General</div>
             <div className="gh-summary-row" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
               <div className="gh-summary-item">
-              <div className="gh-summary-icon" style={{ color: '#fbbf24' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <div className="gh-summary-icon gh-summary-icon--stars"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
               <div className="gh-summary-value">{totalStars}</div>
               <div className="gh-summary-label">Total Stars</div>
             </div>
             <div className="gh-summary-item">
-              <div className="gh-summary-icon" style={{ color: '#a855f7' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <div className="gh-summary-icon gh-summary-icon--commits"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
               <div className="gh-summary-value">{totalCommits}</div>
               <div className="gh-summary-label">Total Commits</div>
             </div>
             <div className="gh-summary-item">
-              <div className="gh-summary-icon" style={{ color: '#34d399' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg></div>
+              <div className="gh-summary-icon gh-summary-icon--prs"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg></div>
               <div className="gh-summary-value">{totalPRs}</div>
               <div className="gh-summary-label">Pull Requests</div>
             </div>
             <div className="gh-summary-item">
-              <div className="gh-summary-icon" style={{ color: '#f87171' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+              <div className="gh-summary-icon gh-summary-icon--issues"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
               <div className="gh-summary-value">{totalIssues}</div>
               <div className="gh-summary-label">Issues</div>
             </div>
@@ -171,19 +171,19 @@ export function GitHubStats() {
 
           <div className="gh-card gh-card-streak">
             <div className="gh-card-title" style={{ width: '100%', marginBottom: '0', marginTop: '1rem', textAlign: 'center' }}>Racha de Contribuciones</div>
-            <img src={streakCardUrl} alt="GitHub Streak" loading="lazy" />
+            <img src={streakCardUrl} alt="GitHub Streak" loading="lazy" title="Racha de contribuciones diarias" />
           </div>
 
           {/* Row 3: Languages Donut */}
           <div className="gh-card gh-card-languages">
             <div className="gh-card-title">Lenguajes más usados por repositorio</div>
-            <div className="gh-donut-container">
+            <div className="gh-donut-container" role="img" aria-label={`Gráfico donut de lenguajes: ${languages.slice(0, 5).map(l => `${l.name} ${l.percentage}%`).join(', ')}`}>
               <div className="gh-donut" style={{ background: donutGradient }}>
                 <div className="gh-donut-hole"></div>
               </div>
               <div className="gh-donut-legend">
                 {languages.slice(0, 5).map(lang => (
-                  <div key={lang.name} className="gh-donut-legend-item">
+                  <div key={lang.name} className="gh-donut-legend-item" title={`${lang.name}: ${lang.percentage}% de los repositorios`}>
                     <span className="gh-donut-legend-dot" style={{ backgroundColor: lang.color }}></span>
                     <span className="gh-donut-legend-name">{lang.name}</span>
                     <span className="gh-donut-legend-pct">{lang.percentage}%</span>
@@ -199,7 +199,7 @@ export function GitHubStats() {
           <div className="gh-card gh-card-calendar">
             <div className="gh-card-title">Calendario de contribuciones</div>
             <div className="gh-calendar-wrapper">
-              <img src={`https://ghchart.rshah.org/${githubConfig.username}`} alt="GitHub Contribution Calendar" />
+              <img src={`https://ghchart.rshah.org/${githubConfig.username}`} alt="GitHub Contribution Calendar" title="Calendario anual de contribuciones" />
             </div>
           </div>
 

@@ -1,18 +1,21 @@
 .container {
   width: 100%;
-  max-width: 1500px;
+  max-width: 1280px;
   margin: 0 auto;
   padding-inline: clamp(1.5rem, 5vw, 3rem);
+  position: relative;
+  z-index: var(--z-content);
 }
 
 section {
   padding: clamp(4rem, 8vw, 6rem) 0;
+  padding-bottom: calc(clamp(4rem, 8vw, 6rem) + env(safe-area-inset-bottom, 0px));
   position: relative;
-  z-index: 1;
+  z-index: var(--z-base);
 }
 
 .section-alt {
-  background: linear-gradient(180deg, rgba(10, 15, 46, 0.5) 0%, transparent 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-space) 50%, transparent) 0%, transparent 100%);
   border-top: 1px solid var(--border-glass);
   border-bottom: 1px solid var(--border-glass);
 
@@ -23,6 +26,6 @@ section {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
   }
 }

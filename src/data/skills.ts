@@ -145,7 +145,7 @@ export const skills: Skill[] = [
     iconType: 'local',
     description: 'Herramienta de generación de reportes empresariales.',
     detailedDescription: 'Crystal Reports me permite diseñar y generar reportes empresariales complejos con conexión a bases de datos SQL Server, con formato profesional y parametrización avanzada.',
-    color: '#000000',
+    color: '#1B5E20',
     size: 'sm',
     relatedProjectIds: [],
   },

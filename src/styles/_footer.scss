@@ -106,7 +106,7 @@
 
   &:hover {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: #fff;
+    color: var(--text-main);
     transform: translateY(-4px) scale(1.1);
     box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
     border-color: transparent;

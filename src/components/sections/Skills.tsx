@@ -21,7 +21,7 @@ export function Skills() {
         { 
           opacity: 1, 
           y: 0, 
-          duration: 1, 
+          duration: 0.5, 
           delay: 0.5,
           scrollTrigger: { trigger: '.skills-bento-section', start: 'top 70%' }
         }
@@ -34,7 +34,7 @@ export function Skills() {
     <section id="habilidades" ref={sectionRef} className="skills-bento-section">
       <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" particles={6} />
       
-      <div className="container relative z-10" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="container">
         <SectionTitle title="Habilidades" />
         
         <BentoGrid skills={skills} />

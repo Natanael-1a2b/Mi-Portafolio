@@ -3,11 +3,12 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
-  background: rgba(5, 8, 22, 0.85);
+  z-index: var(--z-modal);
+  background: color-mix(in srgb, var(--bg-dark) 85%, transparent);
   backdrop-filter: blur(16px);
   padding: 20px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: env(safe-area-inset-top, 20px);
+  border-bottom: 1px solid var(--border-glass);
   box-shadow: 0 1px 0 rgba(59, 130, 246, 0.10), 0 5px 40px rgba(59, 130, 246, 0.08);
   transition: all 0.4s ease;
 
@@ -38,7 +39,7 @@
 .nav-link {
   color: var(--text-muted);
   font-weight: 500;
-  padding: 8px 16px;
+  padding: 14px 16px;
   border-radius: var(--radius-sm);
   transition: all 0.3s ease;
   font-size: 0.95rem;
@@ -54,7 +55,11 @@
   display: none;
   flex-direction: column;
   gap: 5px;
-  padding: 4px;
+  padding: 14px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
 
   span {
     display: block;
@@ -95,7 +100,7 @@
     pointer-events: none;
     transform: translateY(-20px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 999;
+    z-index: calc(var(--z-modal) - 1);
 
     &.open {
       opacity: 1;
@@ -107,7 +112,7 @@
   .hamburger {
     display: flex;
     position: relative;
-    z-index: 1000;
+    z-index: var(--z-modal);
     border: none;
     background: transparent;
     cursor: pointer;
@@ -115,7 +120,7 @@
 
   .navbar-brand {
     position: relative;
-    z-index: 1000;
+    z-index: var(--z-modal);
   }
 
   .nav-link {
