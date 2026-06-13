@@ -1,0 +1,14 @@
+{
+  "name": "Portafolio | Claudio N. Beltre R.",
+  "short_name": "CNB Portfolio",
+  "description": "Portafolio profesional de Claudio Natanael Beltre — desarrollador de software Full Stack",
+  "start_url": "/Mi-Portafolio/",
+  "display": "standalone",
+  "background_color": "#050816",
+  "theme_color": "#3B82F6",
+  "icons": [
+    { "src": "/Mi-Portafolio/assets/icons/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/Mi-Portafolio/assets/icons/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/Mi-Portafolio/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
