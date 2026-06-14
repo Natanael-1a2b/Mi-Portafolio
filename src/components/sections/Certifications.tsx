@@ -7,6 +7,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
 gsap.registerPlugin(ScrollTrigger)
 
 export function Certifications() {
@@ -17,13 +24,9 @@ export function Certifications() {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.fromTo('.cert-thumb-grid',
-        { x: -50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.4, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
-      )
-      gsap.fromTo('.cert-preview',
-        { x: 50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.4, delay: 0.15, clearProps: "all", scrollTrigger: { trigger: '.cert-split-layout', start: 'top 85%', once: true } }
+      gsap.fromTo('.cert-carousel-wrapper',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, clearProps: "all", scrollTrigger: { trigger: '.cert-carousel-wrapper', start: 'top 85%', once: true } }
       )
     }, sectionRef)
     return () => ctx.revert()
@@ -37,39 +40,41 @@ export function Certifications() {
       <div className="container">
         <SectionTitle title="Certificaciones" />
         
-        <div className="cert-split-layout">
-          {/* Left Column: Interactive Thumbnail Grid */}
-          <div className="cert-thumb-grid">
-            {certifications.map((cert, i) => (
-              <div
-                key={cert.id}
-                className={`cert-thumb-item ${i === current ? 'active' : ''}`}
-                onClick={() => setCurrent(i)}
-              >
-                <img src={asset(cert.image)} alt={cert.title} width={200} height={140} loading="lazy" decoding="async" />
-                <div className="cert-thumb-overlay">
-                  Ver Certificado
-                </div>
-              </div>
+        <div className="cert-carousel-wrapper">
+          <Swiper
+            effect={'coverflow'}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            coverflowEffect={{
+              rotate: 40,
+              stretch: 0,
+              depth: 150,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            pagination={{ clickable: true }}
+            navigation={true}
+            modules={[EffectCoverflow, Pagination, Navigation]}
+            onSlideChange={(swiper) => setCurrent(swiper.activeIndex)}
+            className="cert-swiper"
+            aria-label="Galería de certificaciones"
+          >
+            {certifications.map((cert) => (
+              <SwiperSlide key={cert.id} className="cert-slide">
+                <img 
+                  src={asset(cert.image)} 
+                  alt={cert.title} 
+                  loading="lazy" 
+                  decoding="async" 
+                />
+              </SwiperSlide>
             ))}
-          </div>
-
-          {/* Right Column: Sticky Preview Panel */}
-          <div className="cert-preview">
-            <div className="cert-preview-img-wrapper">
-              <img
-                src={asset(activeCert.image)}
-                alt={activeCert.title}
-                width={400}
-                height={280}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div className="cert-preview-info">
-              <h3>{activeCert.title}</h3>
-              <p>{activeCert.issuer}</p>
-            </div>
+          </Swiper>
+          
+          <div className="cert-info-below">
+            <h3>{activeCert?.title}</h3>
+            <p>{activeCert?.issuer}</p>
           </div>
         </div>
         

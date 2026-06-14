@@ -126,6 +126,8 @@
     position: relative;
     transition: color 0.3s;
     font-weight: 500;
+    padding: 0.5rem;
+    margin: -0.5rem;
 
     &::after {
       content: "";

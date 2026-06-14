@@ -116,10 +116,10 @@ export function Contact() {
         setFieldErrors({})
         setAlert({ type: 'success', message: '✓ Mensaje enviado correctamente' })
       } else {
-        setAlert({ type: 'error', message: '✕ Error al enviar el mensaje' })
+        setAlert({ type: 'error', message: '✕ Error al enviar. Por favor, contáctame vía LinkedIn o correo directamente.' })
       }
     } catch {
-      setAlert({ type: 'error', message: '✕ Error al enviar el mensaje' })
+      setAlert({ type: 'error', message: '✕ Error al enviar. Por favor, contáctame vía LinkedIn o correo directamente.' })
     } finally {
       setSending(false)
     }

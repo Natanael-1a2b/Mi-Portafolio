@@ -36,7 +36,7 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
     effectiveParticles = particles ?? 6
     effectiveDots = withDots ?? true
     effectiveScanLines = withScanLines ?? true
-    effectiveGlow = glowPosition !== 'none' ? glowPosition : 'split' // rings will also be shown
+    effectiveGlow = 'none'
   } else if (variant === 'projects') {
     effectiveParticles = particles ?? 4
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
@@ -58,14 +58,7 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
       {effectiveDots && <div className="bg-pattern-dots"></div>}
       {effectiveScanLines && <div className="scan-lines"></div>}
 
-      {/* Rings (specific to 'about' variant for now) */}
-      {variant === 'about' && (
-        <>
-          <div className="decorative-ring ring-1"></div>
-          <div className="decorative-ring ring-2"></div>
-          <div className="decorative-ring ring-3"></div>
-        </>
-      )}
+
 
       {/* Glows */}
       {!prefersReduced && (
