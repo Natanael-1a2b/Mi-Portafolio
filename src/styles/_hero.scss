@@ -410,7 +410,10 @@
     grid-row: auto;
     order: 2;
     min-height: auto;
+    gap: 0.25rem;
   }
+
+  .hero-img-wrapper { animation: none; }
 
   .hero-badge-top {
     grid-column: 1;
@@ -450,7 +453,7 @@
   .floating-badge .badge-info strong { font-size: 0.75rem; }
   .floating-badge .badge-info span { font-size: 0.6rem; }
 
-  .stats-container { gap: 1.2rem; padding: 1rem 1.5rem; margin-top: -0.5rem; }
+  .stats-container { gap: 1.2rem; padding: 1rem 1.5rem; margin-top: 0; }
   .stat-number { font-size: 1.4rem; }
   .stat-label { font-size: 0.7rem; letter-spacing: 0.5px; }
   .stat-separator { height: 30px; }
@@ -489,10 +492,12 @@
   .floating-badge .badge-info strong { font-size: 0.65rem; }
   .floating-badge .badge-info span { font-size: 0.55rem; }
 
-  .stats-container { gap: 1rem; padding: 1rem 1.2rem; flex-wrap: wrap; justify-content: center; }
+  .stats-container { gap: 1rem; padding: 1rem 1.2rem; margin-top: 0; flex-wrap: wrap; justify-content: center; }
   .stat-number { font-size: 1.2rem; }
   .stat-label { font-size: 0.65rem; }
   .stat-separator { height: 25px; }
+
+  .hero-img-wrapper { animation: none; }
 
   .tech-container { margin-top: 1.5rem; }
   .tech-logo-item { padding: 6px 10px; gap: 6px; }

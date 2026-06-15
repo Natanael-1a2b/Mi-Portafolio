@@ -8,8 +8,8 @@
 }
 
 section {
-  padding: clamp(4rem, 8vw, 6rem) 0;
-  padding-bottom: calc(clamp(4rem, 8vw, 6rem) + env(safe-area-inset-bottom, 0px));
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  padding-bottom: calc(clamp(3rem, 6vw, 4.5rem) + env(safe-area-inset-bottom, 0px));
   position: relative;
   z-index: var(--z-base);
 }

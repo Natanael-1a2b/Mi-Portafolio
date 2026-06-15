@@ -46,7 +46,12 @@ export function GitHubStats() {
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
         <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
         <div className="container">
-          <SectionTitle title="GitHub & Actividad" />
+          <SectionTitle 
+            badge="CÓDIGO ABIERTO"
+            title="GitHub & "
+            gradientTitle="Actividad"
+            subtitle="Mi contribución y estadísticas en la comunidad."
+          />
           <div className="gh-dashboard">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="gh-card gh-card-languages" style={{ minHeight: '250px' }}>
@@ -64,7 +69,12 @@ export function GitHubStats() {
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
         <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
           <div className="container">
-            <SectionTitle title="GitHub & Actividad" />
+            <SectionTitle 
+              badge="CÓDIGO ABIERTO"
+              title="GitHub & "
+              gradientTitle="Actividad"
+              subtitle="Mi contribución y estadísticas en la comunidad."
+            />
             <div className="gh-stats-error-box glass-card">
             <p>No se pudieron cargar las estadísticas</p>
           </div>
@@ -93,14 +103,19 @@ export function GitHubStats() {
     <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
       <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
       <div className="container">
-        <SectionTitle title="GitHub & Actividad" />
+        <SectionTitle 
+          badge="CÓDIGO ABIERTO"
+          title="GitHub & "
+          gradientTitle="Actividad"
+          subtitle="Mi contribución y estadísticas en la comunidad."
+        />
 
         <div className="gh-dashboard">
           {/* Row 1: Profile & Chart */}
           <div className="gh-card gh-card-profile">
             <div className="gh-profile-header">
               <div className="gh-profile-avatar">
-                <img src={user.avatar_url || `https://github.com/${githubConfig.username}.png`} alt={user.name || githubConfig.username} width={80} height={80} />
+                <img src={user.avatar_url || `https://github.com/${githubConfig.username}.png`} alt={user.name || githubConfig.username} width={80} height={80} loading="lazy" />
               </div>
               <div className="gh-profile-info">
                 <h3>{user.name || githubConfig.username}</h3>
@@ -139,7 +154,7 @@ export function GitHubStats() {
           <div className="gh-card gh-card-chart">
             <div className="gh-card-title">Contribuciones en el último mes</div>
             {/* Usando GitHub Readme Activity Graph */}
-            <img src={`https://github-readme-activity-graph.vercel.app/graph?username=${githubConfig.username}&bg_color=00000000&color=a855f7&line=6366f1&point=fff&area=true&hide_border=true&hide_title=true`} alt="Activity Graph" title="Gráfico de contribuciones del último mes" />
+            <img src={`https://github-readme-activity-graph.vercel.app/graph?username=${githubConfig.username}&bg_color=00000000&color=a855f7&line=6366f1&point=fff&area=true&hide_border=true&hide_title=true`} alt="Activity Graph" title="Gráfico de contribuciones del último mes" loading="lazy" />
           </div>
 
           {/* Row 2: Summary Stats & Streak */}
@@ -199,7 +214,7 @@ export function GitHubStats() {
           <div className="gh-card gh-card-calendar">
             <div className="gh-card-title">Calendario de contribuciones</div>
             <div className="gh-calendar-wrapper">
-              <img src={`https://ghchart.rshah.org/${githubConfig.username}`} alt="GitHub Contribution Calendar" title="Calendario anual de contribuciones" />
+              <img src={`https://ghchart.rshah.org/${githubConfig.username}`} alt="GitHub Contribution Calendar" title="Calendario anual de contribuciones" loading="lazy" />
             </div>
           </div>
 

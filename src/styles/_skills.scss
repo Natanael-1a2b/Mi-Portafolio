@@ -765,7 +765,8 @@
     z-index: 1;
   }
 
-  @include respond(xs) { padding: 1.5rem; }
+  @include respond(tb) { padding: 1.5rem; }
+  @include respond(sm) { padding: 1.25rem 1rem; }
 }
 
 .skill-detail-close {
@@ -800,7 +801,7 @@
   align-items: center;
   gap: 1.15rem;
 
-  @include respond(xs) {
+  @include respond(tb) {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -843,6 +844,13 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  @include respond(tb) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
 }
 
 .skill-detail-projects-label {
@@ -859,6 +867,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
+  @include respond(tb) {
+    justify-content: center;
+  }
 }
 
 .skill-detail-project-badge {
@@ -880,9 +892,6 @@
   }
 }
 
-@include respond(xs) {
-  .skill-detail-card { padding: 1.25rem; }
-}
 
 /* ── Skills Grid ── */
 .skills-category-grid {

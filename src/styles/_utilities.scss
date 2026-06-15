@@ -39,39 +39,61 @@
   z-index: 10;
 }
 
-/* Section Title (reusable) */
+/* Section Title (Advanced reusable) */
 .section-title {
-  position: relative;
-  margin-bottom: clamp(2rem, 5vw, 4rem);
   text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
 
-  h2 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    display: inline-block;
-    @include gradient-text(var(--text-main) 30%, var(--text-light));
-    letter-spacing: -1px;
-  }
+  @include respond(xl) { margin-bottom: 1.5rem; }
+  @include respond(tb) { margin-bottom: 1.25rem; }
+  @include respond(sm) { margin-bottom: 1rem; }
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--neon-violet));
-    border-radius: 2px;
-    opacity: 0.8;
-  }
+.section-badge {
+  display: inline-flex;
+  padding: 6px 20px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--accent);
+  background: rgba(0, 191, 255, 0.08);
+  border: 1px solid rgba(0, 191, 255, 0.2);
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
 
-  @include respond(tb) {
-    h2 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
-  }
-  @include respond(md) {
-    h2 { font-size: 1.8rem; }
-  }
+  @include respond(tb) { font-size: 0.65rem; padding: 4px 14px; margin-bottom: 0.6rem; }
+  @include respond(sm) { font-size: 0.55rem; padding: 3px 10px; letter-spacing: 1.5px; margin-bottom: 0.4rem; }
+}
+
+.section-title-main {
+  font-size: clamp(2.4rem, 8vw, 3.2rem);
+  font-weight: 900;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+  line-height: 1.1;
+
+  @include respond(lg) { font-size: clamp(2rem, 7vw, 2.6rem); }
+  @include respond(sm) { font-size: clamp(1.4rem, 5vw, 1.7rem); margin-bottom: 0.25rem; }
+}
+
+.section-gradient {
+  @include gradient-text(var(--accent), var(--neon-violet));
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+  font-weight: 400;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include respond(sm) { font-size: 0.8rem; }
 }
 
 /* Status Dot (reusable) */
@@ -120,5 +142,22 @@
     radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 25%),
     radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 25%);
   z-index: -1;
-  animation: pulse-glow 10s infinite alternate;
+}
+
+/* Performance Optimizations for Mobile */
+@include respond(tb) {
+  /* Reduce heavy backdrop filters to improve GPU performance */
+  .glass-card,
+  .navbar,
+  .category-card,
+  .project-card,
+  .skill-detail-card,
+  .cert-slide,
+  .gh-card,
+  .exp-card,
+  .about-left,
+  .info-card {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
 }

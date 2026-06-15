@@ -129,7 +129,12 @@ export function Contact() {
     <section id="contacto" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
       <SectionAtmosphere variant="contact" />
       <div className="container">
-        <SectionTitle title="Contacto" />
+        <SectionTitle 
+          badge="HABLEMOS"
+          title="Ponte en "
+          gradientTitle="Contacto"
+          subtitle="¿Tienes un proyecto en mente? Escríbeme."
+        />
         <div className="contact-wrapper">
           <GlassCard className="contact-form">
             {alert && (

@@ -68,7 +68,12 @@ export function Projects() {
     <section id="proyectos" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
       <SectionAtmosphere variant="projects" />
       <div className="container">
-        <SectionTitle title="Proyectos Destacados" />
+        <SectionTitle 
+          badge="PORTAFOLIO"
+          title="Proyectos "
+          gradientTitle="Destacados"
+          subtitle="Una selección de mis mejores trabajos."
+        />
         <div className="projects-grid">
           {projects.map((proj) => (
             <div
@@ -87,7 +92,7 @@ export function Projects() {
                     En Producción
                   </div>
                 )}
-                <img src={asset(proj.image)} alt="" className="project-img-blur" aria-hidden="true" width={600} height={400} />
+                <img src={asset(proj.image)} alt="" className="project-img-blur" aria-hidden="true" width={600} height={400} loading="lazy" />
                 <img 
                   src={asset(proj.image)} 
                   alt={proj.title} 

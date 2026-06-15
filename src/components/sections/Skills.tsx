@@ -35,7 +35,12 @@ export function Skills() {
       <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" particles={6} />
       
       <div className="container">
-        <SectionTitle title="Habilidades" />
+        <SectionTitle 
+          badge="CAPACIDADES"
+          title="Mis "
+          gradientTitle="Habilidades"
+          subtitle="Tecnologías y herramientas que domino."
+        />
         
         <BentoGrid skills={skills} />
       </div>

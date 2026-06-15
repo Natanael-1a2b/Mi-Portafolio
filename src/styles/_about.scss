@@ -1,7 +1,6 @@
 .about-section {
   position: relative;
   overflow: hidden;
-  padding-top: 2.5rem;
 }
 
 .about-grid {
@@ -497,5 +496,40 @@
 
       &::after { transform: scaleX(1); }
     }
+  }
+}
+
+@include respond(tb) {
+  .info-card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  
+  .info-card-rule {
+    margin: 0 auto;
+  }
+
+  .info-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .info-content {
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+}
+
+@include respond(sm) {
+  .info-card {
+    padding: 1.25rem;
+  }
+  
+  .info-item {
+    padding: 1rem 0.5rem;
   }
 }

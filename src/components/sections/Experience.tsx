@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { asset } from '../../utils/asset'
 import { skills } from '../../data/skills'
 import { LiveBadge } from '../ui/LiveBadge'
+import { SectionTitle } from '../ui/SectionTitle'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -110,13 +111,12 @@ export function Experience() {
       <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" particles={5} />
       <div className="container">
         {/* Title */}
-        <div className="exp-title-wrapper">
-          <div className="exp-title-badge">TRAYECTORIA</div>
-          <h2 className="exp-section-title">
-            Experiencia <span className="exp-title-gradient">Laboral</span>
-          </h2>
-          <p className="exp-subtitle">Mi trayectoria profesional.</p>
-        </div>
+        <SectionTitle 
+          badge="TRAYECTORIA"
+          title="Experiencia "
+          gradientTitle="Laboral"
+          subtitle="Mi trayectoria profesional."
+        />
 
         <div className="timeline">
           <div className="timeline-line" />

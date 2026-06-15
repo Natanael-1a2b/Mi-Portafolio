@@ -115,7 +115,12 @@ export function About() {
         {/* 2. Título Principal con Halo */}
         <div className="about-title-wrapper">
           <div className="title-halo"></div>
-          <SectionTitle title="Sobre Mí" />
+          <SectionTitle 
+            badge="CONÓCEME"
+            title="Sobre "
+            gradientTitle="Mí"
+            subtitle="Un poco de mi historia y mi pasión por el código."
+          />
         </div>
         <div className="about-grid">
           <div className="about-left">

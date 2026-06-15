@@ -38,7 +38,12 @@ export function Certifications() {
     <section id="certificaciones" ref={sectionRef} style={{ background: 'rgba(10,10,18,0.5)', position: 'relative' }}>
       <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
       <div className="container">
-        <SectionTitle title="Certificaciones" />
+        <SectionTitle 
+          badge="LOGROS"
+          title="Mis "
+          gradientTitle="Certificaciones"
+          subtitle="Validaciones de mis conocimientos y habilidades."
+        />
         
         <div className="cert-carousel-wrapper">
           <Swiper
