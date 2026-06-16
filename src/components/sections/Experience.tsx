@@ -108,7 +108,7 @@ export function Experience() {
 
   return (
     <section id="experiencia" ref={sectionRef} className="experience-section section-alt" style={{ position: 'relative' }}>
-      <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" />
+      <SectionAtmosphere />
       <div className="container">
         {/* Title */}
         <SectionTitle 

@@ -109,7 +109,7 @@ export function About() {
   return (
     <section id="sobre-mi" ref={sectionRef} className="section-alt about-section premium-glass">
       {/* 1. Fondo & Atmósfera */}
-      <SectionAtmosphere variant="about" />
+      <SectionAtmosphere />
 
       <div className="container">
         {/* 2. Título Principal con Halo */}

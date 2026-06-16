@@ -44,7 +44,7 @@ export function GitHubStats() {
   if (loading) {
     return (
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
-        <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+        <SectionAtmosphere />
         <div className="container">
           <SectionTitle 
             badge="CÓDIGO ABIERTO"
@@ -67,7 +67,7 @@ export function GitHubStats() {
   if (error || !data) {
     return (
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
-        <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+        <SectionAtmosphere />
           <div className="container">
             <SectionTitle 
               badge="CÓDIGO ABIERTO"
@@ -101,7 +101,7 @@ export function GitHubStats() {
 
   return (
     <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
-      <SectionAtmosphere variant="minimal" withScanLines={true} glowPosition="none" />
+      <SectionAtmosphere />
       <div className="container">
         <SectionTitle 
           badge="CÓDIGO ABIERTO"

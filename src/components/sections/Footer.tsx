@@ -42,7 +42,7 @@ export function Footer() {
 
   return (
     <footer ref={footerRef} className="footer-custom" style={{ position: 'relative' }}>
-      <SectionAtmosphere variant="contact" />
+      <SectionAtmosphere variant="footer" />
       <div className="container">
         {/* TOP */}
         <div className="footer-top">

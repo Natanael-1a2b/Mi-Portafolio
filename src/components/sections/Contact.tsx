@@ -127,7 +127,7 @@ export function Contact() {
 
   return (
     <section id="contacto" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
-      <SectionAtmosphere variant="contact" />
+      <SectionAtmosphere />
       <div className="container">
         <SectionTitle 
           badge="HABLEMOS"

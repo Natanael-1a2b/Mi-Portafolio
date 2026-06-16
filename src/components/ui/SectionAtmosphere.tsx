@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
-export type AtmosphereVariant = 'hero' | 'about' | 'projects' | 'minimal' | 'contact' | 'dark'
+export type AtmosphereVariant = 'hero' | 'footer' | 'base'
 
 export interface SectionAtmosphereProps {
   variant?: AtmosphereVariant
@@ -12,7 +12,7 @@ export interface SectionAtmosphereProps {
 }
 
 export const SectionAtmosphere = memo(function SectionAtmosphere({
-  variant = 'dark',
+  variant = 'base',
   withDots,
   withScanLines,
   glowPosition = 'none',
@@ -27,17 +27,14 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
   if (variant === 'hero') {
     effectiveDots = withDots ?? true
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'split'
-  } else if (variant === 'about') {
-    effectiveDots = withDots ?? true
-    effectiveScanLines = withScanLines ?? true
-    effectiveGlow = 'none'
-  } else if (variant === 'projects') {
-    effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
-  } else if (variant === 'minimal') {
-    effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
-  } else if (variant === 'contact') {
+  } else if (variant === 'footer') {
     effectiveDots = withDots ?? true
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'bottom-right'
+  } else {
+    // Unified Base style for all other sections
+    effectiveDots = withDots ?? true
+    effectiveScanLines = withScanLines ?? false
+    effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
   }
 
   return (

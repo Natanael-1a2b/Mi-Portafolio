@@ -66,7 +66,7 @@ export function Projects() {
 
   return (
     <section id="proyectos" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
-      <SectionAtmosphere variant="projects" />
+      <SectionAtmosphere />
       <div className="container">
         <SectionTitle 
           badge="PORTAFOLIO"
