@@ -60,39 +60,51 @@ async function main() {
     
     if (TOKEN) {
       try {
-        const graphqlQuery = {
-          query: `query {
-            user(login: "${USERNAME}") {
-              createdAt
-              contributionsCollection(from: "${user.created_at}", to: "${new Date().toISOString()}") {
-                contributionCalendar { totalContributions }
-                totalCommitContributions
-                totalPullRequestContributions
-                totalIssueContributions
-                totalPullRequestReviewContributions
+        const startYear = new Date(user.created_at).getFullYear();
+        const currentYear = new Date().getFullYear();
+        
+        for (let year = startYear; year <= currentYear; year++) {
+          const fromDate = year === startYear ? user.created_at : `${year}-01-01T00:00:00Z`;
+          // Si estamos en el año actual, hasta hoy, sino hasta fin de año
+          const isCurrentYear = year === currentYear;
+          const toDate = isCurrentYear ? new Date().toISOString() : `${year}-12-31T23:59:59Z`;
+
+          const graphqlQuery = {
+            query: `query {
+              user(login: "${USERNAME}") {
+                contributionsCollection(from: "${fromDate}", to: "${toDate}") {
+                  contributionCalendar { totalContributions }
+                  totalCommitContributions
+                  totalPullRequestContributions
+                  totalIssueContributions
+                  totalPullRequestReviewContributions
+                }
               }
+            }`
+          };
+          const graphqlRes = await fetch('https://api.github.com/graphql', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${TOKEN}`, 'User-Agent': 'github-stats-fetcher' },
+            body: JSON.stringify(graphqlQuery),
+          });
+          if (graphqlRes.ok) {
+            const graphqlData = await graphqlRes.json();
+            if (graphqlData.errors) {
+              throw new Error(graphqlData.errors[0].message);
             }
-          }`
-        };
-        const graphqlRes = await fetch('https://api.github.com/graphql', {
-          method: 'POST',
-          headers: { 'Authorization': `Bearer ${TOKEN}`, 'User-Agent': 'github-stats-fetcher' },
-          body: JSON.stringify(graphqlQuery),
-        });
-        if (graphqlRes.ok) {
-          const graphqlData = await graphqlRes.json();
-          const cc = graphqlData.data?.user?.contributionsCollection;
-          if (cc) {
-            totalContributions = cc.contributionCalendar.totalContributions;
-            totalCommits = cc.totalCommitContributions;
-            totalPRs = cc.totalPullRequestContributions;
-            totalIssues = cc.totalIssueContributions;
-            totalReviews = cc.totalPullRequestReviewContributions;
-            console.log(`✅ GraphQL: ${totalContributions} contribuciones totales (${totalCommits} commits, ${totalPRs} PRs, ${totalIssues} issues, ${totalReviews} reviews)`);
+            const cc = graphqlData.data?.user?.contributionsCollection;
+            if (cc) {
+              totalContributions += cc.contributionCalendar.totalContributions;
+              totalCommits += cc.totalCommitContributions;
+              totalPRs += cc.totalPullRequestContributions;
+              totalIssues += cc.totalIssueContributions;
+              totalReviews += cc.totalPullRequestReviewContributions;
+            }
+          } else {
+            throw new Error(`GraphQL error: ${graphqlRes.status}`);
           }
-        } else {
-          throw new Error(`GraphQL error: ${graphqlRes.status}`);
         }
+        console.log(`✅ GraphQL: ${totalContributions} contribuciones totales (${totalCommits} commits, ${totalPRs} PRs, ${totalIssues} issues, ${totalReviews} reviews)`);
       } catch (e) {
         console.warn('⚠️ GraphQL falló, usando Search API como fallback...', e.message);
         // Fallback a Search API

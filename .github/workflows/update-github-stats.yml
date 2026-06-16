@@ -23,6 +23,7 @@ jobs:
       - name: Fetch GitHub Stats
         env:
           GH_PAT: ${{ secrets.PORTFOLIO_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/fetch-github-stats.js
 
       - name: Deploy Stats to Orphan Branch
