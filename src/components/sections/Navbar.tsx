@@ -5,12 +5,26 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+  const [isHidden, setIsHidden] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll)
+    let lastScrollY = window.scrollY
+
+    const onScroll = () => {
+      const currentScrollY = window.scrollY
+      setScrolled(currentScrollY > 50)
+
+      if (currentScrollY > lastScrollY && currentScrollY > 150 && !menuOpen) {
+        setIsHidden(true)
+      } else {
+        setIsHidden(false)
+      }
+      lastScrollY = currentScrollY
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [menuOpen])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,7 +57,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${isHidden ? 'hidden' : ''}`}>
       <div className="container">
         <a
           href="#inicio"
