@@ -56,7 +56,9 @@ export interface GitHubStatsResult {
 
 export async function fetchGitHubData(): Promise<GitHubStatsResult | null> {
   try {
-    const response = await fetch(githubConfig.dataUrl)
+    // Add a cache buster to prevent the browser from caching old JSON data (which might contain 0s)
+    const fetchUrl = `${githubConfig.dataUrl}?t=${Date.now()}`
+    const response = await fetch(fetchUrl)
     if (!response.ok) {
       throw new Error('No se pudo obtener el JSON estático')
     }
