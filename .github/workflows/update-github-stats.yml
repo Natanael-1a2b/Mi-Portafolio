@@ -23,7 +23,6 @@ jobs:
       - name: Fetch GitHub Stats
         env:
           GH_PAT: ${{ secrets.PORTFOLIO_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/fetch-github-stats.js
 
       - name: Deploy Stats to Orphan Branch
@@ -35,4 +34,4 @@ jobs:
           git checkout -b github-stats-data
           git add github-stats.json
           git commit -m "Automated update of GitHub stats [skip ci]"
-          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" github-stats-data --force
+          git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" github-stats-data --force
