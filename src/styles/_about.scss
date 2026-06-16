@@ -226,53 +226,6 @@
   animation-delay: -5s;
 }
 
-.floating-particles {
-  position: absolute;
-  inset: 0;
-}
-
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: var(--text-main);
-  border-radius: 50%;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-  opacity: 0;
-  animation: particle-rise 10s infinite linear;
-}
-
-.p1 { left: 10%; bottom: -5%; animation-duration: 12s; animation-delay: 1s; }
-.p2 { left: 30%; bottom: -5%; animation-duration: 15s; animation-delay: 4s; }
-.p3 { left: 60%; bottom: -5%; animation-duration: 11s; animation-delay: 2s; }
-.p4 { left: 80%; bottom: -5%; animation-duration: 14s; animation-delay: 6s; }
-.p5 { left: 90%; bottom: -5%; animation-duration: 13s; animation-delay: 0s; }
-.p6 {
-  left: 20%; bottom: -5%; width: 2px; height: 2px;
-  background: #60A5FA; box-shadow: 0 0 8px 2px rgba(96, 165, 250, 0.6);
-  animation-name: particle-drift; animation-duration: 16s; animation-delay: 3s;
-}
-.p7 {
-  left: 45%; bottom: -5%; width: 4px; height: 4px;
-  background: #A78BFA; box-shadow: 0 0 12px 3px rgba(167, 139, 250, 0.5);
-  animation-duration: 18s; animation-delay: 7s;
-}
-.p8 {
-  left: 70%; bottom: -5%; width: 2px; height: 2px;
-  background: #22D3EE; box-shadow: 0 0 8px 2px rgba(34, 211, 238, 0.5);
-  animation-name: particle-drift; animation-duration: 14s; animation-delay: 1.5s;
-}
-.p9 {
-  left: 50%; bottom: -5%; width: 3px; height: 3px;
-  background: #60A5FA; box-shadow: 0 0 10px 2px rgba(96, 165, 250, 0.5);
-  animation-duration: 17s; animation-delay: 5s;
-}
-.p10 {
-  left: 5%; bottom: -5%; width: 2px; height: 2px;
-  background: #A78BFA; box-shadow: 0 0 8px 2px rgba(167, 139, 250, 0.4);
-  animation-name: particle-drift; animation-duration: 20s; animation-delay: 8s;
-}
-
 .tech-badge {
   position: relative;
   display: inline-block;

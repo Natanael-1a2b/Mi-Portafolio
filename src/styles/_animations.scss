@@ -55,20 +55,6 @@
   }
 }
 
-@keyframes particle-rise {
-  0% { transform: translateY(0); opacity: 0; }
-  20% { opacity: 0.5; }
-  80% { opacity: 0.5; }
-  100% { transform: translateY(-100vh); opacity: 0; }
-}
-
-@keyframes particle-drift {
-  0% { transform: translate(0, 0); opacity: 0; }
-  15% { opacity: 0.6; }
-  85% { opacity: 0.6; }
-  100% { transform: translate(30px, -100vh); opacity: 0; }
-}
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }

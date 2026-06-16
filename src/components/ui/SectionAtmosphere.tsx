@@ -5,7 +5,6 @@ export type AtmosphereVariant = 'hero' | 'about' | 'projects' | 'minimal' | 'con
 
 export interface SectionAtmosphereProps {
   variant?: AtmosphereVariant
-  particles?: number // 0 to 10
   withDots?: boolean
   withScanLines?: boolean
   glowPosition?: 'top-left' | 'center' | 'bottom-right' | 'split' | 'none'
@@ -14,7 +13,6 @@ export interface SectionAtmosphereProps {
 
 export const SectionAtmosphere = memo(function SectionAtmosphere({
   variant = 'dark',
-  particles,
   withDots,
   withScanLines,
   glowPosition = 'none',
@@ -22,45 +20,31 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
 }: SectionAtmosphereProps) {
   const prefersReduced = usePreferredMotion()
 
-  // Apply default props based on variant if not explicitly provided
-  let effectiveParticles: number = particles ?? 0
   let effectiveDots: boolean = withDots ?? false
   let effectiveScanLines: boolean = withScanLines ?? false
   let effectiveGlow: string = glowPosition
 
   if (variant === 'hero') {
-    effectiveParticles = particles ?? 10
     effectiveDots = withDots ?? true
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'split'
   } else if (variant === 'about') {
-    effectiveParticles = particles ?? 6
     effectiveDots = withDots ?? true
     effectiveScanLines = withScanLines ?? true
     effectiveGlow = 'none'
   } else if (variant === 'projects') {
-    effectiveParticles = particles ?? 4
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
   } else if (variant === 'minimal') {
-    effectiveParticles = particles ?? 0
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
   } else if (variant === 'contact') {
-    effectiveParticles = particles ?? 5
     effectiveDots = withDots ?? true
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'bottom-right'
   }
-
-  // Optimize performance: don't render particles if reduced motion is preferred
-  const shouldRenderParticles = !prefersReduced && effectiveParticles > 0
-  const particlesArray = shouldRenderParticles ? Array.from({ length: Math.min(effectiveParticles, 10) }) : []
 
   return (
     <div className={`section-atmosphere ${className}`} aria-hidden="true">
       {effectiveDots && <div className="bg-pattern-dots"></div>}
       {effectiveScanLines && <div className="scan-lines"></div>}
 
-
-
-      {/* Glows */}
       {!prefersReduced && (
         <>
           {effectiveGlow === 'split' && (
@@ -88,15 +72,6 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
             <div className="glow-1" style={{ top: '-10%', left: '-10%', opacity: 0.5 }}></div>
           )}
         </>
-      )}
-
-      {/* Particles */}
-      {shouldRenderParticles && (
-        <div className="floating-particles">
-          {particlesArray.map((_, i) => (
-            <div key={i} className={`particle p${i + 1}`}></div>
-          ))}
-        </div>
       )}
     </div>
   )

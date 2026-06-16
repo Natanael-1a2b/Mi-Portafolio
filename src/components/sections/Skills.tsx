@@ -32,7 +32,7 @@ export function Skills() {
 
   return (
     <section id="habilidades" ref={sectionRef} className="skills-bento-section">
-      <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" particles={6} />
+      <SectionAtmosphere variant="dark" withDots={true} glowPosition="split" />
       
       <div className="container">
         <SectionTitle 
