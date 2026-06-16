@@ -28,11 +28,11 @@ export const SectionAtmosphere = memo(function SectionAtmosphere({
     effectiveDots = withDots ?? true
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'split'
   } else if (variant === 'footer') {
-    effectiveDots = withDots ?? true
+    effectiveDots = withDots ?? false
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'bottom-right'
   } else {
     // Unified Base style for all other sections
-    effectiveDots = withDots ?? true
+    effectiveDots = withDots ?? false
     effectiveScanLines = withScanLines ?? false
     effectiveGlow = glowPosition !== 'none' ? glowPosition : 'center'
   }
