@@ -305,7 +305,7 @@ export const skills: Skill[] = [
     iconType: 'local',
     description: 'Agente de IA open-source nativo de terminal.',
     detailedDescription: 'OpenCode es un agente de codificación open-source que opera directamente desde la terminal. Analiza el proyecto completo, edita archivos, ejecuta comandos y planifica tareas multi-paso con soporte para múltiples LLMs. Lo uso como alternativa ágil para desarrollo asistido por IA sin salir de la línea de comandos.',
-    color: '#828181',
+    color: '#ffffff',
     size: 'md',
     relatedProjectIds: [],
   },
