@@ -162,10 +162,7 @@ export function Hero() {
             <div className="hero-img-wrapper">
               <div className="hero-img">
                 <div className="neon-ring"></div>
-                <picture>
-                  <source srcSet={asset('/assets/images/hero-profile-nobg.webp')} type="image/webp" />
-                  <img src={asset('/assets/images/hero-profile-nobg.png')} alt="Claudio Natanael Beltre" width={400} height={533} loading="eager" />
-                </picture>
+                <img src={asset('/assets/images/hero-profile-nobg.webp')} alt="Claudio Natanael Beltre" width={400} height={533} loading="eager" />
 
                 <div className="floating-badge badge-1 glass-panel">
                   <div className="badge-icon">
@@ -241,7 +238,7 @@ export function Hero() {
               </div>
               <div className="stat-separator"></div>
               <div className="stat-item">
-                <span className="stat-number">3</span>
+                <span className="stat-number">4</span>
                 <span className="stat-label">Apps en producción</span>
               </div>
             </div>

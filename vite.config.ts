@@ -8,4 +8,11 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin'],
+      },
+    },
+  },
 })

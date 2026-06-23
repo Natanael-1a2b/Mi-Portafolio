@@ -13,7 +13,7 @@
   <rect x="440" y="40" width="320" height="320" rx="80" fill="url(#brand)" opacity="0.15"/>
   <text x="600" y="300" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="160" font-weight="700" fill="url(#brand)" text-anchor="middle" letter-spacing="6">CNB</text>
   <text x="600" y="420" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="48" font-weight="300" fill="#94a3b8" text-anchor="middle" letter-spacing="8">PORTAFOLIO</text>
-  <text x="600" y="490" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="28" font-weight="400" fill="#64748b" text-anchor="middle">Ingeniería de Software &bull; Full Stack &bull; .NET</text>
+  <text x="600" y="490" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="28" font-weight="400" fill="#64748b" text-anchor="middle">Ingeniería de Software &#x2022; Full Stack &#x2022; .NET</text>
   <line x1="400" y1="520" x2="800" y2="520" stroke="url(#brand)" stroke-width="2" opacity="0.4"/>
   <text x="600" y="575" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="22" font-weight="400" fill="#475569" text-anchor="middle">Claudio N. Beltre R.</text>
 </svg>

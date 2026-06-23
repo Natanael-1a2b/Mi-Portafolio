@@ -1,3 +1,5 @@
+@use "sass:map";
+
 @mixin glass-panel($bg: 0.04, $blur: 16px, $border: 0.08) {
   background: rgba(255, 255, 255, $bg);
   backdrop-filter: blur($blur);
@@ -35,11 +37,11 @@
 }
 
 @mixin respond($bp) {
-  @media (max-width: map-get($breakpoints, $bp)) { @content; }
+  @media (max-width: map.get($breakpoints, $bp)) { @content; }
 }
 
 @mixin respond-min($bp) {
-  @media (min-width: map-get($breakpoints, $bp)) { @content; }
+  @media (min-width: map.get($breakpoints, $bp)) { @content; }
 }
 
 @mixin flex-center {
