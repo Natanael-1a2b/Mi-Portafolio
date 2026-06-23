@@ -233,7 +233,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Vercel es donde despliego mis proyectos frontend. Deploy automático desde Git, previews por branch, y edge functions. La experiencia de desarrollo es impecable.',
     color: '#ffffff',
     size: 'sm',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['gestor-pwa', 'jovenes-involucrados-2026'],
   },
   {
     id: 'antigravity',
@@ -296,6 +296,18 @@ export const skills: Skill[] = [
     color: '#ffffff',
     size: 'md',
     relatedProjectIds: ['gestor-pwa'],
+  },
+  {
+    id: 'opencode',
+    name: 'OpenCode',
+    category: 'ia',
+    icon: '/assets/icons/opencode-logo-light.svg',
+    iconType: 'local',
+    description: 'Agente de IA open-source nativo de terminal.',
+    detailedDescription: 'OpenCode es un agente de codificación open-source que opera directamente desde la terminal. Analiza el proyecto completo, edita archivos, ejecuta comandos y planifica tareas multi-paso con soporte para múltiples LLMs. Lo uso como alternativa ágil para desarrollo asistido por IA sin salir de la línea de comandos.',
+    color: '#828181',
+    size: 'md',
+    relatedProjectIds: [],
   },
 ]
 

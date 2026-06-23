@@ -29,3 +29,6 @@ skills-lock.json
 agent/
 # Playwright artifacts
 .playwright-mcp/
+
+# OpenCode
+.opencode/
