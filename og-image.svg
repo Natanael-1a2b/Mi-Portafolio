@@ -1,19 +1,83 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#050816"/>
-      <stop offset="100%" stop-color="#0A0F2E"/>
+    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#A855F7" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#050816" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="10%" cy="90%" r="60%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#050816" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="rgba(255,255,255,0.04)"/>
+    </pattern>
+    <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
     </linearGradient>
-    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#3B82F6"/>
-      <stop offset="100%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#00BFFF"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect x="440" y="40" width="320" height="320" rx="80" fill="url(#brand)" opacity="0.15"/>
-  <text x="600" y="300" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="160" font-weight="700" fill="url(#brand)" text-anchor="middle" letter-spacing="6">CNB</text>
-  <text x="600" y="420" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="48" font-weight="300" fill="#94a3b8" text-anchor="middle" letter-spacing="8">PORTAFOLIO</text>
-  <text x="600" y="490" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="28" font-weight="400" fill="#64748b" text-anchor="middle">Ingeniería de Software &bull; Full Stack &bull; .NET</text>
-  <line x1="400" y1="520" x2="800" y2="520" stroke="url(#brand)" stroke-width="2" opacity="0.4"/>
-  <text x="600" y="575" font-family="'Segoe UI','Poppins',Arial,sans-serif" font-size="22" font-weight="400" fill="#475569" text-anchor="middle">Claudio N. Beltre R.</text>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#050816"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Top Badge -->
+  <rect x="80" y="80" width="220" height="40" rx="20" fill="rgba(59, 130, 246, 0.15)" stroke="rgba(59, 130, 246, 0.3)" stroke-width="1"/>
+  <text x="190" y="105" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#60A5FA" text-anchor="middle" letter-spacing="2">PORTAFOLIO 2026</text>
+
+  <!-- Main Title -->
+  <text x="80" y="220" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="76" font-weight="800" fill="url(#text-grad)" letter-spacing="-1">Claudio N. Beltre</text>
+  <text x="80" y="300" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" fill="#FFFFFF" letter-spacing="-1">Software Engineer.</text>
+  
+  <text x="80" y="390" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="400" fill="#94A3B8">Transformando requerimientos complejos</text>
+  <text x="80" y="435" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="400" fill="#94A3B8">en soluciones robustas y escalables.</text>
+
+  <!-- Divider -->
+  <rect x="80" y="490" width="80" height="5" fill="url(#accent-grad)" rx="2.5"/>
+
+  <!-- Bottom Badges / Tech -->
+  <g transform="translate(80, 530)">
+    <rect x="0" y="0" width="130" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="65" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">.NET Core</text>
+
+    <rect x="145" y="0" width="110" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="200" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">React 19</text>
+
+    <rect x="270" y="0" width="130" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="335" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">Supabase</text>
+    
+    <rect x="415" y="0" width="140" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="485" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">Architecture</text>
+  </g>
+
+  <!-- Right Side Abstract Art (Glass Card) -->
+  <g transform="translate(780, 140)">
+    <!-- Main Glass Card -->
+    <rect x="0" y="0" width="340" height="380" rx="24" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+    <rect x="15" y="15" width="310" height="350" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)"/>
+    
+    <!-- Header points -->
+    <circle cx="45" cy="45" r="5" fill="#EF4444"/>
+    <circle cx="65" cy="45" r="5" fill="#F59E0B"/>
+    <circle cx="85" cy="45" r="5" fill="#10B981"/>
+
+    <!-- Code Lines Mockup -->
+    <rect x="45" y="90" width="200" height="10" rx="5" fill="#3B82F6" opacity="0.9"/>
+    <rect x="45" y="125" width="140" height="10" rx="5" fill="#A855F7" opacity="0.9"/>
+    <rect x="45" y="160" width="250" height="10" rx="5" fill="#06B6D4" opacity="0.9"/>
+    
+    <rect x="45" y="215" width="160" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
+    <rect x="45" y="250" width="230" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
+    <rect x="45" y="285" width="180" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
+    <rect x="45" y="320" width="120" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
+
+  </g>
+
 </svg>
