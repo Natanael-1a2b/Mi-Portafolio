@@ -85,10 +85,22 @@ export const skills: Skill[] = [
     detailedDescription: 'Supabase es mi alternativa serverless para proyectos frontend-first. Lo uso para autenticación, base de datos PostgreSQL en tiempo real, storage y row-level security. Es el backend que me permite enviar productos rápido sin sacrificar seguridad.',
     color: '#3ECF8E',
     size: 'md',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['gestor-pwa', 'ibcj'],
   },
 
   // ── Frontend ──
+  {
+    id: 'typescript',
+    name: 'TypeScript',
+    category: 'frontend',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    iconType: 'url',
+    description: 'Superset de JavaScript que añade tipado estático.',
+    detailedDescription: 'TypeScript es mi estándar para aplicaciones web complejas. Su sistema de tipos me permite detectar errores en tiempo de desarrollo, facilitar el refactoring y escalar arquitecturas en proyectos grandes de forma segura y eficiente.',
+    color: '#3178C6',
+    size: 'xl',
+    relatedProjectIds: ['gestor-pwa', 'ibcj'],
+  },
   {
     id: 'react',
     name: 'React',
@@ -99,7 +111,7 @@ export const skills: Skill[] = [
     detailedDescription: 'React es el centro de mi desarrollo frontend. Construyo interfaces componetizadas, manejo estado con hooks y Zustand, e implemento patrones como compound components y custom hooks para crear UIs que son tanto funcionales como elegantes.',
     color: '#61DAFB',
     size: 'xl',
-    relatedProjectIds: ['gestor-pwa'],
+    relatedProjectIds: ['gestor-pwa', 'ibcj'],
   },
   {
     id: 'javascript',
@@ -111,7 +123,7 @@ export const skills: Skill[] = [
     detailedDescription: 'JavaScript es el lenguaje que une todo mi trabajo web. Desde manipulación del DOM hasta APIs modernas como Intersection Observer y Web Audio, lo uso para crear experiencias interactivas que van más allá de renderizar componentes.',
     color: '#F7DF1E',
     size: 'lg',
-    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026', 'ibcj'],
   },
   {
     id: 'html5',
@@ -123,7 +135,7 @@ export const skills: Skill[] = [
     detailedDescription: 'HTML semántico es la base de todo lo que construyo en la web. Uso etiquetas con intención, cuido la accesibilidad y estructuro documentos que son legibles tanto por humanos como por motores de búsqueda.',
     color: '#E34F26',
     size: 'md',
-    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026', 'ibcj'],
   },
   {
     id: 'css3',
@@ -135,7 +147,7 @@ export const skills: Skill[] = [
     detailedDescription: 'CSS es donde mi código se convierte en diseño. Grid, Flexbox, animaciones con keyframes, variables custom y media queries — uso todo el poder de CSS moderno para crear layouts que respiran y transiciones que se sienten físicas.',
     color: '#1572B6',
     size: 'md',
-    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'gestor-pwa', 'jovenes-involucrados-2026', 'ibcj'],
   },
   {
     id: 'crystalreports',
@@ -173,7 +185,7 @@ export const skills: Skill[] = [
     detailedDescription: 'Git es parte de mi flujo diario. Branches, merges, rebases, cherry-picks — manejo el historial de mis proyectos con disciplina y commits descriptivos que cuentan la historia del código.',
     color: '#F05032',
     size: 'md',
-    relatedProjectIds: ['internet-banking', 'net-series', 'mercado-api', 'gestor-pwa', 'cine-match'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'mercado-api', 'gestor-pwa', 'cine-match', 'ibcj'],
   },
   {
     id: 'github',
@@ -185,7 +197,7 @@ export const skills: Skill[] = [
     detailedDescription: 'GitHub es mi plataforma de trabajo. Repositorios, pull requests, GitHub Actions para CI/CD, y GitHub Pages para deploy. Es donde mi código vive y colabora con el mundo.',
     color: '#ffffff',
     size: 'md',
-    relatedProjectIds: ['internet-banking', 'net-series', 'mercado-api', 'gestor-pwa', 'cine-match'],
+    relatedProjectIds: ['internet-banking', 'net-series', 'mercado-api', 'gestor-pwa', 'cine-match', 'ibcj'],
   },
   {
     id: 'visualstudio',

@@ -2,16 +2,20 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project } from '../../data/projects'
 import { asset } from '../../utils/asset'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 interface Props {
   project: Project | null
   onClose: () => void
 }
 
-const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not("-1")'
 
 export function ProjectModal({ project, onClose }: Props) {
-  const [galleryIdx, setGalleryIdx] = useState(0)
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [closing, setClosing] = useState(false)
@@ -28,9 +32,15 @@ export function ProjectModal({ project, onClose }: Props) {
 
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose()
+      if (e.key === 'Escape') {
+        if (isFullscreen) {
+          setIsFullscreen(false)
+        } else {
+          handleClose()
+        }
+      }
     },
-    [handleClose],
+    [handleClose, isFullscreen],
   )
 
   const trapFocus = useCallback((e: KeyboardEvent) => {
@@ -58,8 +68,8 @@ export function ProjectModal({ project, onClose }: Props) {
     document.addEventListener('keydown', handleEscape)
     document.addEventListener('keydown', trapFocus)
     document.body.style.overflow = 'hidden'
-    setGalleryIdx(0)
     setViewMode('desktop')
+    setIsFullscreen(false)
     requestAnimationFrame(() => {
       const first = dialogRef.current?.querySelector<HTMLElement>(FOCUSABLE)
       first?.focus()
@@ -72,29 +82,21 @@ export function ProjectModal({ project, onClose }: Props) {
     }
   }, [project, handleEscape, trapFocus])
 
-  // Lógica de auto-play
   const hasMixedGallery = !!(project?.desktopGallery || project?.mobileGallery)
   const activeGallery = hasMixedGallery 
     ? (viewMode === 'desktop' ? project?.desktopGallery : project?.mobileGallery)
     : project?.gallery
 
   const hasGallery = activeGallery && activeGallery.length > 1
-
-  useEffect(() => {
-    if (!hasGallery || !activeGallery || isFullscreen) return
-    const timer = setInterval(() => {
-      setGalleryIdx((i) => (i + 1) % activeGallery.length)
-    }, 3500) // Cambia de imagen cada 3.5 segundos
-    return () => clearInterval(timer)
-  }, [hasGallery, activeGallery, isFullscreen, galleryIdx])
+  const showSingleImage = !activeGallery && project?.image
+  const currentImage = activeGallery ? activeGallery[0] : project?.image
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) onClose()
   }
 
-
-  const showSingleImage = !activeGallery && project?.image
-  const currentImage = activeGallery ? activeGallery[galleryIdx] : project?.image
+  // To force re-render of Swiper when gallery changes
+  const swiperKey = project?.id + '-' + viewMode
 
   return createPortal(
     <div
@@ -119,7 +121,7 @@ export function ProjectModal({ project, onClose }: Props) {
               {project.desktopGallery && (
                 <button 
                   className={`mockup-tab-btn ${viewMode === 'desktop' ? 'active' : ''}`}
-                  onClick={() => { setViewMode('desktop'); setGalleryIdx(0); }}
+                  onClick={() => setViewMode('desktop')}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -132,7 +134,7 @@ export function ProjectModal({ project, onClose }: Props) {
               {project.mobileGallery && (
                 <button 
                   className={`mockup-tab-btn ${viewMode === 'mobile' ? 'active' : ''}`}
-                  onClick={() => { setViewMode('mobile'); setGalleryIdx(0); }}
+                  onClick={() => setViewMode('mobile')}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
@@ -160,69 +162,42 @@ export function ProjectModal({ project, onClose }: Props) {
                 </svg>
               </button>
               
-              <div 
-                className="modal-gallery-track" 
-                style={{ 
-                  display: 'flex', 
-                  width: '100%',
-                  transition: 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
-                  transform: `translateX(-${galleryIdx * 100}%)`,
-                  alignItems: 'center'
-                }}
-              >
-                {activeGallery ? activeGallery.map((img, i) => (
-                  <div key={i} style={{ flex: '0 0 100%', display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={asset(img)}
-                      alt={`${project.title} - ${i + 1}`}
-                      className="modal-img"
-                      onClick={() => setIsFullscreen(true)}
-                      style={{ cursor: 'zoom-in' }}
-                    />
-                  </div>
-                )) : (
-                  <div style={{ flex: '0 0 100%', display: 'flex', justifyContent: 'center' }}>
-                    <img
-                      src={asset(currentImage as string)}
-                      alt={project.title}
-                      className="modal-img"
-                      onClick={() => setIsFullscreen(true)}
-                      style={{ cursor: 'zoom-in' }}
-                    />
-                  </div>
-                )}
-              </div>
-              {hasGallery && activeGallery && (
-                <>
-                  <button
-                    className="modal-gallery-btn modal-gallery-prev"
-                    onClick={() => setGalleryIdx((i) => (i - 1 + activeGallery.length) % activeGallery.length)}
-                    aria-label="Anterior"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="15 18 9 12 15 6"/>
-                    </svg>
-                  </button>
-                  <button
-                    className="modal-gallery-btn modal-gallery-next"
-                    onClick={() => setGalleryIdx((i) => (i + 1) % activeGallery.length)}
-                    aria-label="Siguiente"
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="9 18 15 12 9 6"/>
-                    </svg>
-                  </button>
-                  <div className="modal-gallery-dots">
-                    {activeGallery.map((_, i) => (
-                      <button
-                        key={i}
-                        className={`modal-gallery-dot ${i === galleryIdx ? 'active' : ''}`}
-                        onClick={() => setGalleryIdx(i)}
-                        aria-label={`Imagen ${i + 1}`}
+              {hasGallery ? (
+                <Swiper
+                  key={swiperKey}
+                  modules={[Navigation, Pagination, Autoplay, Keyboard]}
+                  navigation
+                  pagination={{ clickable: true }}
+                  autoplay={{ delay: 3500, disableOnInteraction: false }}
+                  keyboard={{ enabled: true }}
+                  loop={true}
+                  lazyPreloadPrevNext={1}
+                  className="modal-swiper"
+                  style={{ width: '100%', '--swiper-theme-color': '#00BFFF' } as React.CSSProperties}
+                >
+                  {activeGallery.map((img, i) => (
+                    <SwiperSlide key={i} style={{ display: 'flex', justifyContent: 'center' }}>
+                      <img
+                        src={asset(img)}
+                        alt={`${project.title} - ${i + 1}`}
+                        className="modal-img"
+                        onClick={() => setIsFullscreen(true)}
+                        style={{ cursor: 'zoom-in' }}
+                        loading="lazy"
                       />
-                    ))}
-                  </div>
-                </>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <img
+                    src={asset(currentImage as string)}
+                    alt={project.title}
+                    className="modal-img"
+                    onClick={() => setIsFullscreen(true)}
+                    style={{ cursor: 'zoom-in' }}
+                  />
+                </div>
               )}
             </div>
           )}
@@ -277,62 +252,37 @@ export function ProjectModal({ project, onClose }: Props) {
             </svg>
           </button>
           
-          {hasGallery && activeGallery && (
-            <button
-              className="fullscreen-nav-btn prev"
-              onClick={(e) => {
-                e.stopPropagation();
-                setGalleryIdx((i) => (i - 1 + activeGallery.length) % activeGallery.length);
-              }}
-              aria-label="Anterior"
+          {hasGallery ? (
+            <Swiper
+              key={`fs-${swiperKey}`}
+              modules={[Navigation, Pagination, Keyboard]}
+              navigation
+              pagination={{ clickable: true }}
+              keyboard={{ enabled: true }}
+              loop={true}
+              lazyPreloadPrevNext={2}
+              className="fullscreen-swiper"
+              style={{ width: '100%', height: '100%', '--swiper-theme-color': '#fff' } as React.CSSProperties}
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="15 18 9 12 15 6"/>
-              </svg>
-            </button>
-          )}
-
-          <div 
-            className="fullscreen-gallery-track" 
-            style={{ 
-              display: 'flex', 
-              width: '100%', height: '100%',
-              transition: 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
-              transform: `translateX(-${galleryIdx * 100}%)`
-            }}
-          >
-            {activeGallery ? activeGallery.map((img, i) => (
-              <div key={i} style={{ flex: '0 0 100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img
-                  src={asset(img)}
-                  alt="Fullscreen"
-                  className="fullscreen-img"
-                />
-              </div>
-            )) : (
-              <div style={{ flex: '0 0 100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img
-                  src={asset(currentImage as string)}
-                  alt="Fullscreen"
-                  className="fullscreen-img"
-                />
-              </div>
-            )}
-          </div>
-
-          {hasGallery && activeGallery && (
-            <button
-              className="fullscreen-nav-btn next"
-              onClick={(e) => {
-                e.stopPropagation();
-                setGalleryIdx((i) => (i + 1) % activeGallery.length);
-              }}
-              aria-label="Siguiente"
-            >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
+              {activeGallery.map((img, i) => (
+                <SwiperSlide key={i} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <img
+                    src={asset(img)}
+                    alt="Fullscreen"
+                    className="fullscreen-img"
+                    loading="lazy"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <img
+                src={asset(currentImage as string)}
+                alt="Fullscreen"
+                className="fullscreen-img"
+              />
+            </div>
           )}
         </div>
       )}
