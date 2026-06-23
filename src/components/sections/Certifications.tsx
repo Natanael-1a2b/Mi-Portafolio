@@ -51,6 +51,7 @@ export function Certifications() {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={'auto'}
+            loop={true}
             coverflowEffect={{
               rotate: 40,
               stretch: 0,
@@ -61,7 +62,7 @@ export function Certifications() {
             pagination={{ clickable: true }}
             navigation={true}
             modules={[EffectCoverflow, Pagination, Navigation]}
-            onSlideChange={(swiper) => setCurrent(swiper.activeIndex)}
+            onSlideChange={(swiper) => setCurrent(swiper.realIndex)}
             className="cert-swiper"
             aria-label="Galería de certificaciones"
           >
