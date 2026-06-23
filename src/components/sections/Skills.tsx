@@ -16,16 +16,7 @@ export function Skills() {
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.fromTo('.skills-empty-state',
-        { opacity: 0, y: 20 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.5, 
-          delay: 0.5,
-          scrollTrigger: { trigger: '.skills-bento-section', start: 'top 70%' }
-        }
-      )
+      // Elementos internos animados por BentoGrid
     }, sectionRef)
     return () => ctx.revert()
   }, [prefersReduced])

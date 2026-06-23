@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void
 }
 
-const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not("-1")'
+const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
 export function ProjectModal({ project, onClose }: Props) {
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop')
