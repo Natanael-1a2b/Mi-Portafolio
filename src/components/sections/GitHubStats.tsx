@@ -42,20 +42,46 @@ export function GitHubStats() {
   }, [prefersReduced, loading])
 
   const calendarData = data?.calendar || [];
+  const calendarScrollRef = useRef<HTMLDivElement>(null);
+
   const paddedCalendar = useMemo(() => {
     if (!calendarData || calendarData.length === 0) return [];
-    
     const [year, month, day] = calendarData[0].date.split('-');
     const firstDate = new Date(Number(year), Number(month) - 1, Number(day));
-    const paddingCount = firstDate.getDay(); 
-    
+    const paddingCount = firstDate.getDay();
     const padding = Array.from({ length: paddingCount }).map(() => ({
       date: 'padding',
       contributionCount: -1
     }));
-    
     return [...padding, ...calendarData];
   }, [calendarData]);
+
+  // Calcula las etiquetas de los meses para colocar arriba del calendario
+  const monthLabels = useMemo(() => {
+    if (paddedCalendar.length === 0) return [];
+    const labels: { label: string; column: number }[] = [];
+    const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    let currentMonth = -1;
+    let colIndex = 0;
+    for (let i = 0; i < paddedCalendar.length; i++) {
+      if (i % 7 === 0 && i > 0) colIndex++;
+      const d = paddedCalendar[i];
+      if (d.date === 'padding' || d.contributionCount < 0) continue;
+      const monthNum = parseInt(d.date.split('-')[1], 10) - 1;
+      if (monthNum !== currentMonth) {
+        currentMonth = monthNum;
+        labels.push({ label: monthNames[monthNum], column: colIndex });
+      }
+    }
+    return labels;
+  }, [paddedCalendar]);
+
+  // Auto-scroll del calendario hacia la derecha (fechas más recientes)
+  useEffect(() => {
+    if (calendarScrollRef.current) {
+      calendarScrollRef.current.scrollLeft = calendarScrollRef.current.scrollWidth;
+    }
+  }, [paddedCalendar]);
 
   if (loading) {
     return (
@@ -169,10 +195,8 @@ export function GitHubStats() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 <span>Colaborador Activo</span>
               </div>
-              <div className="gh-profile-stat-item" style={{ color: 'var(--color-danger)' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span>Apasionado por el Código</span>
-              </div>
+
+
             </div>
           </div>
 
@@ -184,7 +208,7 @@ export function GitHubStats() {
 
           {/* Row 2: Summary Stats & Streak */}
           <div className="gh-card gh-card-summary">
-            <div className="gh-card-title" style={{ width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>Resumen General</div>
+            <div className="gh-card-title" style={{ width: '100%', marginBottom: '0.75rem', textAlign: 'center' }}>Resumen General</div>
             <div className="gh-summary-row" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
               <div className="gh-summary-item">
               <div className="gh-summary-icon gh-summary-icon--stars"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
@@ -209,8 +233,8 @@ export function GitHubStats() {
             </div>
           </div>
 
-          <div className="gh-card gh-card-streak" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
-            <div className="gh-card-title" style={{ width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>Racha de Contribuciones</div>
+          <div className="gh-card gh-card-streak" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem 1.5rem' }}>
+            <div className="gh-card-title" style={{ width: '100%', marginBottom: '0.75rem', textAlign: 'center' }}>Racha de Contribuciones</div>
             
             <div className="gh-streak-grid" style={{ 
               display: 'grid', 
@@ -220,20 +244,20 @@ export function GitHubStats() {
               textAlign: 'center'
             }}>
               {/* Total Contributions */}
-              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Contribuciones</div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{currentYearContributions}</div>
-                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>En este año</div>
+              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Contribuciones</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{currentYearContributions}</div>
+                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>En este año</div>
               </div>
               
               {/* Current Streak */}
-              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.1)', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Actual</div>
-                <div style={{ fontSize: '2.8rem', fontWeight: 900, color: 'var(--color-info)', display: 'flex', alignItems: 'center', gap: '0.5rem', textShadow: '0 0 20px rgba(0, 191, 255, 0.4)' }}>
+              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.1)', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Actual</div>
+                <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--color-info)', display: 'flex', alignItems: 'center', gap: '0.5rem', textShadow: '0 0 20px rgba(0, 191, 255, 0.4)' }}>
                   {currentStreak}
                 </div>
-                <div style={{ color: 'var(--color-info)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <div style={{ color: 'var(--color-info)', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C12 2 8 8 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 8 12 2 12 2ZM12 22C7.58172 22 4 18.4183 4 14C4 10.4241 6.34758 7.37893 9.53932 6.13623C8.57277 7.74704 8 9.80556 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 10.9765 15.6159 10.0416 14.9818 9.32422C16.8184 10.4497 18 12.5638 18 15C18 18.866 14.866 22 12 22Z"/>
                   </svg>
                   Días
@@ -241,10 +265,10 @@ export function GitHubStats() {
               </div>
               
               {/* Longest Streak */}
-              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Más Larga</div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{longestStreak}</div>
-                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>Días récord</div>
+              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Más Larga</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{longestStreak}</div>
+                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>Días récord</div>
               </div>
             </div>
           </div>
@@ -274,57 +298,79 @@ export function GitHubStats() {
           <div className="gh-card gh-card-calendar">
             <div className="gh-card-title">Calendario de contribuciones (Último año)</div>
             
-            <div className="gh-calendar-wrapper" style={{ 
+            <div ref={calendarScrollRef} className="gh-calendar-wrapper" style={{ 
               overflowX: 'auto', 
-              paddingBottom: '1rem', 
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center'
+              paddingBottom: '0.5rem', 
+              width: '100%'
             }}>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                {/* Etiquetas de Días (Opcional, estilo GitHub) */}
-                <div style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  justifyContent: 'space-between', 
-                  paddingTop: '2px', 
-                  paddingBottom: '2px',
-                  color: 'var(--text-tertiary)',
-                  fontSize: '0.7rem',
-                  paddingRight: '8px',
-                  textAlign: 'right',
-                  height: '110px'
-                }}>
-                  <span style={{visibility: 'hidden'}}>Dom</span>
-                  <span>Lun</span>
-                  <span style={{visibility: 'hidden'}}>Mar</span>
-                  <span>Mié</span>
-                  <span style={{visibility: 'hidden'}}>Jue</span>
-                  <span>Vie</span>
-                  <span style={{visibility: 'hidden'}}>Sáb</span>
+              <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '4px', minWidth: 'max-content' }}>
+                {/* Fila de Meses (arriba) */}
+                <div style={{ display: 'flex', paddingLeft: '32px' }}>
+                  {(() => {
+                    const totalCols = Math.ceil(paddedCalendar.length / 7);
+                    const cells: React.ReactNode[] = [];
+                    let labelIdx = 0;
+                    for (let col = 0; col < totalCols; col++) {
+                      const lbl = monthLabels[labelIdx];
+                      if (lbl && lbl.column === col) {
+                        cells.push(
+                          <span key={`m-${col}`} style={{ width: '16px', fontSize: '0.7rem', color: 'var(--text-tertiary)', textAlign: 'left', whiteSpace: 'nowrap' }}>
+                            {lbl.label}
+                          </span>
+                        );
+                        labelIdx++;
+                      } else {
+                        cells.push(<span key={`m-${col}`} style={{ width: '16px' }} />);
+                      }
+                    }
+                    return cells;
+                  })()}
                 </div>
-                
-                {/* Cuadrícula del Calendario */}
-                <div style={{ 
-                  display: 'grid', 
-                  gridTemplateRows: 'repeat(7, 1fr)', 
-                  gridAutoFlow: 'column', 
-                  gap: '4px',
-                  height: '110px'
-                }}>
-                  {paddedCalendar.map((day, i) => (
-                    <div 
-                      key={i} 
-                      title={day.contributionCount >= 0 ? `${day.contributionCount} contribuciones el ${day.date}` : ''}
-                      style={{
-                        width: '12px',
-                        height: '12px',
-                        backgroundColor: getCalendarColor(day.contributionCount),
-                        borderRadius: '2px',
-                        opacity: day.contributionCount < 0 ? 0 : 1
-                      }}
-                    />
-                  ))}
+
+                <div style={{ display: 'flex', gap: '0px' }}>
+                  {/* Etiquetas de Días (izquierda) */}
+                  <div style={{ 
+                    display: 'grid', 
+                    gridTemplateRows: 'repeat(7, 1fr)', 
+                    width: '28px',
+                    flexShrink: 0,
+                    color: 'var(--text-tertiary)',
+                    fontSize: '0.65rem',
+                    textAlign: 'right',
+                    paddingRight: '6px',
+                    height: '112px'
+                  }}>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Dom</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Lun</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Mar</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Mié</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Jue</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Vie</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Sáb</span>
+                  </div>
+                  
+                  {/* Cuadrícula del Calendario */}
+                  <div style={{ 
+                    display: 'grid', 
+                    gridTemplateRows: 'repeat(7, 1fr)', 
+                    gridAutoFlow: 'column', 
+                    gap: '4px',
+                    height: '112px'
+                  }}>
+                    {paddedCalendar.map((day, i) => (
+                      <div 
+                        key={i} 
+                        title={day.contributionCount >= 0 ? `${day.contributionCount} contribuciones el ${day.date}` : ''}
+                        style={{
+                          width: '12px',
+                          height: '12px',
+                          backgroundColor: getCalendarColor(day.contributionCount),
+                          borderRadius: '2px',
+                          opacity: day.contributionCount < 0 ? 0 : 1
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
