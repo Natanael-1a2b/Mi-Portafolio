@@ -41,6 +41,22 @@ export function GitHubStats() {
     return () => ctx.revert()
   }, [prefersReduced, loading])
 
+  const calendarData = data?.calendar || [];
+  const paddedCalendar = useMemo(() => {
+    if (!calendarData || calendarData.length === 0) return [];
+    
+    const [year, month, day] = calendarData[0].date.split('-');
+    const firstDate = new Date(Number(year), Number(month) - 1, Number(day));
+    const paddingCount = firstDate.getDay(); 
+    
+    const padding = Array.from({ length: paddingCount }).map(() => ({
+      date: 'padding',
+      contributionCount: -1
+    }));
+    
+    return [...padding, ...calendarData];
+  }, [calendarData]);
+
   if (loading) {
     return (
       <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
@@ -83,23 +99,7 @@ export function GitHubStats() {
     )
   }
 
-  const { user, totalContributions, totalStars, totalCommits, totalPRs, totalIssues, languages, currentStreak = 0, longestStreak = 0, currentYearContributions = 0, calendar = [] } = data;
-
-  const paddedCalendar = useMemo(() => {
-    if (!calendar || calendar.length === 0) return [];
-    // Calculate padding so the first element aligns with the correct day of the week (Sunday = 0)
-    // Se usa un parse seguro evitando que los guiones interpreten la hora local como UTC
-    const [year, month, day] = calendar[0].date.split('-');
-    const firstDate = new Date(Number(year), Number(month) - 1, Number(day));
-    const paddingCount = firstDate.getDay(); 
-    
-    const padding = Array.from({ length: paddingCount }).map(() => ({
-      date: 'padding',
-      contributionCount: -1
-    }));
-    
-    return [...padding, ...calendar];
-  }, [calendar]);
+  const { user, totalContributions, totalStars, totalCommits, totalPRs, totalIssues, languages, currentStreak = 0, longestStreak = 0, currentYearContributions = 0 } = data;
 
   const getCalendarColor = (count: number) => {
     if (count < 0) return 'transparent';
