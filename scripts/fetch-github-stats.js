@@ -57,6 +57,8 @@ async function main() {
     let totalCommits = 0;
     let totalPRs = 0;
     let totalIssues = 0;
+    let currentYearContributions = 0;
+    let allContributionDays = [];
     
     if (TOKEN) {
       try {
@@ -73,7 +75,15 @@ async function main() {
             query: `query {
               user(login: "${USERNAME}") {
                 contributionsCollection(from: "${fromDate}", to: "${toDate}") {
-                  contributionCalendar { totalContributions }
+                  contributionCalendar { 
+                    totalContributions
+                    weeks {
+                      contributionDays {
+                        date
+                        contributionCount
+                      }
+                    }
+                  }
                   totalCommitContributions
                   totalPullRequestContributions
                   totalIssueContributions
@@ -99,6 +109,15 @@ async function main() {
               totalPRs += cc.totalPullRequestContributions;
               totalIssues += cc.totalIssueContributions;
               totalReviews += cc.totalPullRequestReviewContributions;
+              
+              if (cc.contributionCalendar.weeks) {
+                cc.contributionCalendar.weeks.forEach(week => {
+                  allContributionDays.push(...week.contributionDays);
+                });
+              }
+              if (year === currentYear) {
+                currentYearContributions = cc.contributionCalendar.totalContributions;
+              }
             }
           } else {
             throw new Error(`GraphQL error: ${graphqlRes.status}`);
@@ -125,6 +144,35 @@ async function main() {
       totalPRs = prsData.total_count || 0;
       totalIssues = issuesData.total_count || 0;
       totalContributions = totalCommits + totalPRs + totalIssues;
+    }
+    let currentStreak = 0;
+    let longestStreak = 0;
+
+    if (allContributionDays.length > 0) {
+      allContributionDays.sort((a, b) => new Date(a.date) - new Date(b.date));
+      
+      let tempStreak = 0;
+      for (const day of allContributionDays) {
+        if (day.contributionCount > 0) {
+          tempStreak++;
+          if (tempStreak > longestStreak) longestStreak = tempStreak;
+        } else {
+          tempStreak = 0;
+        }
+      }
+      
+      const todayString = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); // YYYY-MM-DD
+      let checkIndex = allContributionDays.findIndex(d => d.date === todayString);
+      if (checkIndex === -1) checkIndex = allContributionDays.length - 1;
+      
+      if (checkIndex >= 0 && allContributionDays[checkIndex].contributionCount === 0) {
+        checkIndex--;
+      }
+      
+      while (checkIndex >= 0 && allContributionDays[checkIndex].contributionCount > 0) {
+        currentStreak++;
+        checkIndex--;
+      }
     }
     
     // Distribución de lenguajes real (consultando cada repositorio)
@@ -184,6 +232,9 @@ async function main() {
       .sort((a, b) => b.percentage - a.percentage)
       .slice(0, 15);
       
+    // Tomamos los últimos 365 días del historial para el calendario
+    const calendar = allContributionDays.slice(-365);
+
     const result = {
       lastUpdated: new Date().toISOString(),
       user: {
@@ -199,11 +250,15 @@ async function main() {
       totalStars,
       totalForks,
       totalContributions,
+      currentYearContributions,
+      currentStreak,
+      longestStreak,
       totalCommits,
       totalPRs,
       totalIssues,
       totalReviews,
       languages,
+      calendar,
     };
     
     const outputDir = path.join(__dirname, '../dist-data');

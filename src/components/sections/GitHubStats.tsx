@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { githubConfig, fetchGitHubData, streakCardUrl, GitHubStatsResult } from '../../data/github'
+import { useEffect, useRef, useState, useMemo } from 'react'
+import { githubConfig, fetchGitHubData, GitHubStatsResult } from '../../data/github'
 import { SectionTitle } from '../ui/SectionTitle'
 import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
@@ -83,7 +83,32 @@ export function GitHubStats() {
     )
   }
 
-  const { user, totalContributions, totalStars, totalCommits, totalPRs, totalIssues, languages } = data;
+  const { user, totalContributions, totalStars, totalCommits, totalPRs, totalIssues, languages, currentStreak = 0, longestStreak = 0, currentYearContributions = 0, calendar = [] } = data;
+
+  const paddedCalendar = useMemo(() => {
+    if (!calendar || calendar.length === 0) return [];
+    // Calculate padding so the first element aligns with the correct day of the week (Sunday = 0)
+    // Se usa un parse seguro evitando que los guiones interpreten la hora local como UTC
+    const [year, month, day] = calendar[0].date.split('-');
+    const firstDate = new Date(Number(year), Number(month) - 1, Number(day));
+    const paddingCount = firstDate.getDay(); 
+    
+    const padding = Array.from({ length: paddingCount }).map(() => ({
+      date: 'padding',
+      contributionCount: -1
+    }));
+    
+    return [...padding, ...calendar];
+  }, [calendar]);
+
+  const getCalendarColor = (count: number) => {
+    if (count < 0) return 'transparent';
+    if (count === 0) return 'rgba(255, 255, 255, 0.05)'; // Vacío
+    if (count >= 1 && count <= 3) return '#0e4429'; // GitHub light green
+    if (count >= 4 && count <= 6) return '#006d32'; // GitHub medium green
+    if (count >= 7 && count <= 9) return '#26a641'; // GitHub dark green
+    return '#39d353'; // GitHub brightest green (10+)
+  };
   
 
   
@@ -184,9 +209,44 @@ export function GitHubStats() {
             </div>
           </div>
 
-          <div className="gh-card gh-card-streak">
-            <div className="gh-card-title" style={{ width: '100%', marginBottom: '0', marginTop: '1rem', textAlign: 'center' }}>Racha de Contribuciones</div>
-            <img src={streakCardUrl} alt="GitHub Streak" loading="lazy" title="Racha de contribuciones diarias" />
+          <div className="gh-card gh-card-streak" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
+            <div className="gh-card-title" style={{ width: '100%', marginBottom: '1.5rem', textAlign: 'center' }}>Racha de Contribuciones</div>
+            
+            <div className="gh-streak-grid" style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(3, 1fr)', 
+              gap: '1rem', 
+              width: '100%',
+              textAlign: 'center'
+            }}>
+              {/* Total Contributions */}
+              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Contribuciones</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{currentYearContributions}</div>
+                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>En este año</div>
+              </div>
+              
+              {/* Current Streak */}
+              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.1)', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Actual</div>
+                <div style={{ fontSize: '2.8rem', fontWeight: 900, color: 'var(--color-info)', display: 'flex', alignItems: 'center', gap: '0.5rem', textShadow: '0 0 20px rgba(0, 191, 255, 0.4)' }}>
+                  {currentStreak}
+                </div>
+                <div style={{ color: 'var(--color-info)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C12 2 8 8 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 8 12 2 12 2ZM12 22C7.58172 22 4 18.4183 4 14C4 10.4241 6.34758 7.37893 9.53932 6.13623C8.57277 7.74704 8 9.80556 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 10.9765 15.6159 10.0416 14.9818 9.32422C16.8184 10.4497 18 12.5638 18 15C18 18.866 14.866 22 12 22Z"/>
+                  </svg>
+                  Días
+                </div>
+              </div>
+              
+              {/* Longest Streak */}
+              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Más Larga</div>
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)' }}>{longestStreak}</div>
+                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>Días récord</div>
+              </div>
+            </div>
           </div>
 
           {/* Row 3: Languages Donut */}
@@ -212,9 +272,72 @@ export function GitHubStats() {
 
           {/* Row 4: Calendar & Insights */}
           <div className="gh-card gh-card-calendar">
-            <div className="gh-card-title">Calendario de contribuciones</div>
-            <div className="gh-calendar-wrapper">
-              <img src={`https://ghchart.rshah.org/${githubConfig.username}`} alt="GitHub Contribution Calendar" title="Calendario anual de contribuciones" loading="lazy" />
+            <div className="gh-card-title">Calendario de contribuciones (Último año)</div>
+            
+            <div className="gh-calendar-wrapper" style={{ 
+              overflowX: 'auto', 
+              paddingBottom: '1rem', 
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center'
+            }}>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                {/* Etiquetas de Días (Opcional, estilo GitHub) */}
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between', 
+                  paddingTop: '2px', 
+                  paddingBottom: '2px',
+                  color: 'var(--text-tertiary)',
+                  fontSize: '0.7rem',
+                  paddingRight: '8px',
+                  textAlign: 'right',
+                  height: '110px'
+                }}>
+                  <span style={{visibility: 'hidden'}}>Dom</span>
+                  <span>Lun</span>
+                  <span style={{visibility: 'hidden'}}>Mar</span>
+                  <span>Mié</span>
+                  <span style={{visibility: 'hidden'}}>Jue</span>
+                  <span>Vie</span>
+                  <span style={{visibility: 'hidden'}}>Sáb</span>
+                </div>
+                
+                {/* Cuadrícula del Calendario */}
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateRows: 'repeat(7, 1fr)', 
+                  gridAutoFlow: 'column', 
+                  gap: '4px',
+                  height: '110px'
+                }}>
+                  {paddedCalendar.map((day, i) => (
+                    <div 
+                      key={i} 
+                      title={day.contributionCount >= 0 ? `${day.contributionCount} contribuciones el ${day.date}` : ''}
+                      style={{
+                        width: '12px',
+                        height: '12px',
+                        backgroundColor: getCalendarColor(day.contributionCount),
+                        borderRadius: '2px',
+                        opacity: day.contributionCount < 0 ? 0 : 1
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Leyenda de colores */}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
+              <span>Menos</span>
+              <div style={{ display: 'flex', gap: '4px' }}>
+                {[0, 2, 5, 8, 12].map((count, i) => (
+                  <div key={i} style={{ width: '12px', height: '12px', backgroundColor: getCalendarColor(count), borderRadius: '2px' }} />
+                ))}
+              </div>
+              <span>Más</span>
             </div>
           </div>
 

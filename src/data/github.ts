@@ -7,19 +7,7 @@ export const githubConfig = {
     : 'https://raw.githubusercontent.com/Natanael-1a2b/Mi-Portafolio/github-stats-data/github-stats.json',
 }
 
-// Streak card (herokuapp.com is the original host and currently stable)
-const streakColors = {
-  bg: '00000000',
-  ring: '6366f1',
-  fire: '06b6d4',
-  currStreakNum: 'f8fafc',
-  sideNums: 'a855f7',
-  currStreakLabel: '6366f1',
-  sideLabels: 'f8fafc',
-  dates: '00000000', // Oculto haciéndolo transparente
-}
-
-export const streakCardUrl = `https://streak-stats.demolab.com/?user=${githubConfig.username}&hide_border=true&locale=es&timezone=America/New_York&background=${streakColors.bg}&ring=${streakColors.ring}&fire=${streakColors.fire}&currStreakNum=${streakColors.currStreakNum}&sideNums=${streakColors.sideNums}&currStreakLabel=${streakColors.currStreakLabel}&sideLabels=${streakColors.sideLabels}&dates=${streakColors.dates}`
+// El componente nativo reemplaza al antiguo streakCardUrl
 
 export interface GitHubUserData {
   public_repos: number
@@ -47,11 +35,15 @@ export interface GitHubStatsResult {
   totalStars: number
   totalForks: number
   totalContributions?: number
+  currentYearContributions?: number
+  currentStreak?: number
+  longestStreak?: number
   totalCommits: number
   totalPRs: number
   totalIssues: number
   totalReviews?: number
   languages: { name: string; percentage: number; color: string }[]
+  calendar?: { date: string; contributionCount: number }[]
 }
 
 export async function fetchGitHubData(): Promise<GitHubStatsResult | null> {
