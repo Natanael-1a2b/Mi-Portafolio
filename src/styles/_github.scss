@@ -187,8 +187,40 @@
   height: auto;
   object-fit: contain;
 }
-.gh-card-summary { grid-column: span 7; display: flex; flex-direction: column; align-items: center; }
-.gh-card-streak { grid-column: span 5; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem; }
+.gh-card-summary { grid-column: span 6; display: flex; flex-direction: column; align-items: center; }
+.gh-card-streak { grid-column: span 6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem; }
+
+// Neon Glow Styles
+.gh-neon-text {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 10px rgba(255, 152, 0, 0.4), 0 0 20px rgba(255, 87, 34, 0.2);
+  animation: neon-pulse 2.5s infinite alternate;
+}
+
+@keyframes neon-pulse {
+  0% {
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.4), 0 0 20px rgba(255, 87, 34, 0.2);
+    filter: brightness(1);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(255, 152, 0, 0.6), 0 0 30px rgba(255, 87, 34, 0.4), 0 0 40px rgba(255, 87, 34, 0.1);
+    filter: brightness(1.2);
+  }
+}
+
+.gh-flame-icon {
+  color: #ff5722;
+  animation: flame-flicker 3s infinite alternate;
+}
+
+@keyframes flame-flicker {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(255, 152, 0, 0.4)); opacity: 0.8; }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 8px rgba(255, 87, 34, 0.8)); opacity: 1; }
+  100% { transform: scale(1.05); filter: drop-shadow(0 0 4px rgba(255, 152, 0, 0.6)); opacity: 0.9; }
+}
 .gh-card-languages { grid-column: span 5; }
 .gh-card-calendar { grid-column: span 7; }
 .gh-card-calendar .gh-calendar-wrapper {

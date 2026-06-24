@@ -245,20 +245,20 @@ export function GitHubStats() {
             }}>
               {/* Total Contributions */}
               <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Contribuciones</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{currentYearContributions}</div>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>Total Contribuciones</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#00f2fe' }}>{currentYearContributions}</div>
                 <div style={{ color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>En este año</div>
               </div>
               
               {/* Current Streak */}
               <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.1)', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Actual</div>
-                <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--color-info)', display: 'flex', alignItems: 'center', gap: '0.5rem', textShadow: '0 0 20px rgba(0, 191, 255, 0.4)' }}>
+                <div className="gh-neon-text" style={{ fontSize: '2.4rem', fontWeight: 900, lineHeight: 1 }}>
                   {currentStreak}
                 </div>
-                <div style={{ color: 'var(--color-info)', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C12 2 8 8 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 8 12 2 12 2ZM12 22C7.58172 22 4 18.4183 4 14C4 10.4241 6.34758 7.37893 9.53932 6.13623C8.57277 7.74704 8 9.80556 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 10.9765 15.6159 10.0416 14.9818 9.32422C16.8184 10.4497 18 12.5638 18 15C18 18.866 14.866 22 12 22Z"/>
+                <div style={{ color: 'var(--text-main)', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="gh-flame-icon">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
                   </svg>
                   Días
                 </div>
@@ -267,7 +267,7 @@ export function GitHubStats() {
               {/* Longest Streak */}
               <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Más Larga</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{longestStreak}</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#00f2fe' }}>{longestStreak}</div>
                 <div style={{ color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>Días récord</div>
               </div>
             </div>
