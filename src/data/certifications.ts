@@ -42,4 +42,10 @@ export const certifications: Certification[] = [
     issuer: 'BITCompany',
     image: '/assets/images/certificaciones/propuesta-valor.webp',
   },
+  {
+    id: 'ia-3era-edicion',
+    title: 'Desarrollo con IA 3era Edicion',
+    issuer: 'BIG school',
+    image: '/assets/images/certificaciones/IA-3era-edicion.png',
+  },
 ]
