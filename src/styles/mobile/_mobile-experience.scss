@@ -1,0 +1,133 @@
+.mobile-app {
+  .mobile-experience {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+
+    .mobile-timeline {
+      position: relative;
+      margin-top: 2rem;
+
+      // Línea vertical
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 12px; // Posición de la línea
+        width: 2px;
+        background: linear-gradient(to bottom, transparent, var(--primary), var(--secondary), transparent);
+      }
+    }
+
+    .mobile-timeline-item {
+      position: relative;
+      padding-left: 40px; // Espacio para el dot y la línea
+      margin-bottom: 2.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .mobile-timeline-dot {
+      position: absolute;
+      left: 6px; // Centrado en la línea (12px + 1px)
+      top: 24px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bg-main);
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+      z-index: 2;
+    }
+
+    .mobile-exp-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+
+      .mobile-exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .mobile-exp-date {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .mobile-exp-role {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.1rem;
+        color: var(--text-main);
+      }
+
+      .mobile-exp-company {
+        margin: 0 0 1rem 0;
+        font-size: 0.9rem;
+        color: var(--primary);
+        font-weight: 500;
+      }
+
+      .mobile-exp-highlights {
+        margin: 0 0 1.25rem 0;
+        padding-left: 1.25rem;
+        color: var(--text-light);
+        font-size: 0.85rem;
+        line-height: 1.5;
+
+        li {
+          margin-bottom: 0.5rem;
+          &:last-child { margin-bottom: 0; }
+        }
+      }
+
+      .mobile-exp-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+        .mobile-metric-item {
+          display: flex;
+          flex-direction: column;
+          
+          strong {
+            font-size: 1.1rem;
+            color: var(--accent);
+          }
+          span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .mobile-exp-techs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-bottom: 0.5rem;
+        
+        .mobile-tech-badge {
+          flex: 0 0 auto;
+          font-size: 0.7rem;
+          padding: 4px 10px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          color: var(--text-light);
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

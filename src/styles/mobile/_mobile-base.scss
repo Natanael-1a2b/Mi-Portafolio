@@ -1,0 +1,51 @@
+.mobile-app {
+  // Configuración base para toda la experiencia móvil
+  min-height: 100dvh;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  
+  // Safe areas para móviles con notch (iPhone)
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0)); // Espacio para navbar inferior
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+  
+  overflow-x: hidden;
+  
+  .mobile-container {
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  // Ajustes tipográficos para móvil
+  h1 { font-size: 2.5rem; line-height: 1.1; font-weight: 800; }
+  h2 { font-size: 2rem; line-height: 1.2; font-weight: 700; }
+  h3 { font-size: 1.5rem; line-height: 1.3; font-weight: 600; }
+  p { font-size: 0.95rem; line-height: 1.6; }
+
+  // Touch targets mínimos
+  button, a {
+    min-height: 44px; // Apple HIG
+    min-width: 44px;
+    touch-action: manipulation; // Prevenir double-tap zoom
+  }
+
+  // Ocultar scrollbars por defecto en scroll horizontal
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+// Global para la pantalla de carga móvil
+.mobile-loading {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-main);
+}

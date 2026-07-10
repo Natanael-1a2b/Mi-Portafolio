@@ -1,0 +1,47 @@
+.mobile-app {
+  .mobile-skills {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    background: rgba(10, 15, 46, 0.4);
+
+    .mobile-skills-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .mobile-skill-category {
+      h3 {
+        font-size: 1rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        margin-top: 0;
+      }
+
+      .mobile-skill-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-bottom: 0.5rem;
+      }
+
+      .mobile-skill-chip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-full);
+
+        span {
+          font-size: 0.85rem;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { useDeviceMode } from './hooks/useDeviceMode'
 import { Navbar } from './components/sections/Navbar'
 import { Hero } from './components/sections/Hero'
 import { About } from './components/sections/About'
@@ -10,8 +11,19 @@ import { Contact } from './components/sections/Contact'
 import { Footer } from './components/sections/Footer'
 
 const GitHubStats = lazy(() => import('./components/sections/GitHubStats').then(m => ({ default: m.GitHubStats })))
+const MobileApp = lazy(() => import('./components/mobile/MobileApp'))
 
 export default function App() {
+  const mode = useDeviceMode()
+
+  if (mode === 'mobile') {
+    return (
+      <Suspense fallback={<div className="mobile-loading" />}>
+        <MobileApp />
+      </Suspense>
+    )
+  }
+
   return (
     <>
       <div className="dom-overlay" id="main-content">

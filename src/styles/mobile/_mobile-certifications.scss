@@ -1,0 +1,81 @@
+.mobile-app {
+  .mobile-certs {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background: rgba(10, 10, 18, 0.6);
+
+    .mobile-cert-carousel-wrapper {
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem 0;
+      margin-top: 1rem;
+    }
+
+    .mobile-cert-swiper {
+      width: 100%;
+      position: relative;
+      padding-bottom: 60px;
+    }
+
+    .mobile-cert-slide {
+      background: transparent;
+      width: 280px;
+      aspect-ratio: 1.4/1;
+      border-radius: var(--radius-md);
+      overflow: visible;
+
+      .mobile-cert-img {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 10px;
+          filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+        }
+      }
+    }
+
+    .mobile-cert-info-below {
+      text-align: center;
+      margin-top: 1rem;
+      min-height: 80px;
+
+      h3 {
+        font-size: 1.1rem;
+        color: var(--text-main);
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        margin: 0;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Swiper Pagination Customization */
+    .swiper-pagination-bullet {
+      background: var(--text-muted);
+      opacity: 0.5;
+      width: 8px;
+      height: 8px;
+      transition: all 0.3s ease;
+
+      &-active {
+        opacity: 1;
+        background: var(--primary);
+        width: 20px;
+        border-radius: 4px;
+        box-shadow: var(--shadow-neon);
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+.mobile-app {
+  .mobile-footer {
+    padding: 3rem 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 15, 46, 0.8) 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    .mobile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    .mobile-footer-brand {
+      h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+        font-weight: 900;
+        background: linear-gradient(90deg, var(--accent), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+    }
+
+    .mobile-footer-social {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        color: var(--text-light);
+        transition: color 0.3s;
+        
+        svg {
+          width: 28px;
+          height: 28px;
+        }
+
+        &:active {
+          color: var(--primary);
+        }
+      }
+    }
+
+    .mobile-footer-copy {
+      margin: 0;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
