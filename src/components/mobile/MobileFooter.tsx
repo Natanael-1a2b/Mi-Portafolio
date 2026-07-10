@@ -1,8 +1,11 @@
 import { personalInfo, footerContent } from '../../data/personal'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileFooter() {
+  const ref = useFadeIn<HTMLElement>()
+
   return (
-    <footer className="mobile-footer">
+    <footer className="mobile-footer mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <div className="mobile-footer-brand">
           <h3>{personalInfo.brandInitials}</h3>

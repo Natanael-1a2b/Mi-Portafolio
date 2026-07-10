@@ -7,13 +7,15 @@ import { EffectCoverflow, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileCertifications() {
   const [current, setCurrent] = useState(0)
   const activeCert = certifications[current]
+  const ref = useFadeIn<HTMLElement>()
 
   return (
-    <section id="certificaciones" className="mobile-section mobile-certs">
+    <section id="certificaciones" className="mobile-section mobile-certs mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <SectionTitle 
           badge="LOGROS"

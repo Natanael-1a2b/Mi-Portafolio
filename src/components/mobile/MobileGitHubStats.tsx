@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import { githubConfig, fetchGitHubData, GitHubStatsResult } from '../../data/github'
 import { SectionTitle } from '../ui/SectionTitle'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileGitHubStats() {
   const [data, setData] = useState<GitHubStatsResult | null>(null)
   const [loading, setLoading] = useState(true)
+  const ref = useFadeIn<HTMLElement>()
 
   useEffect(() => {
     fetchGitHubData().then(result => {
@@ -15,7 +17,7 @@ export function MobileGitHubStats() {
 
   if (loading || !data) {
     return (
-      <section className="mobile-section mobile-github">
+      <section className="mobile-section mobile-github mobile-fade-in" ref={ref}>
         <div className="mobile-container">
           <SectionTitle badge="CÓDIGO ABIERTO" title="GitHub & " gradientTitle="Actividad" />
           <div className="mobile-gh-loading">Cargando estadísticas...</div>
@@ -27,7 +29,7 @@ export function MobileGitHubStats() {
   const { user, totalContributions, totalStars, currentYearContributions, currentStreak } = data
 
   return (
-    <section className="mobile-section mobile-github">
+    <section className="mobile-section mobile-github mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <SectionTitle 
           badge="CÓDIGO ABIERTO"

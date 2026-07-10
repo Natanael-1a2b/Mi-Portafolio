@@ -4,12 +4,14 @@ import { SectionTitle } from '../ui/SectionTitle'
 import { ProjectModal } from '../ui/ProjectModal'
 import { asset } from '../../utils/asset'
 import type { Project } from '../../data/projects'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileProjects() {
   const [selected, setSelected] = useState<Project | null>(null)
+  const ref = useFadeIn<HTMLElement>()
 
   return (
-    <section id="proyectos" className="mobile-section mobile-projects">
+    <section id="proyectos" className="mobile-section mobile-projects mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <SectionTitle 
           badge="PORTAFOLIO"

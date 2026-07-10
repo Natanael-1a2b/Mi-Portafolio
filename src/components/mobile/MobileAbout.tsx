@@ -1,9 +1,12 @@
 import { aboutContent, personalInfo } from '../../data/personal'
 import { SectionTitle } from '../ui/SectionTitle'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileAbout() {
+  const ref = useFadeIn<HTMLElement>()
+
   return (
-    <section id="sobre-mi" className="mobile-section mobile-about">
+    <section id="sobre-mi" className="mobile-section mobile-about mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <SectionTitle 
           badge="CONÓCEME"

@@ -1,10 +1,13 @@
 import { experiences } from '../../data/experience'
 import { SectionTitle } from '../ui/SectionTitle'
 import { LiveBadge } from '../ui/LiveBadge'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileExperience() {
+  const ref = useFadeIn<HTMLElement>()
+
   return (
-    <section id="experiencia" className="mobile-section mobile-experience">
+    <section id="experiencia" className="mobile-section mobile-experience mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <SectionTitle 
           badge="TRAYECTORIA"

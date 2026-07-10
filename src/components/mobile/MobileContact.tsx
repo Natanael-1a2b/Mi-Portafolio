@@ -1,11 +1,13 @@
 import { useState, useRef } from 'react'
 import { personalInfo } from '../../data/personal'
 import { SectionTitle } from '../ui/SectionTitle'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 export function MobileContact() {
   const [sending, setSending] = useState(false)
   const [alert, setAlert] = useState<{type: 'success' | 'error', msg: string} | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const sectionRef = useFadeIn<HTMLElement>()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,7 +35,7 @@ export function MobileContact() {
   }
 
   return (
-    <section id="contacto" className="mobile-section mobile-contact">
+    <section id="contacto" className="mobile-section mobile-contact mobile-fade-in" ref={sectionRef}>
       <div className="mobile-container">
         <SectionTitle 
           badge="HABLEMOS"

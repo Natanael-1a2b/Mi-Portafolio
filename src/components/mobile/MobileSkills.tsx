@@ -2,6 +2,7 @@ import { skills } from '../../data/skills'
 import { SectionTitle } from '../ui/SectionTitle'
 import { asset } from '../../utils/asset'
 import { useMemo } from 'react'
+import { useFadeIn } from '../../hooks/useFadeIn'
 
 const svgIcons: Record<string, React.ReactNode> = {
   robot: (
@@ -31,13 +32,14 @@ function SkillIcon({ skill }: { skill: typeof skills[0] }) {
 }
 
 export function MobileSkills() {
+  const ref = useFadeIn<HTMLElement>()
   const categories = useMemo(() => {
     const cats = new Set(skills.map(s => s.category))
     return Array.from(cats)
   }, [])
 
   return (
-    <section id="habilidades" className="mobile-section mobile-skills">
+    <section id="habilidades" className="mobile-section mobile-skills mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <SectionTitle 
           badge="CAPACIDADES"
