@@ -57,37 +57,65 @@ export function Navbar() {
   }
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''} ${isHidden ? 'hidden' : ''}`}>
-      <div className="container">
+    <header className={`navbar ${scrolled ? 'scrolled' : ''} ${isHidden ? 'hidden' : ''}`}>
+      <div className="navbar-container">
+
+        {/* LOGO */}
         <a
           href="#inicio"
-          className="navbar-brand"
+          className="navbar-logo"
           onClick={(e) => handleClick(e, '#inicio')}
         >
           {personalInfo.brandInitials}
         </a>
 
-        <button
-          className={`hamburger ${menuOpen ? 'open' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menú"
-        >
-          <span /><span /><span />
-        </button>
-
-        <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
+        {/* NAVEGACIÓN DESKTOP */}
+        <nav className={`nav-links ${menuOpen ? 'active' : ''}`}>
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={`nav-link${activeSection === link.href ? ' active' : ''}`}
+              className={`nav-link ${activeSection === link.href ? 'active' : ''}`}
               onClick={(e) => handleClick(e, link.href)}
             >
               {link.label}
             </a>
           ))}
+
+          {/* CTA SOLO PARA MOBILE */}
+          <a
+            href="#contacto"
+            className="cta-button mobile-cta"
+            onClick={(e) => handleClick(e, '#contacto')}
+          >
+            Contáctame
+            <span>&rarr;</span>
+          </a>
+        </nav>
+
+        {/* CTA DESKTOP */}
+        <div className="navbar-actions">
+          <a
+            href="#contacto"
+            className="cta-button desktop-cta"
+            onClick={(e) => handleClick(e, '#contacto')}
+          >
+            Contáctame
+            <span>&rarr;</span>
+          </a>
         </div>
+
+        {/* BOTÓN HAMBURGUESA */}
+        <button
+          className={`menu-toggle ${menuOpen ? 'active' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Abrir menú"
+          aria-expanded={menuOpen}
+        >
+          <span /><span /><span />
+        </button>
+
       </div>
-    </nav>
+    </header>
   )
 }
