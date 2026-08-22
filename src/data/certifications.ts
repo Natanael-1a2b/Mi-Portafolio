@@ -7,6 +7,12 @@ export interface Certification {
 
 export const certifications: Certification[] = [
   {
+    id: 'software-architect-mindset',
+    title: 'Software Architect Mindset Workshop',
+    issuer: 'Dev Senior Code',
+    image: '/assets/images/certificaciones/software-architecture-workshop.webp',
+  },
+  {
     id: 'it-essentials',
     title: 'IT Essentials',
     issuer: 'Cisco Networking Academy',
@@ -46,6 +52,6 @@ export const certifications: Certification[] = [
     id: 'ia-3era-edicion',
     title: 'Desarrollo con IA 3era Edicion',
     issuer: 'BIG school',
-    image: '/assets/images/certificaciones/IA-3era-edicion.png',
+    image: '/assets/images/certificaciones/IA-3era-edicion.webp',
   },
 ]
