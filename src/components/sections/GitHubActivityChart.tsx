@@ -9,119 +9,109 @@ interface GitHubActivityChartProps {
   calendar?: ContributionDay[]
 }
 
+const MONTH_NAMES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+
 export function GitHubActivityChart({ calendar = [] }: GitHubActivityChartProps) {
-  const [hoveredDay, setHoveredDay] = useState<{ day: ContributionDay; x: number; y: number } | null>(null)
+  const [hoveredBar, setHoveredBar] = useState<{ day: ContributionDay; barX: number; barY: number } | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Tomamos los últimos 30 días con datos
-  const monthData = useMemo(() => {
-    if (!calendar || calendar.length === 0) return []
-    return calendar.slice(-30)
+  // Obtener el mes calendario más reciente completo
+  const { monthData, monthLabel } = useMemo(() => {
+    if (!calendar || calendar.length === 0) return { monthData: [], monthLabel: '' }
+
+    const lastDate = calendar[calendar.length - 1].date
+    const [year, month] = lastDate.split('-').map(Number)
+    const daysInMonth = new Date(year, month, 0).getDate()
+
+    const days: ContributionDay[] = []
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+      const found = calendar.find(c => c.date === dateStr)
+      days.push(found ?? { date: dateStr, contributionCount: 0 })
+    }
+
+    return {
+      monthData: days,
+      monthLabel: `${MONTH_NAMES[month - 1]} ${year}`,
+    }
   }, [calendar])
 
-  const totalMonthContributions = useMemo(() => {
-    return monthData.reduce((acc, curr) => acc + curr.contributionCount, 0)
-  }, [monthData])
+  const totalMonthContributions = useMemo(
+    () => monthData.reduce((acc, d) => acc + d.contributionCount, 0),
+    [monthData]
+  )
 
-  const maxContributions = useMemo(() => {
-    if (monthData.length === 0) return 1
-    return Math.max(...monthData.map(d => d.contributionCount), 1)
-  }, [monthData])
+  const maxContributions = useMemo(
+    () => Math.max(...monthData.map(d => d.contributionCount), 1),
+    [monthData]
+  )
 
-  // Dimensiones del SVG
+  // Dimensiones SVG
   const width = 560
-  const height = 180
-  const paddingLeft = 32
-  const paddingRight = 20
-  const paddingTop = 25
-  const paddingBottom = 35
+  const height = 170
+  const pLeft = 32
+  const pRight = 12
+  const pTop = 18
+  const pBottom = 34
 
-  const chartWidth = width - paddingLeft - paddingRight
-  const chartHeight = height - paddingTop - paddingBottom
-  const maxScale = Math.max(maxContributions + 1, 4)
+  const chartW = width - pLeft - pRight
+  const chartH = height - pTop - pBottom
+  const n = monthData.length || 1
+  const groupW = chartW / n
+  const barW = Math.max(groupW * 0.6, 4)
 
-  // Coordenadas calculadas
-  const points = useMemo(() => {
-    if (monthData.length === 0) return []
-    return monthData.map((d, index) => {
-      const x = paddingLeft + (index / (monthData.length - 1 || 1)) * chartWidth
-      const y = paddingTop + chartHeight - (d.contributionCount / maxScale) * chartHeight
-      return { x, y, day: d }
+  const bars = useMemo(() => {
+    return monthData.map((d, i) => {
+      const barH = (d.contributionCount / maxContributions) * chartH
+      const x = pLeft + i * groupW + (groupW - barW) / 2
+      const y = pTop + chartH - barH
+      return { x, y, barH, barW, day: d, index: i }
     })
-  }, [monthData, chartWidth, chartHeight, maxScale, paddingLeft, paddingTop])
+  }, [monthData, maxContributions, chartH, groupW, barW])
 
-  // Generador de curva Bézier suave
-  const { linePath, areaPath } = useMemo(() => {
-    if (points.length === 0) return { linePath: '', areaPath: '' }
-    if (points.length === 1) {
-      const p = points[0]
-      return {
-        linePath: `M ${p.x} ${p.y}`,
-        areaPath: `M ${p.x} ${height - paddingBottom} L ${p.x} ${p.y} L ${p.x} ${height - paddingBottom} Z`,
-      }
-    }
+  // Etiquetas del eje X: todos los días del mes
+  const xLabels = bars
 
-    let d = `M ${points[0].x},${points[0].y}`
-    for (let i = 0; i < points.length - 1; i++) {
-      const current = points[i]
-      const next = points[i + 1]
-      const mx = (current.x + next.x) / 2
-      d += ` C ${mx},${current.y} ${mx},${next.y} ${next.x},${next.y}`
-    }
+  // Líneas guía del eje Y
+  const yGuides = useMemo(() => {
+    const step = Math.ceil(maxContributions / 3)
+    return [step, step * 2, step * 3].filter(v => v <= maxContributions + 1)
+  }, [maxContributions])
 
-    const baselineY = height - paddingBottom
-    const area = `${d} L ${points[points.length - 1].x},${baselineY} L ${points[0].x},${baselineY} Z`
-
-    return { linePath: d, areaPath: area }
-  }, [points, height, paddingBottom])
-
-  const formatDate = (dateStr: string) => {
-    try {
-      const [year, month, day] = dateStr.split('-').map(Number)
-      const date = new Date(year, month - 1, day)
-      return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })
-    } catch {
-      return dateStr
-    }
+  const getBarFill = (count: number) => {
+    if (count === 0) return 'rgba(255, 255, 255, 0.06)'
+    if (count <= 2) return 'url(#barGradLow)'
+    if (count <= 5) return 'url(#barGradMid)'
+    if (count <= 9) return 'url(#barGradHigh)'
+    return 'url(#barGradMax)'
   }
 
-  const formatFullDate = (dateStr: string) => {
-    try {
-      const [year, month, day] = dateStr.split('-').map(Number)
-      const date = new Date(year, month - 1, day)
-      return date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
-    } catch {
-      return dateStr
-    }
+  const formatDate = (dateStr: string) => {
+    const [year, month, day] = dateStr.split('-').map(Number)
+    const date = new Date(year, month - 1, day)
+    return date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })
   }
 
   const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (points.length === 0 || !containerRef.current) return
+    if (bars.length === 0) return
     const rect = e.currentTarget.getBoundingClientRect()
     const svgX = ((e.clientX - rect.left) / rect.width) * width
-
-    let closest = points[0]
-    let minDiff = Math.abs(closest.x - svgX)
-    for (let i = 1; i < points.length; i++) {
-      const diff = Math.abs(points[i].x - svgX)
-      if (diff < minDiff) {
-        minDiff = diff
-        closest = points[i]
-      }
-    }
-    setHoveredDay(closest)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredDay(null)
+    const closest = bars.reduce((prev, curr) =>
+      Math.abs(curr.x + barW / 2 - svgX) < Math.abs(prev.x + barW / 2 - svgX) ? curr : prev
+    )
+    setHoveredBar({ day: closest.day, barX: closest.x + barW / 2, barY: closest.y })
   }
 
   return (
     <div className="gh-activity-chart-wrapper" ref={containerRef}>
       <div className="gh-activity-chart-header">
-        <div className="gh-card-title" style={{ margin: 0 }}>Contribuciones en el último mes</div>
+        <div className="gh-card-title" style={{ margin: 0 }}>
+          Contribuciones —{' '}
+          <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>{monthLabel}</span>
+        </div>
         <div className="gh-activity-chart-badge">
-          <span className="gh-badge-glow"></span>
+          <span className="gh-badge-glow" />
           <span className="gh-badge-val">+{totalMonthContributions}</span>
           <span className="gh-badge-label">este mes</span>
         </div>
@@ -132,142 +122,126 @@ export function GitHubActivityChart({ calendar = [] }: GitHubActivityChartProps)
           viewBox={`0 0 ${width} ${height}`}
           className="gh-activity-svg"
           onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
+          onMouseLeave={() => setHoveredBar(null)}
           role="img"
-          aria-label="Gráfico de actividad de contribuciones de los últimos 30 días"
+          aria-label={`Gráfico de contribuciones de ${monthLabel}`}
         >
           <defs>
-            <linearGradient id="ghAreaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#a855f7" stopOpacity="0.4" />
-              <stop offset="60%" stopColor="#6366f1" stopOpacity="0.15" />
-              <stop offset="100%" stopColor="#6366f1" stopOpacity="0.0" />
+            <linearGradient id="barGradLow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#4338ca" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#3730a3" stopOpacity="0.6" />
             </linearGradient>
-
-            <linearGradient id="ghLineGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#6366f1" />
-              <stop offset="50%" stopColor="#a855f7" />
-              <stop offset="100%" stopColor="#00f2fe" />
+            <linearGradient id="barGradMid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#4338ca" stopOpacity="0.7" />
             </linearGradient>
-
-            <filter id="ghGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#a855f7" floodOpacity="0.6" />
+            <linearGradient id="barGradHigh" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#a855f7" stopOpacity="1" />
+              <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.7" />
+            </linearGradient>
+            <linearGradient id="barGradMax" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#00f2fe" stopOpacity="1" />
+              <stop offset="100%" stopColor="#a855f7" stopOpacity="0.8" />
+            </linearGradient>
+            <filter id="barGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#a855f7" floodOpacity="0.5" />
             </filter>
           </defs>
 
+          {/* Línea base */}
+          <line
+            x1={pLeft} y1={pTop + chartH}
+            x2={width - pRight} y2={pTop + chartH}
+            stroke="rgba(255,255,255,0.1)" strokeWidth="1"
+          />
+
           {/* Líneas guía horizontales */}
-          {[0, 0.5, 1].map((ratio, i) => {
-            const y = paddingTop + chartHeight * (1 - ratio)
-            const val = Math.round(maxScale * ratio)
+          {yGuides.map((val) => {
+            const y = pTop + chartH - (val / maxContributions) * chartH
             return (
-              <g key={i}>
+              <g key={val}>
                 <line
-                  x1={paddingLeft}
-                  y1={y}
-                  x2={width - paddingRight}
-                  y2={y}
-                  stroke="rgba(255, 255, 255, 0.07)"
-                  strokeDasharray="4 4"
-                  strokeWidth="1"
+                  x1={pLeft} y1={y} x2={width - pRight} y2={y}
+                  stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" strokeWidth="1"
                 />
-                <text
-                  x={paddingLeft - 8}
-                  y={y + 3}
-                  textAnchor="end"
-                  fontSize="10"
-                  fill="var(--text-tertiary, #64748b)"
-                  fontFamily="inherit"
-                >
+                <text x={pLeft - 6} y={y + 3} textAnchor="end"
+                  fontSize="9" fill="var(--text-tertiary, #64748b)" fontFamily="inherit">
                   {val}
                 </text>
               </g>
             )
           })}
 
-          {/* Área sombreada con degradado */}
-          {areaPath && (
-            <path
-              d={areaPath}
-              fill="url(#ghAreaGrad)"
-              style={{ transition: 'all 0.3s ease' }}
+          {/* Barras */}
+          {bars.map((bar) => {
+            const isHovered = hoveredBar?.day.date === bar.day.date
+            return (
+              <g key={bar.day.date}>
+                {bar.day.contributionCount > 0 ? (
+                  <rect
+                    x={bar.x}
+                    y={bar.y}
+                    width={barW}
+                    height={bar.barH}
+                    rx={2}
+                    fill={getBarFill(bar.day.contributionCount)}
+                    filter={isHovered ? 'url(#barGlow)' : undefined}
+                    style={{ transition: 'filter 0.15s ease, opacity 0.15s ease' }}
+                    opacity={hoveredBar && !isHovered ? 0.45 : 1}
+                  />
+                ) : (
+                  <rect
+                    x={bar.x}
+                    y={pTop + chartH - 2}
+                    width={barW}
+                    height={2}
+                    rx={1}
+                    fill="rgba(255,255,255,0.06)"
+                  />
+                )}
+              </g>
+            )
+          })}
+
+          {/* Línea vertical hover */}
+          {hoveredBar && (
+            <line
+              x1={hoveredBar.barX} y1={pTop}
+              x2={hoveredBar.barX} y2={pTop + chartH}
+              stroke="rgba(168,85,247,0.4)" strokeDasharray="3 3" strokeWidth="1.5"
             />
           )}
 
-          {/* Línea de tendencia neón */}
-          {linePath && (
-            <path
-              d={linePath}
-              fill="none"
-              stroke="url(#ghLineGrad)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              filter="url(#ghGlow)"
-            />
-          )}
-
-          {/* Etiquetas del eje X (fechas clave) */}
-          {points.length > 0 &&
-            [0, Math.floor(points.length * 0.33), Math.floor(points.length * 0.66), points.length - 1].map((idx, i) => {
-              const p = points[idx]
-              if (!p) return null
-              return (
-                <text
-                  key={i}
-                  x={p.x}
-                  y={height - 10}
-                  textAnchor={i === 0 ? 'start' : i === 3 ? 'end' : 'middle'}
-                  fontSize="10"
-                  fill="var(--text-tertiary, #64748b)"
-                  fontFamily="inherit"
-                >
-                  {formatDate(p.day.date)}
-                </text>
-              )
-            })}
-
-          {/* Efectos al pasar el cursor */}
-          {hoveredDay && (
-            <g className="gh-hover-group">
-              <line
-                x1={hoveredDay.x}
-                y1={paddingTop}
-                x2={hoveredDay.x}
-                y2={height - paddingBottom}
-                stroke="rgba(168, 85, 247, 0.45)"
-                strokeDasharray="3 3"
-                strokeWidth="1.5"
-              />
-              <circle
-                cx={hoveredDay.x}
-                cy={hoveredDay.y}
-                r="7"
-                fill="rgba(0, 242, 254, 0.25)"
-              />
-              <circle
-                cx={hoveredDay.x}
-                cy={hoveredDay.y}
-                r="4"
-                fill="#00f2fe"
-                stroke="#ffffff"
-                strokeWidth="1.5"
-              />
-            </g>
-          )}
+          {/* Eje X — todos los días del mes */}
+          {xLabels.map((bar) => (
+            <text
+              key={`lbl-${bar.day.date}`}
+              x={bar.x + barW / 2}
+              y={height - 8}
+              textAnchor="middle"
+              fontSize="8.5"
+              fill="var(--text-tertiary, #64748b)"
+              fontFamily="inherit"
+            >
+              {parseInt(bar.day.date.split('-')[2], 10)}
+            </text>
+          ))}
         </svg>
 
-        {/* Tooltip flotante estilizado */}
-        {hoveredDay && (
+        {/* Tooltip */}
+        {hoveredBar && (
           <div
             className="gh-chart-tooltip"
             style={{
-              left: `${(hoveredDay.x / width) * 100}%`,
-              top: `${(hoveredDay.y / height) * 100}%`,
+              left: `${(hoveredBar.barX / width) * 100}%`,
+              top: `${(hoveredBar.barY / height) * 100}%`,
             }}
           >
-            <div className="gh-tooltip-date">{formatFullDate(hoveredDay.day.date)}</div>
+            <div className="gh-tooltip-date">{formatDate(hoveredBar.day.date)}</div>
             <div className="gh-tooltip-count">
               <span className="gh-tooltip-dot" />
-              <strong>{hoveredDay.day.contributionCount}</strong> {hoveredDay.day.contributionCount === 1 ? 'contribución' : 'contribuciones'}
+              <strong>{hoveredBar.day.contributionCount}</strong>{' '}
+              {hoveredBar.day.contributionCount === 1 ? 'contribución' : 'contribuciones'}
             </div>
           </div>
         )}
