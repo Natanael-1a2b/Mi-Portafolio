@@ -32,3 +32,10 @@ agent/
 
 # OpenCode
 .opencode/
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# Test artifacts
+test-results/
+test.json
