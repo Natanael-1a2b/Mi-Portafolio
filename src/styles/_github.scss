@@ -178,14 +178,106 @@
   grid-column: span 7;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 0.5rem 0;
+  justify-content: space-between;
+  padding: 1.25rem 1.25rem 0.75rem;
 }
-.gh-card-chart img {
+
+.gh-activity-chart-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.gh-activity-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.gh-activity-chart-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  font-size: 0.75rem;
+
+  .gh-badge-glow {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00f2fe;
+    box-shadow: 0 0 8px #00f2fe;
+  }
+
+  .gh-badge-val {
+    font-weight: 700;
+    color: #00f2fe;
+  }
+
+  .gh-badge-label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+}
+
+.gh-activity-svg-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.gh-activity-svg {
   width: 100%;
   height: auto;
-  object-fit: contain;
+  overflow: visible;
+  display: block;
+}
+
+.gh-chart-tooltip {
+  position: absolute;
+  transform: translate(-50%, -125%);
+  pointer-events: none;
+  background: rgba(10, 15, 29, 0.92);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(168, 85, 247, 0.2);
+  z-index: 10;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+
+  .gh-tooltip-date {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    margin-bottom: 0.15rem;
+    text-transform: capitalize;
+  }
+
+  .gh-tooltip-count {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-main);
+    font-size: 0.78rem;
+
+    .gh-tooltip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00f2fe;
+      box-shadow: 0 0 6px #00f2fe;
+    }
+  }
 }
 .gh-card-summary { grid-column: span 6; display: flex; flex-direction: column; align-items: center; }
 .gh-card-streak { grid-column: span 6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem; }

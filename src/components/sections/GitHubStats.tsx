@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useMemo } from 'react'
 import { githubConfig, fetchGitHubData, GitHubStatsResult } from '../../data/github'
 import { SectionTitle } from '../ui/SectionTitle'
 import { SectionAtmosphere } from '../ui/SectionAtmosphere'
+import { GitHubActivityChart } from './GitHubActivityChart'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -201,9 +202,7 @@ export function GitHubStats() {
           </div>
 
           <div className="gh-card gh-card-chart">
-            <div className="gh-card-title">Contribuciones en el último mes</div>
-            {/* Usando GitHub Readme Activity Graph */}
-            <img src={`https://github-readme-activity-graph.vercel.app/graph?username=${githubConfig.username}&bg_color=00000000&color=a855f7&line=6366f1&point=fff&area=true&hide_border=true&hide_title=true`} alt="Activity Graph" title="Gráfico de contribuciones del último mes" loading="lazy" />
+            <GitHubActivityChart calendar={data.calendar} />
           </div>
 
           {/* Row 2: Summary Stats & Streak */}
