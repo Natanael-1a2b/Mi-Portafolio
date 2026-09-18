@@ -178,14 +178,146 @@
   grid-column: span 7;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 0.75rem 0.5rem 0;
+  padding: 1.5rem;
 }
-.gh-card-chart img {
+
+/* Gráfico de contribuciones del último mes */
+.gh-month-chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.gh-month-chart-total {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 0.15rem;
+}
+
+.gh-month-chart-total-value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  @include gradient-text(#6366f1, var(--secondary));
+
+  @include respond(md) { font-size: 1.5rem; }
+}
+
+.gh-month-chart-total-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gh-month-chart-plot {
+  position: relative;
+  width: 100%;
+}
+
+.gh-month-chart-svg {
   width: 100%;
   height: auto;
-  object-fit: contain;
+  display: block;
+  overflow: visible;
+  cursor: crosshair;
+}
+
+.gh-month-chart-grid line {
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.gh-month-chart-baseline {
+  stroke: rgba(255, 255, 255, 0.1) !important;
+  stroke-dasharray: none !important;
+}
+
+.gh-month-chart-glow {
+  filter: blur(4px);
+}
+
+.gh-month-chart-cursor {
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.gh-month-chart-peak-label {
+  fill: var(--secondary);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+}
+
+.gh-month-chart-axis-label {
+  fill: var(--text-muted);
+  font-size: 10px;
+  font-family: var(--font-sans);
+}
+
+.gh-month-chart-hover-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--secondary);
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.7);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gh-month-chart-today-dot {
+  position: absolute;
+  margin: -4px 0 0 -4px;
+  pointer-events: none;
+}
+
+.gh-month-chart-tooltip {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, calc(-100% - 10px));
+  background: var(--bg-dark);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.75rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), var(--glow-violet);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+
+  strong { color: var(--secondary); font-size: 0.95rem; }
+  span { color: var(--text-muted); font-size: 0.7rem; }
+}
+
+.gh-month-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+
+  &.is-up { color: var(--color-success); background: rgba(16, 185, 129, 0.1); }
+  &.is-down { color: var(--color-error); background: rgba(239, 68, 68, 0.1); }
+  &.is-flat { color: var(--text-muted); background: rgba(255, 255, 255, 0.05); }
+
+  @include respond(md) { font-size: 0.65rem; padding: 0.15rem 0.5rem; }
 }
 .gh-card-summary { grid-column: span 6; display: flex; flex-direction: column; align-items: center; }
 .gh-card-streak { grid-column: span 6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem; }

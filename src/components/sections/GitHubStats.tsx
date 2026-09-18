@@ -8,12 +8,49 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const MONTH_NAMES_SHORT = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+function formatShortDate(dateStr: string) {
+  const [, m, d] = dateStr.split('-')
+  return `${parseInt(d, 10)} ${MONTH_NAMES_SHORT[parseInt(m, 10) - 1]}`
+}
+function formatFullDate(dateStr: string) {
+  const [y, m, d] = dateStr.split('-')
+  return `${parseInt(d, 10)} ${MONTH_NAMES_SHORT[parseInt(m, 10) - 1]} ${y}`
+}
+
+// Curva Catmull-Rom -> Bézier: una línea suave que pasa exactamente por cada punto de datos
+function smoothLinePath(points: { x: number; y: number }[]) {
+  if (points.length === 0) return ''
+  if (points.length === 1) return `M${points[0].x},${points[0].y}`
+  let d = `M${points[0].x.toFixed(2)},${points[0].y.toFixed(2)}`
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i - 1] || points[i]
+    const p1 = points[i]
+    const p2 = points[i + 1]
+    const p3 = points[i + 2] || p2
+    const c1x = p1.x + (p2.x - p0.x) / 6
+    const c1y = p1.y + (p2.y - p0.y) / 6
+    const c2x = p2.x - (p3.x - p1.x) / 6
+    const c2y = p2.y - (p3.y - p1.y) / 6
+    d += ` C${c1x.toFixed(2)},${c1y.toFixed(2)} ${c2x.toFixed(2)},${c2y.toFixed(2)} ${p2.x.toFixed(2)},${p2.y.toFixed(2)}`
+  }
+  return d
+}
+
+const MONTH_CHART_W = 640
+const MONTH_CHART_H = 190
+const MONTH_CHART_PAD_X = 12
+const MONTH_CHART_PAD_TOP = 28
+const MONTH_CHART_PAD_BOTTOM = 34
+
 export function GitHubStats() {
   const sectionRef = useRef<HTMLElement>(null)
   const prefersReduced = usePreferredMotion()
   const [data, setData] = useState<GitHubStatsResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [monthHoverIndex, setMonthHoverIndex] = useState<number | null>(null)
+  const monthLineRef = useRef<SVGPathElement>(null)
 
   useEffect(() => {
     fetchGitHubData().then(result => {
@@ -82,6 +119,85 @@ export function GitHubStats() {
       calendarScrollRef.current.scrollLeft = calendarScrollRef.current.scrollWidth;
     }
   }, [paddedCalendar]);
+
+  // Gráfico de contribuciones del último mes, calculado localmente (sin depender de servicios externos)
+  const monthChart = useMemo(() => {
+    const days = calendarData.slice(-30);
+    if (days.length === 0) return null;
+
+    const maxVal = Math.max(1, ...days.map(d => d.contributionCount));
+    const innerW = MONTH_CHART_W - MONTH_CHART_PAD_X * 2;
+    const innerH = MONTH_CHART_H - MONTH_CHART_PAD_TOP - MONTH_CHART_PAD_BOTTOM;
+    const stepX = days.length > 1 ? innerW / (days.length - 1) : 0;
+    const baseline = MONTH_CHART_PAD_TOP + innerH;
+
+    const points = days.map((d, i) => ({
+      x: MONTH_CHART_PAD_X + stepX * i,
+      y: baseline - (d.contributionCount / maxVal) * innerH,
+      date: d.date,
+      count: d.contributionCount,
+    }));
+
+    const linePath = smoothLinePath(points);
+    const last = points[points.length - 1];
+    const first = points[0];
+    const areaPath = `${linePath} L${last.x.toFixed(2)},${baseline.toFixed(2)} L${first.x.toFixed(2)},${baseline.toFixed(2)} Z`;
+
+    let peakIndex = 0;
+    days.forEach((d, i) => { if (d.contributionCount > days[peakIndex].contributionCount) peakIndex = i; });
+
+    const total = days.reduce((sum, d) => sum + d.contributionCount, 0);
+
+    const prevDays = calendarData.slice(-60, -30);
+    let trendPct: number | null = null;
+    if (prevDays.length === 30) {
+      const prevTotal = prevDays.reduce((sum, d) => sum + d.contributionCount, 0);
+      if (prevTotal > 0) trendPct = Math.round(((total - prevTotal) / prevTotal) * 100);
+      else if (total > 0) trendPct = 100;
+      else trendPct = 0;
+    }
+
+    return { points, linePath, areaPath, baseline, total, peakIndex, trendPct };
+  }, [calendarData]);
+
+  const handleMonthChartMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    if (!monthChart) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const relX = ((e.clientX - rect.left) / rect.width) * MONTH_CHART_W;
+    let nearest = 0;
+    let minDist = Infinity;
+    monthChart.points.forEach((p, i) => {
+      const dist = Math.abs(p.x - relX);
+      if (dist < minDist) { minDist = dist; nearest = i; }
+    });
+    setMonthHoverIndex(nearest);
+  };
+  const handleMonthChartLeave = () => setMonthHoverIndex(null);
+
+  // Animación de "dibujado" de la línea al entrar en viewport
+  useEffect(() => {
+    if (!monthChart || !monthLineRef.current) return;
+    const path = monthLineRef.current;
+    const length = path.getTotalLength();
+
+    if (prefersReduced) {
+      path.style.strokeDasharray = 'none';
+      path.style.strokeDashoffset = '0';
+      return;
+    }
+
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+    const ctx = gsap.context(() => {
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        duration: 1.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '.gh-month-chart', start: 'top 88%', once: true },
+      });
+    });
+    return () => ctx.revert();
+  }, [monthChart, prefersReduced]);
 
   if (loading) {
     return (
@@ -201,9 +317,182 @@ export function GitHubStats() {
           </div>
 
           <div className="gh-card gh-card-chart">
-            <div className="gh-card-title">Contribuciones en el último mes</div>
-            {/* Usando GitHub Readme Activity Graph */}
-            <img src={`https://github-readme-activity-graph.vercel.app/graph?username=${githubConfig.username}&bg_color=00000000&color=a855f7&line=6366f1&point=fff&area=true&hide_border=true&hide_title=true`} alt="Activity Graph" title="Gráfico de contribuciones del último mes" loading="lazy" />
+            <div className="gh-card-title">
+              <span>Contribuciones en el último mes</span>
+              {monthChart && monthChart.trendPct !== null && (
+                <span className={`gh-month-trend ${monthChart.trendPct > 0 ? 'is-up' : monthChart.trendPct < 0 ? 'is-down' : 'is-flat'}`}>
+                  {monthChart.trendPct > 0 && (
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+                  )}
+                  {monthChart.trendPct < 0 && (
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                  )}
+                  {monthChart.trendPct === 0 ? 'Igual que el mes anterior' : `${Math.abs(monthChart.trendPct)}% vs. mes anterior`}
+                </span>
+              )}
+            </div>
+
+            {monthChart ? (
+              <div className="gh-month-chart">
+                <div className="gh-month-chart-total">
+                  <span className="gh-month-chart-total-value">{monthChart.total.toLocaleString()}</span>
+                  <span className="gh-month-chart-total-label">contribuciones · últimos 30 días</span>
+                </div>
+
+                <div className="gh-month-chart-plot">
+                  <svg
+                    viewBox={`0 0 ${MONTH_CHART_W} ${MONTH_CHART_H}`}
+                    className="gh-month-chart-svg"
+                    onMouseMove={handleMonthChartMove}
+                    onMouseLeave={handleMonthChartLeave}
+                    role="img"
+                    aria-label={`Gráfico de contribuciones diarias de los últimos 30 días. Total: ${monthChart.total} contribuciones.`}
+                  >
+                    <defs>
+                      <linearGradient id="gh-month-line-grad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#6366f1" />
+                        <stop offset="100%" stopColor="#a855f7" />
+                      </linearGradient>
+                      <linearGradient id="gh-month-area-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#a855f7" stopOpacity="0.35" />
+                        <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+                      </linearGradient>
+                      <clipPath id="gh-month-clip">
+                        <rect
+                          x={MONTH_CHART_PAD_X}
+                          y={MONTH_CHART_PAD_TOP - 4}
+                          width={MONTH_CHART_W - MONTH_CHART_PAD_X * 2}
+                          height={monthChart.baseline - MONTH_CHART_PAD_TOP + 4}
+                        />
+                      </clipPath>
+                    </defs>
+
+                    <g className="gh-month-chart-grid">
+                      {[0.25, 0.5, 0.75].map(f => {
+                        const y = MONTH_CHART_PAD_TOP + (monthChart.baseline - MONTH_CHART_PAD_TOP) * f;
+                        return <line key={f} x1={MONTH_CHART_PAD_X} x2={MONTH_CHART_W - MONTH_CHART_PAD_X} y1={y} y2={y} />;
+                      })}
+                      <line
+                        x1={MONTH_CHART_PAD_X}
+                        x2={MONTH_CHART_W - MONTH_CHART_PAD_X}
+                        y1={monthChart.baseline}
+                        y2={monthChart.baseline}
+                        className="gh-month-chart-baseline"
+                      />
+                    </g>
+
+                    <g clipPath="url(#gh-month-clip)">
+                      <path d={monthChart.areaPath} fill="url(#gh-month-area-grad)" stroke="none" />
+                      <path
+                        d={monthChart.linePath}
+                        className="gh-month-chart-glow"
+                        fill="none"
+                        stroke="#a855f7"
+                        strokeWidth="6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        opacity="0.35"
+                      />
+                      <path
+                        ref={monthLineRef}
+                        d={monthChart.linePath}
+                        fill="none"
+                        stroke="url(#gh-month-line-grad)"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </g>
+
+                    {monthChart.points[monthChart.peakIndex].count > 0 && (
+                      <g className="gh-month-chart-peak">
+                        <circle
+                          cx={monthChart.points[monthChart.peakIndex].x}
+                          cy={monthChart.points[monthChart.peakIndex].y}
+                          r="3.5"
+                          fill="var(--bg-dark)"
+                          stroke="#a855f7"
+                          strokeWidth="2"
+                        />
+                        <text
+                          x={monthChart.points[monthChart.peakIndex].x}
+                          y={monthChart.points[monthChart.peakIndex].y - 10}
+                          textAnchor="middle"
+                          className="gh-month-chart-peak-label"
+                        >
+                          {monthChart.points[monthChart.peakIndex].count}
+                        </text>
+                      </g>
+                    )}
+
+                    {monthHoverIndex !== null && (
+                      <line
+                        x1={monthChart.points[monthHoverIndex].x}
+                        x2={monthChart.points[monthHoverIndex].x}
+                        y1={MONTH_CHART_PAD_TOP}
+                        y2={monthChart.baseline}
+                        className="gh-month-chart-cursor"
+                      />
+                    )}
+
+                    <text x={monthChart.points[0].x} y={MONTH_CHART_H - 8} textAnchor="start" className="gh-month-chart-axis-label">
+                      {formatShortDate(monthChart.points[0].date)}
+                    </text>
+                    <text
+                      x={monthChart.points[monthChart.points.length - 1].x}
+                      y={MONTH_CHART_H - 8}
+                      textAnchor="end"
+                      className="gh-month-chart-axis-label"
+                    >
+                      Hoy
+                    </text>
+                  </svg>
+
+                  {monthHoverIndex !== null && (
+                    <>
+                      <div
+                        className="gh-month-chart-hover-dot"
+                        style={{
+                          left: `${(monthChart.points[monthHoverIndex].x / MONTH_CHART_W) * 100}%`,
+                          top: `${(monthChart.points[monthHoverIndex].y / MONTH_CHART_H) * 100}%`,
+                        }}
+                      />
+                      <div
+                        className="gh-month-chart-tooltip"
+                        style={{ left: `${(monthChart.points[monthHoverIndex].x / MONTH_CHART_W) * 100}%` }}
+                      >
+                        <strong>{monthChart.points[monthHoverIndex].count}</strong>
+                        <span>
+                          {monthChart.points[monthHoverIndex].count === 1 ? 'contribución' : 'contribuciones'} · {formatFullDate(monthChart.points[monthHoverIndex].date)}
+                        </span>
+                      </div>
+                    </>
+                  )}
+
+                  <div
+                    className="status-dot status-dot--purple status-dot-pulse gh-month-chart-today-dot"
+                    style={{
+                      left: `${(monthChart.points[monthChart.points.length - 1].x / MONTH_CHART_W) * 100}%`,
+                      top: `${(monthChart.points[monthChart.points.length - 1].y / MONTH_CHART_H) * 100}%`,
+                    }}
+                  />
+                </div>
+
+                <table className="sr-only">
+                  <caption>Contribuciones diarias de los últimos 30 días</caption>
+                  <thead><tr><th>Fecha</th><th>Contribuciones</th></tr></thead>
+                  <tbody>
+                    {monthChart.points.map(p => (
+                      <tr key={p.date}><td>{p.date}</td><td>{p.count}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="gh-stats-error-box" style={{ padding: '1rem' }}>
+                <p>Sin datos de actividad reciente</p>
+              </div>
+            )}
           </div>
 
           {/* Row 2: Summary Stats & Streak */}
