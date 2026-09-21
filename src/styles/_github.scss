@@ -239,46 +239,35 @@
   stroke-dasharray: none !important;
 }
 
-.gh-month-chart-glow {
-  filter: blur(4px);
-}
-
 .gh-month-chart-cursor {
   stroke: rgba(255, 255, 255, 0.18);
   stroke-width: 1;
   pointer-events: none;
 }
 
-.gh-month-chart-peak-label {
-  fill: var(--secondary);
-  font-size: 11px;
-  font-weight: 700;
-  font-family: var(--font-sans);
-}
-
 .gh-month-chart-axis-label {
   fill: var(--text-muted);
-  font-size: 10px;
+  font-size: 9px;
   font-family: var(--font-sans);
+
+  &.is-today {
+    fill: var(--secondary);
+    font-weight: 700;
+  }
 }
 
-.gh-month-chart-hover-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid var(--secondary);
-  box-shadow: 0 0 8px rgba(168, 85, 247, 0.7);
-  pointer-events: none;
-  z-index: 2;
-}
+.gh-month-chart-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: opacity 0.15s ease, filter 0.15s ease;
 
-.gh-month-chart-today-dot {
-  position: absolute;
-  margin: -4px 0 0 -4px;
-  pointer-events: none;
+  &.is-hover {
+    filter: brightness(1.25);
+  }
+
+  &.is-today {
+    opacity: 1;
+  }
 }
 
 .gh-month-chart-tooltip {
@@ -303,22 +292,6 @@
   span { color: var(--text-muted); font-size: 0.7rem; }
 }
 
-.gh-month-trend {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  white-space: nowrap;
-
-  &.is-up { color: var(--color-success); background: rgba(16, 185, 129, 0.1); }
-  &.is-down { color: var(--color-error); background: rgba(239, 68, 68, 0.1); }
-  &.is-flat { color: var(--text-muted); background: rgba(255, 255, 255, 0.05); }
-
-  @include respond(md) { font-size: 0.65rem; padding: 0.15rem 0.5rem; }
-}
 .gh-card-summary { grid-column: span 6; display: flex; flex-direction: column; align-items: center; }
 .gh-card-streak { grid-column: span 6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem; }
 
