@@ -39,3 +39,6 @@ tsconfig.tsbuildinfo
 # Test artifacts
 test-results/
 test.json
+
+# Claude Code
+.claude/
