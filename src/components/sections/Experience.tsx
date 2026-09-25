@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { experiences } from '../../data/experience'
 import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
@@ -10,6 +10,10 @@ import { LiveBadge } from '../ui/LiveBadge'
 import { SectionTitle } from '../ui/SectionTitle'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+const MONTHS_SHORT = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+const MONTHS_CAP = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
 function findSkillByName(name: string) {
   const n = name.toLowerCase()
@@ -25,18 +29,28 @@ const techIconMap: Record<string, string> = {
   typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
 }
 
-function getDurationText(startDate: string, endDate: string): string {
-  if (endDate.toLowerCase().includes('actual')) return 'Actual'
-  const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-  const startParts = startDate.toLowerCase().split(' ')
-  const endParts = endDate.toLowerCase().split(' ')
-  const startMonth = months.indexOf(startParts[0]) + 1
-  const startYear = parseInt(startParts[1]) || 2026
-  const endMonth = months.indexOf(endParts[0]) + 1
-  const endYear = parseInt(endParts[1]) || 2026
-  const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth) + 1
-  if (totalMonths <= 1) return '1 mes'
-  return `${totalMonths} meses`
+function techIcon(tech: string) {
+  const s = findSkillByName(tech)
+  return techIconMap[tech.toLowerCase()] || (s && s.iconType === 'local' ? asset(s.icon) : s?.icon)
+}
+
+const isCurrent = (end: string) => end.toLowerCase().includes('actual')
+
+/** "Marzo 2026" -> índice absoluto de mes (año*12 + mes). "Actualidad" -> mes actual. */
+function toMonthIndex(date: string): number {
+  if (isCurrent(date)) {
+    const now = new Date()
+    return now.getFullYear() * 12 + now.getMonth()
+  }
+  const [m, y] = date.toLowerCase().split(' ')
+  return (parseInt(y) || new Date().getFullYear()) * 12 + Math.max(0, MONTHS.indexOf(m))
+}
+
+const fmtShort = (idx: number) => `${MONTHS_CAP[idx % 12]} ${Math.floor(idx / 12)}`
+
+function durationText(start: number, end: number) {
+  const total = end - start + 1
+  return total <= 1 ? '1 mes' : `${total} meses`
 }
 
 function MetricIcon({ icon }: { icon: string }) {
@@ -73,154 +87,214 @@ function MetricIcon({ icon }: { icon: string }) {
 export function Experience() {
   const sectionRef = useRef<HTMLElement>(null)
   const prefersReduced = usePreferredMotion()
+  const [open, setOpen] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(experiences.map((e, i) => [e.id, i === 0]))
+  )
+  const toggle = (id: string) => setOpen(o => ({ ...o, [id]: !o[id] }))
+
+  const timeline = useMemo(() => {
+    const items = experiences.map(exp => {
+      const start = toMonthIndex(exp.startDate)
+      const end = toMonthIndex(exp.endDate)
+      return { exp, start, end, current: isCurrent(exp.endDate), duration: durationText(start, end) }
+    })
+    const minYear = Math.floor(Math.min(...items.map(i => i.start)) / 12)
+    const maxYear = Math.floor(Math.max(...items.map(i => i.end)) / 12)
+    const origin = minYear * 12
+    const totalCols = (maxYear - minYear + 1) * 12
+    const now = new Date()
+    const todayPct = ((now.getFullYear() * 12 + now.getMonth() - origin + now.getDate() / 31) / totalCols) * 100
+
+    // Primer tramo donde dos roles coinciden
+    let overlap: string | null = null
+    for (let a = 0; a < items.length && !overlap; a++) {
+      for (let b = a + 1; b < items.length && !overlap; b++) {
+        const s = Math.max(items[a].start, items[b].start)
+        const e = Math.min(items[a].end, items[b].end)
+        if (s <= e) overlap = `${MONTHS_CAP[s % 12]} – ${fmtShort(e)}: roles en paralelo`
+      }
+    }
+
+    const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
+    return { items, origin, totalCols, todayPct, overlap, years }
+  }, [])
 
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
     const ctx = gsap.context(() => {
-      gsap.from('.timeline-line', {
-        scaleY: 0,
-        transformOrigin: 'top center',
-        duration: 0.5,
+      gsap.from('.xp-bar', {
+        scaleX: 0,
+        transformOrigin: 'left center',
+        duration: 0.7,
         ease: 'power3.out',
-        scrollTrigger: { trigger: '.timeline', start: 'top 80%' },
+        stagger: 0.12,
+        scrollTrigger: { trigger: '.xp-gantt', start: 'top 80%' },
       })
-      gsap.utils.toArray<HTMLElement>('.timeline-entry').forEach((entry, i) => {
-        gsap.from(entry, {
+      gsap.from('.xp-today', {
+        opacity: 0,
+        duration: 0.4,
+        delay: 0.5,
+        scrollTrigger: { trigger: '.xp-gantt', start: 'top 80%' },
+      })
+      gsap.utils.toArray<HTMLElement>('.xp-row').forEach(row => {
+        gsap.from(row, {
           opacity: 0,
-          x: i % 2 === 0 ? -60 : 60,
-          y: 20,
-          duration: 0.4,
+          y: 24,
+          duration: 0.45,
           ease: 'power3.out',
-          scrollTrigger: { trigger: entry, start: 'top 85%' },
-        })
-      })
-      gsap.utils.toArray<HTMLElement>('.timeline-dot').forEach((dot) => {
-        gsap.from(dot, {
-          scale: 0,
-          duration: 0.4,
-          ease: 'back.out(3)',
-          scrollTrigger: { trigger: dot, start: 'top 85%' },
+          scrollTrigger: { trigger: row, start: 'top 88%' },
         })
       })
     }, sectionRef)
     return () => ctx.revert()
   }, [prefersReduced])
 
+  const { items, origin, totalCols, todayPct, overlap, years } = timeline
+
   return (
     <section id="experiencia" ref={sectionRef} className="experience-section section-alt" style={{ position: 'relative' }}>
       <SectionAtmosphere />
       <div className="container">
-        {/* Title */}
-        <SectionTitle 
+        <SectionTitle
           badge="TRAYECTORIA"
           title="Experiencia "
           gradientTitle="Laboral"
           subtitle="Mi trayectoria profesional."
         />
 
-        <div className="timeline">
-          <div className="timeline-line" />
-          {experiences.map((exp, i) => (
-            <div key={exp.id} className={`timeline-entry ${i % 2 === 0 ? 'timeline-left' : 'timeline-right'}`}>
-              <div className="timeline-dot" />
-              <div className={`timeline-connector ${i % 2 === 0 ? 'connector-right' : 'connector-left'}`} />
-              
-              <div className={`timeline-card glass-card ${exp.id === 'spn-software' ? 'card-purple' : ''}`}>
-                {/* Date Row */}
-                <div className="exp-date-row">
-                  <span className="exp-date">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                    {exp.startDate} — {exp.endDate}
+        <div className="xp-wrap">
+          {/* Cronología */}
+          <div className="xp-gantt glass-card">
+            <div className="xp-gantt-head">
+              <span className="exp-section-label">Línea de tiempo · {years.join(' – ')}</span>
+              {overlap && <span className="xp-gantt-note">{overlap}</span>}
+            </div>
+
+            <div className="xp-gantt-body" style={{ ['--cols' as string]: totalCols }}>
+              <div className="xp-months">
+                {Array.from({ length: totalCols }, (_, i) => (
+                  <span key={i} className={i % 12 === 0 && years.length > 1 ? 'is-year' : ''}>
+                    {i % 12 === 0 && years.length > 1 ? `${MONTHS_SHORT[0]} ${origin / 12 + i / 12}` : MONTHS_SHORT[i % 12]}
                   </span>
-                  {exp.endDate.toLowerCase().includes('actual') ? (
-                    <LiveBadge />
-                  ) : (
-                    <span className="badge-status badge-duration">
-                      {getDurationText(exp.startDate, exp.endDate)}
+                ))}
+              </div>
+
+              <div className="xp-tracks">
+                {items.map(({ exp, start, end, current, duration }) => (
+                  <div className="xp-track" key={exp.id}>
+                    <button
+                      type="button"
+                      className={`xp-bar ${exp.id === 'spn-software' ? 'is-purple' : ''} ${current ? 'is-current' : ''}`}
+                      style={{ gridColumn: `${start - origin + 1} / ${end - origin + 2}` }}
+                      onClick={() => toggle(exp.id)}
+                      aria-controls={`xp-panel-${exp.id}`}
+                      aria-expanded={!!open[exp.id]}
+                    >
+                      <img src={asset(exp.logo || '')} alt="" />
+                      <span className="xp-bar-name">{exp.company.match(/\(([^)]+)\)/)?.[1] ?? exp.company}</span>
+                      <span className="xp-bar-dur">· {duration}</span>
+                    </button>
+                  </div>
+                ))}
+                <div className="xp-today" style={{ left: `${todayPct}%` }} aria-hidden="true" />
+              </div>
+              <span className="xp-today-label" style={{ left: `${todayPct}%` }} aria-hidden="true">HOY</span>
+            </div>
+          </div>
+
+          {/* Acordeón */}
+          {items.map(({ exp, start, end, current, duration }) => {
+            const isOpen = !!open[exp.id]
+            const purple = exp.id === 'spn-software'
+            return (
+              <div key={exp.id} className={`xp-row glass-card ${purple ? 'is-purple' : ''} ${isOpen ? 'is-open' : ''}`}>
+                <button
+                  type="button"
+                  className="xp-row-head"
+                  onClick={() => toggle(exp.id)}
+                  aria-expanded={isOpen}
+                  aria-controls={`xp-panel-${exp.id}`}
+                >
+                  <span className="xp-row-date">
+                    <span className="xp-row-range">{fmtShort(start)} — {current ? 'Actualidad' : fmtShort(end)}</span>
+                    {current ? <LiveBadge /> : <span className="badge-status badge-duration">{duration}</span>}
+                  </span>
+
+                  <span className="xp-row-title">
+                    <img src={asset(exp.logo || '')} alt={exp.company} className="exp-logo" />
+                    <span className="xp-row-text">
+                      <span className="xp-row-position">{exp.position}</span>
+                      <span className="xp-row-company">{exp.company}</span>
                     </span>
-                  )}
-                </div>
+                  </span>
 
-                {/* Header: Logo + Company */}
-                <div className="exp-header">
-                  <img src={asset(exp.logo || '')} alt={`${exp.company}`} className="exp-logo" />
-                  <div className="exp-header-content">
-                    <h3 className="exp-company">{exp.company}</h3>
-                    <p className="exp-position">{exp.position}</p>
-                  </div>
-                </div>
-
-                {/* Highlights */}
-                {exp.highlights && exp.highlights.length > 0 && (
-                  <div className="exp-section">
-                    <ul className="exp-highlights">
-                      {exp.highlights.map((h) => (
-                        <li key={h}>
-                          <span className="hl-check">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                          </span>
-                          {h}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Technologies */}
-                <div className="exp-section">
-                  <span className="exp-section-label">Tecnologías</span>
-                  <div className="exp-techs">
-                    {exp.technologies.map((tech) => {
-                      const s = findSkillByName(tech)
-                      const iconSrc = techIconMap[tech.toLowerCase()] || (s && s.iconType === 'local' ? asset(s.icon) : s?.icon)
-                      return (
-                        <div className="tech-logo-item" key={tech}>
-                          {iconSrc && <img src={iconSrc} alt={tech} width={22} height={22} />}
-                          <span>{tech}</span>
-                        </div>
-                      )
+                  <span className="xp-row-techs" aria-hidden="true">
+                    {exp.technologies.map(t => {
+                      const src = techIcon(t)
+                      return src ? <img key={t} src={src} alt="" title={t} /> : null
                     })}
-                  </div>
-                </div>
+                  </span>
 
-                {/* Metrics */}
-                {exp.metrics && exp.metrics.length > 0 && (
-                  <div className="exp-section">
-                    <div className="exp-metrics-row">
-                      {exp.metrics.map((m, idx) => (
-                        <div key={m.id} className="metric-item">
-                          {m.icon && (
-                            <span className="metric-icon">
-                              <MetricIcon icon={m.icon} />
-                            </span>
-                          )}
-                          <div className="metric-text">
-                            <span className="metric-value">{m.value}</span>
-                            <span className="metric-label">{m.label}</span>
-                          </div>
-                          {idx < exp.metrics!.length - 1 && <span className="metric-divider" />}
+                  <span className="xp-chevron" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </span>
+                </button>
+
+                <div className="xp-panel" id={`xp-panel-${exp.id}`} role="region" aria-hidden={!isOpen}>
+                  <div className="xp-panel-inner">
+                    <div className="xp-panel-grid">
+                      <div className="xp-panel-main">
+                        <p className="xp-desc">{exp.description}</p>
+
+                        {exp.highlights && exp.highlights.length > 0 && (
+                          <ul className="exp-highlights">
+                            {exp.highlights.map(h => (
+                              <li key={h}>
+                                <span className="hl-check">
+                                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                  </svg>
+                                </span>
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        <div className="xp-chips">
+                          {exp.technologies.map(t => {
+                            const src = techIcon(t)
+                            return (
+                              <span className="xp-chip" key={t}>
+                                {src && <img src={src} alt="" width={16} height={16} />}
+                                {t}
+                              </span>
+                            )
+                          })}
                         </div>
-                      ))}
+                      </div>
+
+                      {exp.metrics && exp.metrics.length > 0 && (
+                        <div className="xp-metrics">
+                          {exp.metrics.map(m => (
+                            <div key={m.id} className="xp-metric">
+                              {m.icon && <span className="metric-icon"><MetricIcon icon={m.icon} /></span>}
+                              <span className="metric-label">{m.label}</span>
+                              <span className="metric-value">{m.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
-                )}
-
-
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
-
-
       </div>
     </section>
   )
 }
-
