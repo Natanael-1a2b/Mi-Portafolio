@@ -15,6 +15,14 @@ function formatFullDate(dateStr: string) {
   return `${parseInt(d, 10)} ${MONTH_NAMES_SHORT[parseInt(m, 10) - 1]} ${y}`
 }
 
+const EMPTY_CALENDAR: { date: string; contributionCount: number }[] = []
+
+// Fecha local en formato YYYY-MM-DD, igual que las fechas del calendario
+function todayKey() {
+  const now = new Date()
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+}
+
 const MONTH_CHART_W = 640
 const MONTH_CHART_H = 190
 const MONTH_CHART_PAD_LEFT = 26
@@ -57,7 +65,7 @@ export function GitHubStats() {
     return () => ctx.revert()
   }, [prefersReduced, loading])
 
-  const calendarData = data?.calendar || [];
+  const calendarData = data?.calendar ?? EMPTY_CALENDAR;
   const calendarScrollRef = useRef<HTMLDivElement>(null);
 
   const paddedCalendar = useMemo(() => {
@@ -99,11 +107,12 @@ export function GitHubStats() {
     }
   }, [paddedCalendar]);
 
-  // Gráfico de contribuciones diarias del mes actual, calculado localmente (sin depender de servicios externos)
+  // Gráfico de contribuciones diarias del mes más reciente con datos, calculado localmente (sin depender de servicios externos).
+  // Se usa el mes de la última fecha del calendario para no quedar vacío a inicio de mes, antes de que se actualice el JSON.
   const monthChart = useMemo(() => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
+    if (calendarData.length === 0) return null;
+    const [year, monthNum] = calendarData[calendarData.length - 1].date.split('-').map(Number);
+    const month = monthNum - 1;
     const days = calendarData.filter(d => {
       const [y, m] = d.date.split('-').map(Number);
       return y === year && m - 1 === month;
@@ -143,7 +152,9 @@ export function GitHubStats() {
       y: baseline - innerH * f,
     }));
 
-    return { bars, baseline, total, peakIndex, yTicks, monthLabel: MONTH_NAMES_LONG[month] };
+    const todayIndex = days.findIndex(d => d.date === todayKey());
+
+    return { bars, baseline, total, peakIndex, todayIndex, yTicks, monthLabel: MONTH_NAMES_LONG[month] };
   }, [calendarData]);
 
   const handleMonthChartMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -185,10 +196,10 @@ export function GitHubStats() {
 
   if (loading) {
     return (
-      <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+      <section id="github" ref={sectionRef} className="section-alt gh-section">
         <SectionAtmosphere />
         <div className="container">
-          <SectionTitle 
+          <SectionTitle
             badge="CÓDIGO ABIERTO"
             title="GitHub & "
             gradientTitle="Actividad"
@@ -196,7 +207,7 @@ export function GitHubStats() {
           />
           <div className="gh-dashboard">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="gh-card gh-card-languages" style={{ minHeight: '250px' }}>
+              <div key={i} className="gh-card gh-card-languages gh-card--skeleton">
                 <div className="gh-stat-skeleton"><div className="gh-stat-skeleton-shimmer" /></div>
               </div>
             ))}
@@ -208,10 +219,10 @@ export function GitHubStats() {
 
   if (error || !data) {
     return (
-      <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+      <section id="github" ref={sectionRef} className="section-alt gh-section">
         <SectionAtmosphere />
           <div className="container">
-            <SectionTitle 
+            <SectionTitle
               badge="CÓDIGO ABIERTO"
               title="GitHub & "
               gradientTitle="Actividad"
@@ -235,9 +246,9 @@ export function GitHubStats() {
     if (count >= 7 && count <= 9) return '#26a641'; // GitHub dark green
     return '#39d353'; // GitHub brightest green (10+)
   };
-  
 
-  
+
+
   // Calculamos las métricas extra en lugar de la fecha de unión
 
   // Format donut gradient
@@ -251,10 +262,10 @@ export function GitHubStats() {
   const donutGradient = gradientStops.length > 0 ? `conic-gradient(${gradientStops.join(', ')})` : 'conic-gradient(#333 0% 100%)';
 
   return (
-    <section id="github" ref={sectionRef} className="section-alt" style={{ position: 'relative' }}>
+    <section id="github" ref={sectionRef} className="section-alt gh-section">
       <SectionAtmosphere />
       <div className="container">
-        <SectionTitle 
+        <SectionTitle
           badge="CÓDIGO ABIERTO"
           title="GitHub & "
           gradientTitle="Actividad"
@@ -274,24 +285,24 @@ export function GitHubStats() {
               </div>
             </div>
             <div className="gh-profile-stats">
-              <div className="gh-profile-stat-item" style={{ color: 'var(--color-info)' }}>
+              <div className="gh-profile-stat-item gh-profile-stat-item--info">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 <span><strong>{(totalContributions ?? 0).toLocaleString()}</strong> Contribuciones en GitHub</span>
               </div>
-              <div className="gh-profile-stat-item" style={{ color: 'var(--secondary)' }}>
+              <div className="gh-profile-stat-item gh-profile-stat-item--secondary">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 <span><strong>{user.public_repos}</strong> Repositorios Públicos</span>
               </div>
 
-              <div className="gh-profile-stat-item" style={{ color: 'var(--color-warning)' }}>
+              <div className="gh-profile-stat-item gh-profile-stat-item--warning">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 <span><strong>{languages.length}</strong> Lenguajes utilizados</span>
               </div>
-              <div className="gh-profile-stat-item" style={{ color: 'var(--color-success)' }}>
+              <div className="gh-profile-stat-item gh-profile-stat-item--success">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 <span>Desarrollador Full Stack</span>
               </div>
-              <div className="gh-profile-stat-item" style={{ color: 'var(--primary)' }}>
+              <div className="gh-profile-stat-item gh-profile-stat-item--primary">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 <span>Colaborador Activo</span>
               </div>
@@ -359,7 +370,7 @@ export function GitHubStats() {
                           height={Math.max(b.height, 1.5)}
                           rx={Math.min(2, b.width / 2)}
                           fill={i === monthChart.peakIndex && b.count > 0 ? '#a855f7' : 'url(#gh-month-bar-grad)'}
-                          className={`gh-month-chart-bar ${monthHoverIndex === i ? 'is-hover' : ''} ${i === monthChart.bars.length - 1 ? 'is-today' : ''}`}
+                          className={`gh-month-chart-bar ${monthHoverIndex === i ? 'is-hover' : ''} ${i === monthChart.todayIndex ? 'is-today' : ''}`}
                         />
                       ))}
                     </g>
@@ -381,7 +392,7 @@ export function GitHubStats() {
                           x={b.cx}
                           y={MONTH_CHART_H - 10}
                           textAnchor="middle"
-                          className={`gh-month-chart-axis-label ${i === monthChart.bars.length - 1 ? 'is-today' : ''}`}
+                          className={`gh-month-chart-axis-label ${i === monthChart.todayIndex ? 'is-today' : ''}`}
                         >
                           {b.day}
                         </text>
@@ -413,7 +424,7 @@ export function GitHubStats() {
                 </table>
               </div>
             ) : (
-              <div className="gh-stats-error-box" style={{ padding: '1rem' }}>
+              <div className="gh-stats-error-box gh-stats-error-box--compact">
                 <p>Sin datos de actividad reciente</p>
               </div>
             )}
@@ -421,8 +432,8 @@ export function GitHubStats() {
 
           {/* Row 2: Summary Stats & Streak */}
           <div className="gh-card gh-card-summary">
-            <div className="gh-card-title" style={{ width: '100%', marginBottom: '0.75rem', textAlign: 'center' }}>Resumen General</div>
-            <div className="gh-summary-row" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+            <div className="gh-card-title gh-card-title--center">Resumen General</div>
+            <div className="gh-summary-row">
               <div className="gh-summary-item">
               <div className="gh-summary-icon gh-summary-icon--stars"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
               <div className="gh-summary-value">{totalStars}</div>
@@ -446,42 +457,36 @@ export function GitHubStats() {
             </div>
           </div>
 
-          <div className="gh-card gh-card-streak" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1rem 1.5rem' }}>
-            <div className="gh-card-title" style={{ width: '100%', marginBottom: '0.75rem', textAlign: 'center' }}>Racha de Contribuciones</div>
-            
-            <div className="gh-streak-grid" style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(3, 1fr)', 
-              gap: '1rem', 
-              width: '100%',
-              textAlign: 'center'
-            }}>
+          <div className="gh-card gh-card-streak">
+            <div className="gh-card-title gh-card-title--center">Racha de Contribuciones</div>
+
+            <div className="gh-streak-grid">
               {/* Total Contributions */}
-              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>Total Contribuciones</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#00f2fe' }}>{currentYearContributions}</div>
-                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>En este año</div>
+              <div className="gh-streak-item">
+                <div className="gh-streak-label gh-streak-label--nowrap">Total Contribuciones</div>
+                <div className="gh-streak-value">{currentYearContributions}</div>
+                <div className="gh-streak-sub">En este año</div>
               </div>
-              
+
               {/* Current Streak */}
-              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', borderLeft: '1px solid rgba(255,255,255,0.1)', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Actual</div>
-                <div className="gh-neon-text" style={{ fontSize: '2.4rem', fontWeight: 900, lineHeight: 1 }}>
+              <div className="gh-streak-item gh-streak-item--middle">
+                <div className="gh-streak-label">Racha Actual</div>
+                <div className="gh-neon-text gh-streak-value--main">
                   {currentStreak}
                 </div>
-                <div style={{ color: 'var(--text-main)', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
+                <div className="gh-streak-days">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="gh-flame-icon">
                     <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
                   </svg>
                   Días
                 </div>
               </div>
-              
+
               {/* Longest Streak */}
-              <div className="gh-streak-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Racha Más Larga</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#00f2fe' }}>{longestStreak}</div>
-                <div style={{ color: 'var(--text-tertiary)', fontSize: '0.7rem' }}>Días récord</div>
+              <div className="gh-streak-item">
+                <div className="gh-streak-label">Racha Más Larga</div>
+                <div className="gh-streak-value">{longestStreak}</div>
+                <div className="gh-streak-sub">Días récord</div>
               </div>
             </div>
           </div>
@@ -510,15 +515,11 @@ export function GitHubStats() {
           {/* Row 4: Calendar & Insights */}
           <div className="gh-card gh-card-calendar">
             <div className="gh-card-title">Calendario de contribuciones (Último año)</div>
-            
-            <div ref={calendarScrollRef} className="gh-calendar-wrapper" style={{ 
-              overflowX: 'auto', 
-              paddingBottom: '0.5rem', 
-              width: '100%'
-            }}>
-              <div style={{ display: 'inline-flex', flexDirection: 'column', gap: '4px', minWidth: 'max-content' }}>
+
+            <div ref={calendarScrollRef} className="gh-calendar-wrapper">
+              <div className="gh-calendar-inner">
                 {/* Fila de Meses (arriba) */}
-                <div style={{ display: 'flex', paddingLeft: '32px' }}>
+                <div className="gh-calendar-months">
                   {(() => {
                     const totalCols = Math.ceil(paddedCalendar.length / 7);
                     const cells: React.ReactNode[] = [];
@@ -527,73 +528,52 @@ export function GitHubStats() {
                       const lbl = monthLabels[labelIdx];
                       if (lbl && lbl.column === col) {
                         cells.push(
-                          <span key={`m-${col}`} style={{ width: '16px', fontSize: '0.7rem', color: 'var(--text-tertiary)', textAlign: 'left', whiteSpace: 'nowrap' }}>
+                          <span key={`m-${col}`} className="gh-calendar-month">
                             {lbl.label}
                           </span>
                         );
                         labelIdx++;
                       } else {
-                        cells.push(<span key={`m-${col}`} style={{ width: '16px' }} />);
+                        cells.push(<span key={`m-${col}`} className="gh-calendar-month" />);
                       }
                     }
                     return cells;
                   })()}
                 </div>
 
-                <div style={{ display: 'flex', gap: '0px' }}>
+                <div className="gh-calendar-body">
                   {/* Etiquetas de Días (izquierda) */}
-                  <div style={{ 
-                    display: 'grid', 
-                    gridTemplateRows: 'repeat(7, 1fr)', 
-                    width: '28px',
-                    flexShrink: 0,
-                    color: 'var(--text-tertiary)',
-                    fontSize: '0.65rem',
-                    textAlign: 'right',
-                    paddingRight: '6px',
-                    height: '112px'
-                  }}>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Dom</span>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Lun</span>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Mar</span>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Mié</span>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Jue</span>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Vie</span>
-                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>Sáb</span>
+                  <div className="gh-calendar-days">
+                    <span>Dom</span>
+                    <span>Lun</span>
+                    <span>Mar</span>
+                    <span>Mié</span>
+                    <span>Jue</span>
+                    <span>Vie</span>
+                    <span>Sáb</span>
                   </div>
-                  
+
                   {/* Cuadrícula del Calendario */}
-                  <div style={{ 
-                    display: 'grid', 
-                    gridTemplateRows: 'repeat(7, 1fr)', 
-                    gridAutoFlow: 'column', 
-                    gap: '4px',
-                    height: '112px'
-                  }}>
+                  <div className="gh-calendar-grid">
                     {paddedCalendar.map((day, i) => (
-                      <div 
-                        key={i} 
+                      <div
+                        key={i}
+                        className={`gh-calendar-cell ${day.contributionCount < 0 ? 'is-padding' : ''}`}
                         title={day.contributionCount >= 0 ? `${day.contributionCount} contribuciones el ${day.date}` : ''}
-                        style={{
-                          width: '12px',
-                          height: '12px',
-                          backgroundColor: getCalendarColor(day.contributionCount),
-                          borderRadius: '2px',
-                          opacity: day.contributionCount < 0 ? 0 : 1
-                        }}
+                        style={{ backgroundColor: getCalendarColor(day.contributionCount) }}
                       />
                     ))}
                   </div>
                 </div>
               </div>
             </div>
-            
+
             {/* Leyenda de colores */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
+            <div className="gh-calendar-legend">
               <span>Menos</span>
-              <div style={{ display: 'flex', gap: '4px' }}>
+              <div className="gh-calendar-legend-cells">
                 {[0, 2, 5, 8, 12].map((count, i) => (
-                  <div key={i} style={{ width: '12px', height: '12px', backgroundColor: getCalendarColor(count), borderRadius: '2px' }} />
+                  <div key={i} className="gh-calendar-cell" style={{ backgroundColor: getCalendarColor(count) }} />
                 ))}
               </div>
               <span>Más</span>
@@ -602,14 +582,14 @@ export function GitHubStats() {
 
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+        <div className="gh-stats-cta">
           <a
             href={githubConfig.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline"
           >
-            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" style={{ marginRight: '8px' }}>
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
             </svg>
             Ver Perfil Completo en GitHub

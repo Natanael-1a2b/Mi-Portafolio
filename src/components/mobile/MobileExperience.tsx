@@ -102,7 +102,7 @@ export function MobileExperience() {
                     <div className="mxp-track" key={exp.id}>
                       <button
                         type="button"
-                        className={`mxp-bar ${exp.id === 'spn-software' ? 'is-purple' : ''} ${isCurrent(exp.endDate) ? 'is-current' : ''}`}
+                        className={`mxp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${isCurrent(exp.endDate) ? 'is-current' : ''}`}
                         style={{ gridColumn: `${s} / ${e}` }}
                         onClick={() => toggle(exp.id)}
                         aria-controls={`mxp-panel-${exp.id}`}
@@ -126,7 +126,7 @@ export function MobileExperience() {
           {items.map(({ exp, start, end, current, duration }) => {
             const isOpen = !!open[exp.id]
             return (
-              <div key={exp.id} className={`mxp-row ${exp.id === 'spn-software' ? 'is-purple' : ''} ${isOpen ? 'is-open' : ''}`}>
+              <div key={exp.id} className={`mxp-row ${exp.accent === 'purple' ? 'is-purple' : ''} ${isOpen ? 'is-open' : ''}`}>
                 <button
                   type="button"
                   className="mxp-row-head"

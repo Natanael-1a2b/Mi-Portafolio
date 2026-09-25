@@ -184,7 +184,7 @@ export function Experience() {
                   <div className="xp-track" key={exp.id}>
                     <button
                       type="button"
-                      className={`xp-bar ${exp.id === 'spn-software' ? 'is-purple' : ''} ${current ? 'is-current' : ''}`}
+                      className={`xp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${current ? 'is-current' : ''}`}
                       style={{ gridColumn: `${start - origin + 1} / ${end - origin + 2}` }}
                       onClick={() => toggle(exp.id)}
                       aria-controls={`xp-panel-${exp.id}`}
@@ -205,11 +205,12 @@ export function Experience() {
           {/* Acordeón */}
           {items.map(({ exp, start, end, current, duration }) => {
             const isOpen = !!open[exp.id]
-            const purple = exp.id === 'spn-software'
+            const purple = exp.accent === 'purple'
             return (
               <div key={exp.id} className={`xp-row glass-card ${purple ? 'is-purple' : ''} ${isOpen ? 'is-open' : ''}`}>
                 <button
                   type="button"
+                  id={`xp-head-${exp.id}`}
                   className="xp-row-head"
                   onClick={() => toggle(exp.id)}
                   aria-expanded={isOpen}
@@ -242,7 +243,7 @@ export function Experience() {
                   </span>
                 </button>
 
-                <div className="xp-panel" id={`xp-panel-${exp.id}`} role="region" aria-hidden={!isOpen}>
+                <div className="xp-panel" id={`xp-panel-${exp.id}`} role="region" aria-labelledby={`xp-head-${exp.id}`} aria-hidden={!isOpen}>
                   <div className="xp-panel-inner">
                     <div className="xp-panel-grid">
                       <div className="xp-panel-main">
