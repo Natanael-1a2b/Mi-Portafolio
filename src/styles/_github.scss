@@ -178,109 +178,122 @@
   grid-column: span 7;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1.25rem 1.25rem 0.75rem;
+  justify-content: center;
+  padding: 1.5rem;
 }
 
-.gh-activity-chart-wrapper {
+/* Gráfico de contribuciones del último mes */
+.gh-month-chart {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.65rem;
 }
 
-.gh-activity-chart-header {
+.gh-month-chart-total {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 0.5rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0 0.15rem;
 }
 
-.gh-activity-chart-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: 9999px;
-  background: rgba(168, 85, 247, 0.1);
-  border: 1px solid rgba(168, 85, 247, 0.25);
-  font-size: 0.75rem;
+.gh-month-chart-total-value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  @include gradient-text(#6366f1, var(--secondary));
 
-  .gh-badge-glow {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #00f2fe;
-    box-shadow: 0 0 8px #00f2fe;
-  }
-
-  .gh-badge-val {
-    font-weight: 700;
-    color: #00f2fe;
-  }
-
-  .gh-badge-label {
-    color: var(--text-muted);
-    font-size: 0.7rem;
-  }
+  @include respond(md) { font-size: 1.5rem; }
 }
 
-.gh-activity-svg-container {
+.gh-month-chart-total-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gh-month-chart-plot {
   position: relative;
   width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: center;
 }
 
-.gh-activity-svg {
+.gh-month-chart-svg {
   width: 100%;
   height: auto;
-  overflow: visible;
   display: block;
+  overflow: visible;
+  cursor: crosshair;
 }
 
-.gh-chart-tooltip {
-  position: absolute;
-  transform: translate(-50%, -125%);
+.gh-month-chart-grid line {
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.gh-month-chart-baseline {
+  stroke: rgba(255, 255, 255, 0.1) !important;
+  stroke-dasharray: none !important;
+}
+
+.gh-month-chart-cursor {
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1;
   pointer-events: none;
-  background: rgba(10, 15, 29, 0.92);
-  border: 1px solid rgba(168, 85, 247, 0.4);
-  backdrop-filter: blur(10px);
-  border-radius: 8px;
-  padding: 0.35rem 0.65rem;
-  white-space: nowrap;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(168, 85, 247, 0.2);
-  z-index: 10;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+}
 
-  .gh-tooltip-date {
-    color: var(--text-muted);
-    font-size: 0.68rem;
-    margin-bottom: 0.15rem;
-    text-transform: capitalize;
-  }
+.gh-month-chart-axis-label {
+  fill: var(--text-muted);
+  font-size: 9px;
+  font-family: var(--font-sans);
 
-  .gh-tooltip-count {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: var(--text-main);
-    font-size: 0.78rem;
-
-    .gh-tooltip-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #00f2fe;
-      box-shadow: 0 0 6px #00f2fe;
-    }
+  &.is-today {
+    fill: var(--secondary);
+    font-weight: 700;
   }
 }
+
+.gh-month-chart-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: opacity 0.15s ease, filter 0.15s ease;
+
+  &.is-hover {
+    filter: brightness(1.25);
+  }
+
+  &.is-today {
+    opacity: 1;
+  }
+}
+
+.gh-month-chart-tooltip {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, calc(-100% - 10px));
+  background: var(--bg-dark);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.75rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), var(--glow-violet);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+
+  strong { color: var(--secondary); font-size: 0.95rem; }
+  span { color: var(--text-muted); font-size: 0.7rem; }
+}
+
 .gh-card-summary { grid-column: span 6; display: flex; flex-direction: column; align-items: center; }
-.gh-card-streak { grid-column: span 6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem; }
+.gh-card-streak { grid-column: span 6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 1.5rem; }
 
 // Neon Glow Styles
 .gh-neon-text {
@@ -317,6 +330,7 @@
 .gh-card-calendar { grid-column: span 7; }
 .gh-card-calendar .gh-calendar-wrapper {
   // Scrollbar delgada horizontal, sin vertical
+  overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.15) transparent;
@@ -540,7 +554,9 @@
 .gh-stats-cta {
   display: flex;
   justify-content: center;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
+
+  svg { margin-right: 8px; }
 }
 
 .gh-section-skeleton {
@@ -548,4 +564,165 @@
   background: rgba(255, 255, 255, 0.02);
   border-radius: var(--radius-lg);
   margin: 2rem 0;
+}
+
+/* Section */
+.gh-section { position: relative; }
+.gh-card--skeleton { min-height: 250px; }
+.gh-stats-error-box--compact { padding: 1rem; }
+
+.gh-card-title--center {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+/* Profile stat colors */
+.gh-profile-stat-item--info { color: var(--color-info); }
+.gh-profile-stat-item--secondary { color: var(--secondary); }
+.gh-profile-stat-item--warning { color: var(--color-warning); }
+.gh-profile-stat-item--success { color: var(--color-success); }
+.gh-profile-stat-item--primary { color: var(--primary); }
+
+/* Summary */
+.gh-summary-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Streak */
+.gh-streak-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.gh-streak-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+
+  &--middle {
+    justify-content: normal;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.gh-streak-label {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &--nowrap { white-space: nowrap; }
+}
+
+.gh-streak-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #00f2fe;
+
+  &--main {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+}
+
+.gh-streak-sub {
+  color: var(--text-tertiary);
+  font-size: 0.7rem;
+}
+
+.gh-streak-days {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-main);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Contribution calendar grid */
+.gh-calendar-inner {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: max-content;
+}
+
+.gh-calendar-months {
+  display: flex;
+  padding-left: 32px;
+}
+
+.gh-calendar-month {
+  width: 16px;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.gh-calendar-body {
+  display: flex;
+  gap: 0;
+}
+
+.gh-calendar-days {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  flex-shrink: 0;
+  width: 28px;
+  height: 112px;
+  padding-right: 6px;
+  color: var(--text-tertiary);
+  font-size: 0.65rem;
+  text-align: right;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.gh-calendar-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 4px;
+  height: 112px;
+}
+
+.gh-calendar-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+
+  &.is-padding { opacity: 0; }
+}
+
+.gh-calendar-legend {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+.gh-calendar-legend-cells {
+  display: flex;
+  gap: 4px;
 }

@@ -24,6 +24,18 @@ async function fetchGH(endpoint, options = {}) {
   return response.json();
 }
 
+// Recorre todas las páginas de un endpoint paginado (100 elementos por página)
+async function fetchAllPages(endpoint) {
+  const all = [];
+  for (let page = 1; ; page++) {
+    const sep = endpoint.includes('?') ? '&' : '?';
+    const items = await fetchGH(`${endpoint}${sep}page=${page}`);
+    all.push(...items);
+    if (items.length < 100) break;
+  }
+  return all;
+}
+
 async function main() {
   try {
     console.log(`Recopilando estadísticas de GitHub para el usuario: ${USERNAME}...`);
@@ -43,7 +55,7 @@ async function main() {
       ? '/user/repos?per_page=100&affiliation=owner' 
       : `/users/${USERNAME}/repos?per_page=100`;
       
-    const repos = await fetchGH(reposEndpoint);
+    const repos = await fetchAllPages(reposEndpoint);
     const ownRepos = repos.filter(r => !r.fork);
     console.log(`📊 Se encontraron ${ownRepos.length} repositorios propios (excluyendo forks).`);
     
@@ -94,7 +106,7 @@ async function main() {
           };
           const graphqlRes = await fetch('https://api.github.com/graphql', {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${TOKEN}`, 'User-Agent': 'github-stats-fetcher' },
+            headers: { 'Authorization': `Bearer ${TOKEN.trim()}`, 'User-Agent': 'github-stats-fetcher' },
             body: JSON.stringify(graphqlQuery),
           });
           if (graphqlRes.ok) {
@@ -181,7 +193,7 @@ async function main() {
     let totalSize = 0;
     
     // Obtenemos los lenguajes de todos los repositorios en paralelo
-    const langPromises = repos.map(repo => 
+    const langPromises = ownRepos.map(repo => 
       fetchGH(`/repos/${repo.owner.login}/${repo.name}/languages`).catch(() => ({}))
     );
     const reposLanguages = await Promise.all(langPromises);

@@ -14,6 +14,7 @@ export interface Experience {
   description: string
   technologies: string[]
   logo?: string
+  accent?: 'purple'
   highlights?: string[]
   metrics?: ExperienceMetric[]
 }
@@ -50,6 +51,7 @@ export const experiences: Experience[] = [
       'Atención y resolución de incidencias técnicas, y apoyo en desarrollo de herramientas internas.',
     technologies: ['SQL', 'Crystal Reports', 'HTML', 'CSS', 'JavaScript', 'Python'],
     logo: '/assets/icons/spn_software_logo.jfif',
+    accent: 'purple',
     highlights: [
       'Atención y resolución de incidencias técnicas internas.',
       'Desarrollo de pequeñas herramientas para optimizar procesos.',
