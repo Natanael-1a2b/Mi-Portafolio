@@ -58,7 +58,7 @@ export function MobileHero() {
         
         <div className="mobile-stats">
           <div className="mobile-stat-item">
-            <strong>500+</strong>
+            <strong>600+</strong>
             <span>Commits este año</span>
           </div>
           <div className="mobile-stat-divider"></div>

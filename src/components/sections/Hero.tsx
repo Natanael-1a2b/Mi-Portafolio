@@ -228,7 +228,7 @@ export function Hero() {
 
             <div className="stats-container glass-panel">
               <div className="stat-item">
-                <span className="stat-number">500+</span>
+                <span className="stat-number">600+</span>
                 <span className="stat-label">Commits este año</span>
               </div>
               <div className="stat-separator"></div>
