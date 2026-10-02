@@ -250,14 +250,14 @@ export const skills: Skill[] = [
  
   // ── IA ──
   {
-    id: 'agents',
-    name: 'Agents',
+    id: 'claude',
+    name: 'Claude',
     category: 'ia',
-    icon: 'robot',
-    iconType: 'svg',
-    description: 'Desarrollo de agentes autónomos e inteligentes.',
-    detailedDescription: 'Diseño y construyo agentes autónomos que pueden razonar, usar herramientas y completar tareas complejas. Desde asistentes conversacionales hasta agentes de código, exploro los límites de lo que la IA puede hacer de forma autónoma.',
-    color: '#8B5CF6',
+    icon: '/assets/icons/claude-color.svg',
+    iconType: 'local',
+    description: 'Asistente de IA de Anthropic para desarrollo con Claude Code.',
+    detailedDescription: 'Claude es el modelo de IA de Anthropic que uso a diario a través de Claude Code, su agente de codificación. Explora el proyecto completo, planifica cambios, edita archivos, ejecuta comandos y revisa código conmigo, lo que me permite pasar de la idea a una implementación verificada mucho más rápido.',
+    color: '#D97757',
     size: 'md',
     relatedProjectIds: ['gestor-pwa'],
   },
