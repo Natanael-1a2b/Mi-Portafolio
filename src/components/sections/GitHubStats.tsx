@@ -113,11 +113,23 @@ export function GitHubStats() {
     if (calendarData.length === 0) return null;
     const [year, monthNum] = calendarData[calendarData.length - 1].date.split('-').map(Number);
     const month = monthNum - 1;
-    const days = calendarData.filter(d => {
-      const [y, m] = d.date.split('-').map(Number);
-      return y === year && m - 1 === month;
+    const counts = new Map(
+      calendarData
+        .filter(d => {
+          const [y, m] = d.date.split('-').map(Number);
+          return y === year && m - 1 === month;
+        })
+        .map(d => [d.date, d.contributionCount])
+    );
+    if (counts.size === 0) return null;
+
+    // Todos los días del mes fijos en el eje; los que aún no tienen datos quedan como días futuros
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const days = Array.from({ length: daysInMonth }, (_, i) => {
+      const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`;
+      const count = counts.get(date);
+      return { date, contributionCount: count ?? 0, isFuture: count === undefined };
     });
-    if (days.length === 0) return null;
 
     const maxVal = Math.max(1, ...days.map(d => d.contributionCount));
     const innerW = MONTH_CHART_W - MONTH_CHART_PAD_LEFT - MONTH_CHART_PAD_RIGHT;
@@ -138,6 +150,7 @@ export function GitHubStats() {
         date: d.date,
         day: parseInt(d.date.split('-')[2], 10),
         count: d.contributionCount,
+        isFuture: d.isFuture,
       };
     });
 
@@ -370,7 +383,7 @@ export function GitHubStats() {
                           height={Math.max(b.height, 1.5)}
                           rx={Math.min(2, b.width / 2)}
                           fill={i === monthChart.peakIndex && b.count > 0 ? '#a855f7' : 'url(#gh-month-bar-grad)'}
-                          className={`gh-month-chart-bar ${monthHoverIndex === i ? 'is-hover' : ''} ${i === monthChart.todayIndex ? 'is-today' : ''}`}
+                          className={`gh-month-chart-bar ${monthHoverIndex === i ? 'is-hover' : ''} ${i === monthChart.todayIndex ? 'is-today' : ''} ${b.isFuture ? 'is-future' : ''}`}
                         />
                       ))}
                     </g>
@@ -392,7 +405,7 @@ export function GitHubStats() {
                           x={b.cx}
                           y={MONTH_CHART_H - 10}
                           textAnchor="middle"
-                          className={`gh-month-chart-axis-label ${i === monthChart.todayIndex ? 'is-today' : ''}`}
+                          className={`gh-month-chart-axis-label ${i === monthChart.todayIndex ? 'is-today' : ''} ${b.isFuture ? 'is-future' : ''}`}
                         >
                           {b.day}
                         </text>
@@ -405,10 +418,16 @@ export function GitHubStats() {
                       className="gh-month-chart-tooltip"
                       style={{ left: `${(monthChart.bars[monthHoverIndex].cx / MONTH_CHART_W) * 100}%` }}
                     >
-                      <strong>{monthChart.bars[monthHoverIndex].count}</strong>
-                      <span>
-                        {monthChart.bars[monthHoverIndex].count === 1 ? 'contribución' : 'contribuciones'} · {formatFullDate(monthChart.bars[monthHoverIndex].date)}
-                      </span>
+                      {monthChart.bars[monthHoverIndex].isFuture ? (
+                        <span>Sin datos aún · {formatFullDate(monthChart.bars[monthHoverIndex].date)}</span>
+                      ) : (
+                        <>
+                          <strong>{monthChart.bars[monthHoverIndex].count}</strong>
+                          <span>
+                            {monthChart.bars[monthHoverIndex].count === 1 ? 'contribución' : 'contribuciones'} · {formatFullDate(monthChart.bars[monthHoverIndex].date)}
+                          </span>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
@@ -417,7 +436,7 @@ export function GitHubStats() {
                   <caption>Contribuciones diarias de {monthChart.monthLabel}</caption>
                   <thead><tr><th>Fecha</th><th>Contribuciones</th></tr></thead>
                   <tbody>
-                    {monthChart.bars.map(b => (
+                    {monthChart.bars.filter(b => !b.isFuture).map(b => (
                       <tr key={b.date}><td>{b.date}</td><td>{b.count}</td></tr>
                     ))}
                   </tbody>
