@@ -9,6 +9,18 @@
   @include respond(tb) { grid-template-columns: 1fr; }
 }
 
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.projects-more-icon {
+  transition: transform 0.3s ease;
+
+  &.is-open { transform: rotate(180deg); }
+}
+
 .project-card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);

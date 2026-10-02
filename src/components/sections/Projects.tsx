@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { projects } from '../../data/projects'
 import { asset } from '../../utils/asset'
 import { SectionTitle } from '../ui/SectionTitle'
@@ -12,11 +12,57 @@ import type { Project } from '../../data/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Filas visibles antes de mostrar el botón "Ver más"
+const VISIBLE_ROWS = 2
+
 export function Projects() {
   const [selected, setSelected] = useState<Project | null>(null)
+  const [expanded, setExpanded] = useState(false)
+  const [cols, setCols] = useState(3)
   const sectionRef = useRef<HTMLElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
   const prefersReduced = usePreferredMotion()
   const isMobile = useIsMobile(992)
+
+  // Las columnas cambian por breakpoint (1 a 4), así que se leen de la cuadrícula real
+  useLayoutEffect(() => {
+    const grid = gridRef.current
+    if (!grid) return
+    const measure = () => {
+      const count = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length
+      setCols(Math.max(1, count))
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(grid)
+    return () => observer.disconnect()
+  }, [])
+
+  const limit = cols * VISIBLE_ROWS
+  const hasMore = projects.length > limit
+  const visibleProjects = expanded || !hasMore ? projects : projects.slice(0, limit)
+  const limitRef = useRef(limit)
+  limitRef.current = limit
+
+  // Aparición de los proyectos que se agregan al expandir (solo al expandir, no al redimensionar)
+  useEffect(() => {
+    if (!expanded || prefersReduced || !gridRef.current) return
+    const extra = Array.from(gridRef.current.children).slice(limitRef.current)
+    if (extra.length === 0) return
+    const tween = gsap.fromTo(extra,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, clearProps: 'all' }
+    )
+    return () => { tween.kill() }
+  }, [expanded, prefersReduced])
+
+  const toggleExpanded = () => {
+    if (expanded) {
+      // Al contraer, volver al inicio de la sección para no quedar perdido más abajo
+      sectionRef.current?.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' })
+    }
+    setExpanded(e => !e)
+  }
 
   useEffect(() => {
     if (prefersReduced || !sectionRef.current) return
@@ -74,8 +120,8 @@ export function Projects() {
           gradientTitle="Destacados"
           subtitle="Una selección de mis mejores trabajos."
         />
-        <div className="projects-grid">
-          {projects.map((proj) => (
+        <div className="projects-grid" id="projects-grid" ref={gridRef}>
+          {visibleProjects.map((proj) => (
             <div
               key={proj.id}
               className="project-card"
@@ -118,6 +164,23 @@ export function Projects() {
             </div>
           ))}
         </div>
+
+        {hasMore && (
+          <div className="projects-more">
+            <button
+              type="button"
+              className="btn btn-outline"
+              onClick={toggleExpanded}
+              aria-expanded={expanded}
+              aria-controls="projects-grid"
+            >
+              {expanded ? 'Ver menos' : `Ver más proyectos (${projects.length - limit})`}
+              <svg className={`projects-more-icon ${expanded ? 'is-open' : ''}`} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
       <ProjectModal project={selected} onClose={() => setSelected(null)} />
     </section>
