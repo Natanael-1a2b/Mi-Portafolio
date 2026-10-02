@@ -327,15 +327,16 @@ export function GitHubStats() {
           <div className="gh-card gh-card-chart">
             <div className="gh-card-title">
               <span>Contribuciones este mes</span>
-            </div>
-
-            {monthChart ? (
-              <div className="gh-month-chart">
+              {monthChart && (
                 <div className="gh-month-chart-total">
                   <span className="gh-month-chart-total-value">{monthChart.total.toLocaleString()}</span>
                   <span className="gh-month-chart-total-label">contribuciones · {monthChart.monthLabel}</span>
                 </div>
+              )}
+            </div>
 
+            {monthChart ? (
+              <div className="gh-month-chart">
                 <div className="gh-month-chart-plot">
                   <svg
                     viewBox={`0 0 ${MONTH_CHART_W} ${MONTH_CHART_H}`}
