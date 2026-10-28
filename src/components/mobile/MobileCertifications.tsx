@@ -8,8 +8,10 @@ import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
 import { useFadeIn } from '../../hooks/useFadeIn'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
 export function MobileCertifications() {
+  const prefersReduced = usePreferredMotion()
   const [current, setCurrent] = useState(0)
   const activeCert = certifications[current]
   const ref = useFadeIn<HTMLElement>()
@@ -25,7 +27,9 @@ export function MobileCertifications() {
         
         <div className="mobile-cert-carousel-wrapper">
           <Swiper
-            effect={'coverflow'}
+            // Swiper no cambia de efecto en caliente: la key lo vuelve a montar si cambia la preferencia
+            key={prefersReduced ? 'slide' : 'coverflow'}
+            effect={prefersReduced ? 'slide' : 'coverflow'}
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={'auto'}

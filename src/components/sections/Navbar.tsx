@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { navLinks, personalInfo } from '../../data/personal'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
 export function Navbar() {
+  const prefersReduced = usePreferredMotion()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
@@ -52,7 +54,7 @@ export function Navbar() {
     setMenuOpen(false)
     const el = document.querySelector(href)
     if (el) {
-      window.scrollTo({ top: (el as HTMLElement).offsetTop - 70, behavior: 'smooth' })
+      window.scrollTo({ top: (el as HTMLElement).offsetTop - 70, behavior: prefersReduced ? 'auto' : 'smooth' })
     }
   }
 

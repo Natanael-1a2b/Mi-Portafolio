@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import type { Project } from '../../data/projects'
 import { asset } from '../../utils/asset'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperInstance } from 'swiper'
 import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules'
@@ -20,6 +21,7 @@ export function ProjectModal({ project, onClose }: Props) {
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [closing, setClosing] = useState(false)
+  const prefersReduced = usePreferredMotion()
   const dialogRef = useRef<HTMLDivElement>(null)
   const fullscreenRef = useRef<HTMLDivElement>(null)
   const expandBtnRef = useRef<HTMLButtonElement>(null)
@@ -197,7 +199,7 @@ export function ProjectModal({ project, onClose }: Props) {
                   modules={[Navigation, Pagination, Autoplay, Keyboard]}
                   navigation
                   pagination={{ clickable: true }}
-                  autoplay={{ delay: 3500, disableOnInteraction: false }}
+                  autoplay={prefersReduced ? false : { delay: 3500, disableOnInteraction: false }}
                   keyboard={{ enabled: true }}
                   onSwiper={(s) => { swiperRef.current = s }}
                   onDestroy={() => { swiperRef.current = null }}

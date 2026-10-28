@@ -47,7 +47,9 @@ export function Certifications() {
         
         <div className="cert-carousel-wrapper">
           <Swiper
-            effect={'coverflow'}
+            // Swiper no cambia de efecto en caliente: la key lo vuelve a montar si cambia la preferencia
+            key={prefersReduced ? 'slide' : 'coverflow'}
+            effect={prefersReduced ? 'slide' : 'coverflow'}
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={'auto'}

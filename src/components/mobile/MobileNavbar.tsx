@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
 export function MobileNavbar() {
+  const prefersReduced = usePreferredMotion()
   const [activeTab, setActiveTab] = useState('#inicio')
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export function MobileNavbar() {
     setActiveTab(href)
     const el = document.querySelector(href)
     if (el) {
-      window.scrollTo({ top: (el as HTMLElement).offsetTop - 20, behavior: 'smooth' })
+      window.scrollTo({ top: (el as HTMLElement).offsetTop - 20, behavior: prefersReduced ? 'auto' : 'smooth' })
     }
   }
 

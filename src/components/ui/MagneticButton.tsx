@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from 'react'
 import { useIsMobile } from '../../hooks/useIsMobile'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
 interface Props {
   children: React.ReactNode
@@ -18,16 +19,17 @@ export function MagneticButton({
 }: Props) {
   const ref = useRef<HTMLElement>(null)
   const isMobile = useIsMobile(992)
+  const prefersReduced = usePreferredMotion()
 
   const handleMove = useCallback(
     (e: React.MouseEvent) => {
-      if (isMobile || !ref.current) return
+      if (isMobile || prefersReduced || !ref.current) return
       const rect = ref.current.getBoundingClientRect()
       const x = (e.clientX - rect.left - rect.width / 2) * strength
       const y = (e.clientY - rect.top - rect.height / 2) * strength
       ref.current.style.transform = `translate(${x}px, ${y}px)`
     },
-    [isMobile, strength],
+    [isMobile, prefersReduced, strength],
   )
 
   const handleLeave = useCallback(() => {

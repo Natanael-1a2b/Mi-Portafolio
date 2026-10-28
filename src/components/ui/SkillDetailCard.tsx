@@ -3,6 +3,7 @@ import type { Skill } from '../../data/skills'
 import { projects } from '../../data/projects'
 import { asset } from '../../utils/asset'
 import gsap from 'gsap'
+import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
 interface Props {
   skill: Skill
@@ -11,18 +12,19 @@ interface Props {
 
 export function SkillDetailCard({ skill, onClose }: Props) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const prefersReduced = usePreferredMotion()
 
   const relatedProjects = projects.filter(p =>
     skill.relatedProjectIds.includes(p.id)
   )
 
   useEffect(() => {
-    if (!cardRef.current) return
+    if (prefersReduced || !cardRef.current) return
     gsap.fromTo(cardRef.current,
       { opacity: 0, y: 20, scaleY: 0.95 },
       { opacity: 1, y: 0, scaleY: 1, duration: 0.4, ease: 'power2.out' }
     )
-  }, [skill.id])
+  }, [skill.id, prefersReduced])
 
   const renderIcon = () => {
     const size = 64

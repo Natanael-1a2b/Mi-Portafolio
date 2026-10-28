@@ -84,7 +84,7 @@ export function Projects() {
 
   const handleTilt = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (isMobile) return
+      if (isMobile || prefersReduced) return
       const card = e.currentTarget
       const rect = card.getBoundingClientRect()
       const x = e.clientX - rect.left
@@ -98,7 +98,7 @@ export function Projects() {
         glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, transparent 60%)`
       }
     },
-    [isMobile],
+    [isMobile, prefersReduced],
   )
 
   const handleTiltReset = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
