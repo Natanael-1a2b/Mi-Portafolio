@@ -11,17 +11,20 @@ import { MobileFooter } from './MobileFooter'
 
 export default function MobileApp() {
   return (
-    <div className="mobile-app dom-overlay" id="main-content">
-      <MobileHero />
-      <MobileAbout />
-      <MobileSkills />
-      <MobileExperience />
-      <MobileProjects />
-      <MobileGitHubStats />
-      <MobileCertifications />
-      <MobileContact />
-      <MobileFooter />
+    <div className="mobile-app dom-overlay">
+      {/* La navegación va primero en el DOM (visualmente sigue fija abajo) */}
       <MobileNavbar />
+      <main id="main-content" tabIndex={-1}>
+        <MobileHero />
+        <MobileAbout />
+        <MobileSkills />
+        <MobileExperience />
+        <MobileProjects />
+        <MobileGitHubStats />
+        <MobileCertifications />
+        <MobileContact />
+      </main>
+      <MobileFooter />
     </div>
   )
 }

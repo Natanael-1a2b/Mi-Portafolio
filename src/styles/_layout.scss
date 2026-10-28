@@ -12,6 +12,8 @@ section {
   padding-bottom: calc(clamp(3rem, 6vw, 4.5rem) + env(safe-area-inset-bottom, 0px));
   position: relative;
   z-index: var(--z-base);
+  // Evita que el navbar fijo (66px) tape el inicio de la sección al navegar por ancla
+  scroll-margin-top: 72px;
 }
 
 .section-alt {

@@ -69,6 +69,11 @@ button {
   outline-offset: 2px;
 }
 
+// Destinos de foco programático (p. ej. <main> al usar el skip link): sin anillo al recibir el foco
+[tabindex="-1"]:focus:not(:focus-visible) {
+  outline: none;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

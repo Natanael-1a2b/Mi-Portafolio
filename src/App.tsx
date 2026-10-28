@@ -26,18 +26,20 @@ export default function App() {
 
   return (
     <>
-      <div className="dom-overlay" id="main-content">
+      <div className="dom-overlay">
         <Navbar />
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Suspense fallback={<div className="gh-section-skeleton" />}>
-          <GitHubStats />
-        </Suspense>
-        <Certifications />
-        <Contact />
+        <main id="main-content" tabIndex={-1}>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Suspense fallback={<div className="gh-section-skeleton" />}>
+            <GitHubStats />
+          </Suspense>
+          <Certifications />
+          <Contact />
+        </main>
         <Footer />
       </div>
     </>

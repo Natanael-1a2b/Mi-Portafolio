@@ -13,7 +13,12 @@
   padding-right: env(safe-area-inset-right, 0);
   
   overflow-x: hidden;
-  
+
+  // En móvil no hay navbar arriba; el menú fijo está abajo
+  section {
+    scroll-margin-top: 20px;
+  }
+
   .mobile-container {
     width: 100%;
     padding: 0 20px;
@@ -68,4 +73,9 @@
     transform: none;
     transition: none;
   }
+}
+
+// El menú inferior fijo no debe tapar el elemento enfocado ni el destino de un ancla
+html:has(.mobile-app) {
+  scroll-padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
 }
