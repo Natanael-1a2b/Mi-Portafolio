@@ -28,6 +28,9 @@ function findSkillByName(name: string) {
 const techIconMap: Record<string, string> = {
   tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
   aws: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain.svg',
+  // Simple Icons (CC0), coloreados para el tema oscuro; VMware recortado a "vm" para que se lea en tamaño de ícono
+  'vmware esxi': asset('/assets/icons/vmware.svg'),
+  contabo: asset('/assets/icons/contabo.svg'),
   typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
 }
 
