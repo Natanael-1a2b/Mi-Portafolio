@@ -23,6 +23,9 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./assets/icons/android-chrome-512x512.png">
   <link rel="manifest" href="./site.webmanifest">
 
+  <!-- Imagen LCP del hero (la misma en escritorio y móvil): se descubre antes de que cargue el JS -->
+  <link rel="preload" as="image" href="./assets/images/hero-profile-nobg.webp" type="image/webp" fetchpriority="high">
+
   <!-- Open Graph / Social Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Claudio N. Beltre R.">
