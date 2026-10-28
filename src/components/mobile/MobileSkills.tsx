@@ -1,7 +1,8 @@
-import { skills } from '../../data/skills'
+import { skills, skillCategories } from '../../data/skills'
+import type { Skill } from '../../data/skills'
 import { SectionTitle } from '../ui/SectionTitle'
 import { asset } from '../../utils/asset'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useFadeIn } from '../../hooks/useFadeIn'
 
 const svgIcons: Record<string, React.ReactNode> = {
@@ -23,44 +24,101 @@ const svgIcons: Record<string, React.ReactNode> = {
   ),
 }
 
-function SkillIcon({ skill }: { skill: typeof skills[0] }) {
+function SkillIcon({ skill, size = 20 }: { skill: Skill; size?: number }) {
   if (skill.iconType === 'svg') {
     return <span className="mobile-skill-svg-icon" style={{ color: skill.color }}>{svgIcons[skill.icon] || null}</span>
   }
   const src = skill.iconType === 'local' ? asset(skill.icon) : skill.icon
-  return <img src={src} alt={skill.name} width={20} height={20} loading="lazy" />
+  return <img src={src} alt="" width={size} height={size} loading="lazy" />
 }
 
 export function MobileSkills() {
   const ref = useFadeIn<HTMLElement>()
-  const categories = useMemo(() => {
-    const cats = new Set(skills.map(s => s.category))
-    return Array.from(cats)
-  }, [])
+  const groups = useMemo(
+    () =>
+      skillCategories
+        .map(cat => ({ category: cat, skills: skills.filter(s => s.category === cat.id) }))
+        .filter(g => g.skills.length > 0),
+    []
+  )
+  const [openId, setOpenId] = useState<string | null>(groups[0]?.category.id ?? null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+
+  const toggle = (id: string) => {
+    setOpenId(prev => (prev === id ? null : id))
+    setSelectedId(null)
+  }
 
   return (
     <section id="habilidades" className="mobile-section mobile-skills mobile-fade-in" ref={ref}>
       <div className="mobile-container">
-        <SectionTitle 
+        <SectionTitle
           badge="CAPACIDADES"
           title="Mis "
           gradientTitle="Habilidades"
         />
-        
-        <div className="mobile-skills-content">
-          {categories.map(category => (
-            <div key={category} className="mobile-skill-category">
-              <h3>{category}</h3>
-              <div className="mobile-skill-chips">
-                {skills.filter(s => s.category === category).map(skill => (
-                  <div key={skill.id} className="mobile-skill-chip">
-                    <SkillIcon skill={skill} />
-                    <span>{skill.name}</span>
+
+        <div className="mobile-skills-accordion">
+          {groups.map(({ category, skills: groupSkills }) => {
+            const isOpen = openId === category.id
+            const selected = groupSkills.find(s => s.id === selectedId)
+            return (
+              <div key={category.id} className={`mobile-skill-group${isOpen ? ' is-open' : ''}`}>
+                <button
+                  type="button"
+                  className="mobile-skill-group-header"
+                  aria-expanded={isOpen}
+                  aria-controls={isOpen ? `mskills-${category.id}` : undefined}
+                  onClick={() => toggle(category.id)}
+                >
+                  <img className="mobile-skill-group-emblem" src={asset(category.illustration)} alt="" width={48} height={48} />
+                  <span className="mobile-skill-group-text">
+                    <span className="mobile-skill-group-label">{category.label}</span>
+                    <span className="mobile-skill-group-count">{groupSkills.length} tecnologías</span>
+                  </span>
+                  <span className="mobile-skill-group-chevron" aria-hidden="true" />
+                </button>
+
+                {isOpen && (
+                  <div className="mobile-skill-group-body" id={`mskills-${category.id}`}>
+                    <p>{category.description}</p>
+                    <div className="mobile-skill-chips">
+                      {groupSkills.map(skill => {
+                        const isSel = selectedId === skill.id
+                        return (
+                          <button
+                            key={skill.id}
+                            type="button"
+                            className={`mobile-skill-chip${isSel ? ' is-selected' : ''}`}
+                            style={{ '--chip-bg': `${skill.color}1A`, '--chip-border': `${skill.color}AA` } as React.CSSProperties}
+                            aria-pressed={isSel}
+                            onClick={() => setSelectedId(prev => (prev === skill.id ? null : skill.id))}
+                          >
+                            <SkillIcon skill={skill} />
+                            <span>{skill.name}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    {selected && (
+                      <div
+                        className="mobile-skill-detail"
+                        style={{ '--chip-border': `${selected.color}55` } as React.CSSProperties}
+                        aria-live="polite"
+                      >
+                        <SkillIcon skill={selected} size={28} />
+                        <div>
+                          <strong>{selected.name}</strong>
+                          <span>{selected.description}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

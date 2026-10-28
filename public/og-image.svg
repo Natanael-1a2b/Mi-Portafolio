@@ -1,83 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
-      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"/>
-      <stop offset="50%" stop-color="#A855F7" stop-opacity="0.1"/>
-      <stop offset="100%" stop-color="#050816" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glow2" cx="10%" cy="90%" r="60%">
-      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.2"/>
-      <stop offset="100%" stop-color="#050816" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1.5" fill="rgba(255,255,255,0.04)"/>
-    </pattern>
-    <linearGradient id="text-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#94A3B8"/>
-    </linearGradient>
-    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3B82F6"/>
-      <stop offset="100%" stop-color="#00BFFF"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Background -->
-  <rect width="1200" height="630" fill="#050816"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
-  <rect width="1200" height="630" fill="url(#glow2)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-
-  <!-- Top Badge -->
-  <rect x="80" y="80" width="220" height="40" rx="20" fill="rgba(59, 130, 246, 0.15)" stroke="rgba(59, 130, 246, 0.3)" stroke-width="1"/>
-  <text x="190" y="105" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#60A5FA" text-anchor="middle" letter-spacing="2">PORTAFOLIO 2026</text>
-
-  <!-- Main Title -->
-  <text x="80" y="220" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="76" font-weight="800" fill="url(#text-grad)" letter-spacing="-1">Claudio N. Beltre</text>
-  <text x="80" y="300" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" fill="#FFFFFF" letter-spacing="-1">Software Engineer.</text>
-  
-  <text x="80" y="390" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="400" fill="#94A3B8">Transformando requerimientos complejos</text>
-  <text x="80" y="435" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="400" fill="#94A3B8">en soluciones robustas y escalables.</text>
-
-  <!-- Divider -->
-  <rect x="80" y="490" width="80" height="5" fill="url(#accent-grad)" rx="2.5"/>
-
-  <!-- Bottom Badges / Tech -->
-  <g transform="translate(80, 530)">
-    <rect x="0" y="0" width="130" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-    <text x="65" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">.NET Core</text>
-
-    <rect x="145" y="0" width="110" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-    <text x="200" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">React 19</text>
-
-    <rect x="270" y="0" width="130" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-    <text x="335" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">Supabase</text>
-    
-    <rect x="415" y="0" width="140" height="38" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-    <text x="485" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#E2E8F0" text-anchor="middle">Architecture</text>
-  </g>
-
-  <!-- Right Side Abstract Art (Glass Card) -->
-  <g transform="translate(780, 140)">
-    <!-- Main Glass Card -->
-    <rect x="0" y="0" width="340" height="380" rx="24" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-    <rect x="15" y="15" width="310" height="350" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)"/>
-    
-    <!-- Header points -->
-    <circle cx="45" cy="45" r="5" fill="#EF4444"/>
-    <circle cx="65" cy="45" r="5" fill="#F59E0B"/>
-    <circle cx="85" cy="45" r="5" fill="#10B981"/>
-
-    <!-- Code Lines Mockup -->
-    <rect x="45" y="90" width="200" height="10" rx="5" fill="#3B82F6" opacity="0.9"/>
-    <rect x="45" y="125" width="140" height="10" rx="5" fill="#A855F7" opacity="0.9"/>
-    <rect x="45" y="160" width="250" height="10" rx="5" fill="#06B6D4" opacity="0.9"/>
-    
-    <rect x="45" y="215" width="160" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
-    <rect x="45" y="250" width="230" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
-    <rect x="45" y="285" width="180" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
-    <rect x="45" y="320" width="120" height="10" rx="5" fill="#E2E8F0" opacity="0.3"/>
-
-  </g>
-
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo2ZWQzODFlZC1kZWQzLTRkZDQtYjljMy04MTA4MzkyMjI5MzEAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaJAk8TGBipreBhPp6Wlw7HkAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoxZGIzNWVhMi1iZjY3LTRkNzEtODhlNS1hYjdiZTY3N2NlN2NscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoRS5aJ1Embesa7iqlXq5mFgAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggAxVXnq3lXaUhv0NvXqIWZcAVzJnxeQwdbJnmP+Y/uO6kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaGwYELNpJRqwhkQyyYdm9rIAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCBjrVRCKiDyhT9gypualorsGLF4z6g9/zrFXHsyKy8NdWRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBiYZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjZlZDM4MWVkLWRlZDMtNGRkNC1iOWMzLTgxMDgzOTIyMjkzMS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjllMzhmNjY2LWVhYWItNGNmYy04N2Y1LWZhZTU2YTEwYTFmZnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCADFVeereVdpSG/Q29eohZlwBXMmfF5DB1smeY/5j+47qJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggPjwqEEsH4NHVVtDu1TcvlD12LpyPwggcIf4TEjK60QCiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggTzCKsC9IUQ29QwTQSWB5E255YBHcl9MliqvwLdbXnpx0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQKb3Qwl8HJ8aFtF8DKshAUI37iVbCBxPhGXJuMopSHoOQdo7R5bJKZWSDEPGqO13z4U/tRdcXvDwkHIO+S97mzI=</c2pa:manifest></metadata>
+<defs>
+<radialGradient id="glow" cx="82%" cy="18%" r="62%"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0.32"></stop><stop offset="50%" stop-color="#A855F7" stop-opacity="0.10"></stop><stop offset="100%" stop-color="#050816" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="glow2" cx="8%" cy="95%" r="55%"><stop offset="0%" stop-color="#00BFFF" stop-opacity="0.16"></stop><stop offset="100%" stop-color="#050816" stop-opacity="0"></stop></radialGradient>
+<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#FFFFFF" fill-opacity="0.04"></circle></pattern>
+<linearGradient id="name" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#CBD5E1"></stop></linearGradient>
+<linearGradient id="title" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00BFFF"></stop><stop offset="0.5" stop-color="#3B82F6"></stop><stop offset="1" stop-color="#A855F7"></stop></linearGradient>
+<linearGradient id="bar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3B82F6"></stop><stop offset="1" stop-color="#A855F7"></stop></linearGradient>
+<linearGradient id="cardStroke" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00BFFF" stop-opacity="0.5"></stop><stop offset="1" stop-color="#8B5CF6" stop-opacity="0.15"></stop></linearGradient>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"></feGaussianBlur></filter>
+</defs>
+<rect width="1200" height="630" fill="#050816"></rect><rect width="1200" height="630" fill="url(#glow)"></rect><rect width="1200" height="630" fill="url(#glow2)"></rect><rect width="1200" height="630" fill="url(#grid)"></rect>
+<g font-family="Poppins, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect x="80.5" y="96.5" width="203" height="35" rx="17.5" fill="#00BFFF" fill-opacity="0.08" stroke="#00BFFF" stroke-opacity="0.3"></rect>
+<text x="182" y="119.5" font-size="13" font-weight="700" fill="#00BFFF" text-anchor="middle" letter-spacing="2.6">PORTAFOLIO 2026</text>
+<text x="78" y="222" font-size="66" font-weight="800" fill="url(#name)" letter-spacing="-2">Claudio N. Beltre</text>
+<text x="80" y="284" font-size="40" font-weight="700" fill="url(#title)" letter-spacing="-0.8">Full Stack &amp; Cloud Engineer</text>
+<text x="80" y="338" font-size="24" font-weight="400" fill="#CBD5E1">Software Full Stack y Cloud, potenciado con IA</text>
+<rect x="80" y="374" width="72" height="5" rx="2.5" fill="url(#bar)"></rect>
+<g transform="translate(80,414)"><g transform="translate(0,0)"><rect x="0.5" y="0.5" width="96" height="43" rx="21.5" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.12"></rect><image x="14" y="11" width="22" height="22"></image><text x="45" y="28.5" font-size="17" font-weight="600" fill="#E2E8F0">.NET</text></g><g transform="translate(107,0)"><rect x="0.5" y="0.5" width="110" height="43" rx="21.5" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.12"></rect><image x="14" y="11" width="22" height="22"></image><text x="45" y="28.5" font-size="17" font-weight="600" fill="#E2E8F0">React</text></g><g transform="translate(228,0)"><rect x="0.5" y="0.5" width="152" height="43" rx="21.5" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.12"></rect><image x="14" y="11" width="22" height="22"></image><text x="45" y="28.5" font-size="17" font-weight="600" fill="#E2E8F0">TypeScript</text></g><g transform="translate(391,0)"><rect x="0.5" y="0.5" width="121" height="43" rx="21.5" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.12"></rect><image x="14" y="11" width="22" height="22"></image><text x="45" y="28.5" font-size="17" font-weight="600" fill="#E2E8F0">Python</text></g><g transform="translate(523,0)"><rect x="0.5" y="0.5" width="170" height="43" rx="21.5" fill="#FFFFFF" fill-opacity="0.05" stroke="#FFFFFF" stroke-opacity="0.12"></rect><image x="14" y="11" width="22" height="22"></image><text x="45" y="28.5" font-size="17" font-weight="600" fill="#E2E8F0">VMware ESXi</text></g></g>
+</g>
+<g transform="translate(836,128)">
+<rect x="20" y="40" width="300" height="300" rx="40" fill="#3B82F6" opacity="0.22" filter="url(#soft)"></rect>
+<rect x="1" y="1" width="282" height="372" rx="24" fill="#0A0F2E" fill-opacity="0.75" stroke="url(#cardStroke)" stroke-width="2"></rect>
+<rect x="16" y="16" width="252" height="342" rx="16" fill="#FFFFFF" fill-opacity="0.02" stroke="#FFFFFF" stroke-opacity="0.05"></rect>
+<circle cx="42" cy="44" r="5" fill="#EF4444"></circle><circle cx="60" cy="44" r="5" fill="#F59E0B"></circle><circle cx="78" cy="44" r="5" fill="#10B981"></circle>
+<rect x="42" y="88" width="168" height="10" rx="5" fill="#3B82F6" opacity="0.9"></rect>
+<rect x="42" y="120" width="118" height="10" rx="5" fill="#A855F7" opacity="0.9"></rect>
+<rect x="42" y="152" width="200" height="10" rx="5" fill="#00BFFF" opacity="0.9"></rect>
+<rect x="42" y="206" width="136" height="10" rx="5" fill="#E2E8F0" opacity="0.3"></rect>
+<rect x="42" y="238" width="190" height="10" rx="5" fill="#E2E8F0" opacity="0.3"></rect>
+<rect x="42" y="270" width="150" height="10" rx="5" fill="#E2E8F0" opacity="0.3"></rect>
+<rect x="42" y="302" width="100" height="10" rx="5" fill="#E2E8F0" opacity="0.3"></rect>
+</g>
 </svg>

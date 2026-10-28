@@ -1,23 +1,23 @@
 import { skills } from '../../data/skills'
-import { BentoGrid } from '../ui/BentoGrid'
+import { SkillsExplorer } from '../ui/SkillsExplorer'
 import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 import { SectionTitle } from '../ui/SectionTitle'
 
-// Las animaciones de esta sección viven en BentoGrid
+// Las animaciones de esta sección viven en SkillsExplorer
 export function Skills() {
   return (
     <section id="habilidades" className="skills-bento-section">
       <SectionAtmosphere />
-      
+
       <div className="container">
-        <SectionTitle 
+        <SectionTitle
           badge="CAPACIDADES"
           title="Mis "
           gradientTitle="Habilidades"
           subtitle="Tecnologías y herramientas que domino."
         />
-        
-        <BentoGrid skills={skills} />
+
+        <SkillsExplorer skills={skills} />
       </div>
     </section>
   )

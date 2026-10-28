@@ -4,44 +4,149 @@
     padding-bottom: 2rem;
     background: rgba(10, 15, 46, 0.4);
 
-    .mobile-skills-content {
+    .mobile-skills-accordion {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 10px;
     }
 
-    .mobile-skill-category {
-      h3 {
-        font-size: 1rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 1rem;
-        margin-top: 0;
+    .mobile-skill-group {
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+      &.is-open {
+        background: linear-gradient(145deg, rgba(8, 16, 35, 0.9), rgba(3, 6, 15, 0.95));
+        border-color: var(--accent);
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.2), inset 0 0 20px rgba(0, 191, 255, 0.05);
+      }
+    }
+
+    .mobile-skill-group-header {
+      appearance: none;
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: 0;
+      width: 100%;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px 10px 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .mobile-skill-group-emblem {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .mobile-skill-group-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .mobile-skill-group-label {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .mobile-skill-group-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .mobile-skill-group-chevron {
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      color: var(--text-muted);
+      transform: rotate(45deg);
+      margin-right: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .is-open {
+      .mobile-skill-group-count { color: var(--accent); }
+      .mobile-skill-group-chevron { color: var(--accent); transform: rotate(-135deg) translate(-2px, -2px); }
+    }
+
+    .mobile-skill-group-body {
+      padding: 0 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      p {
+        margin: 0;
+        font-size: 0.85rem;
+        line-height: 1.55;
+        color: var(--text-light);
+      }
+    }
+
+    .mobile-skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mobile-skill-chip {
+      appearance: none;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      min-height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-full);
+      transition: background 0.3s ease, border-color 0.3s ease;
+
+      img { width: 20px; height: 20px; object-fit: contain; }
+      .mobile-skill-svg-icon { display: flex; }
+
+      span {
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
       }
 
-      .mobile-skill-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding-bottom: 0.5rem;
+      &.is-selected {
+        background: var(--chip-bg);
+        border-color: var(--chip-border);
       }
+    }
 
-      .mobile-skill-chip {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: var(--radius-full);
+    .mobile-skill-detail {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--chip-border, rgba(255, 255, 255, 0.1));
 
-        span {
-          font-size: 0.85rem;
-          font-weight: 500;
-          white-space: nowrap;
-        }
-      }
+      img, .mobile-skill-svg-icon { width: 28px; height: 28px; flex-shrink: 0; margin-top: 2px; object-fit: contain; }
+      strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+      span { font-size: 13px; line-height: 1.5; color: var(--text-muted); }
     }
   }
 }
