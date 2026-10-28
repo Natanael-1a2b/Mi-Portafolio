@@ -6,12 +6,14 @@ function detectMode(): DeviceMode {
   // 1. User-Agent Sniffing para intención del dispositivo
   const userAgent = navigator.userAgent.toLowerCase()
   const isMobileAgent = /android|webos|iphone|ipad|ipod|blackberry|windows phone/i.test(userAgent)
+  // iPadOS 13+ se identifica como Mac de escritorio; se distingue por tener pantalla táctil
+  const isIPadOS = /macintosh/i.test(userAgent) && navigator.maxTouchPoints > 1
 
   // 2. Viewport como fallback o para manejar redimensionamientos grandes
   const isMobileWidth = window.innerWidth < 768
 
   // Es móvil si el agente lo dice o si el ancho es muy pequeño
-  return isMobileAgent || isMobileWidth ? 'mobile' : 'desktop'
+  return isMobileAgent || isIPadOS || isMobileWidth ? 'mobile' : 'desktop'
 }
 
 export function useDeviceMode(): DeviceMode {
