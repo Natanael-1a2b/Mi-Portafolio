@@ -2,18 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description"
-    content="Portafolio profesional de Claudio Natanael Beltre — Desarrollador Full Stack y creador de soluciones tecnológicas modernas con React, TypeScript, C#, SQL y Supabase.">
-  <meta name="keywords"
-    content="Claudio Natanael Beltre, portafolio, Desarrollador Full Stack, programador, React, TypeScript, Tailwind CSS, Supabase, C#, SQL, HTML, CSS, JavaScript, GitHub, proyectos, Developer">
+    content="Portafolio de Claudio N. Beltre, Desarrollador Full Stack especializado en .NET y Arquitectura Limpia. Proyectos, experiencia y certificaciones.">
   <meta name="author" content="Claudio N. Beltre R.">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Portafolio | Claudio N. Beltre R.">
-  <meta property="og:description"
-    content="Explora el portafolio de Claudio Natanael Beltre, Desarrollador Full Stack especializado en React, Supabase, C# y SQL.">
+  <meta name="theme-color" content="#050816">
+  <meta name="color-scheme" content="dark">
   <meta name="google-site-verification" content="9J9DcI1WYQBRUtr6zsKX_23NISvSxU4nb3fEEyQsMuE" />
   <title>Portafolio | Claudio N. Beltre R.</title>
+  <link rel="canonical" href="https://natanael-1a2b.github.io/Mi-Portafolio/">
 
   <!-- Favicons -->
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
@@ -25,8 +23,16 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./assets/icons/android-chrome-512x512.png">
   <link rel="manifest" href="./site.webmanifest">
 
+  <!-- Imagen LCP del hero (la misma en escritorio y móvil): se descubre antes de que cargue el JS -->
+  <link rel="preload" as="image" href="./assets/images/hero-profile-nobg.webp" type="image/webp" fetchpriority="high">
+
   <!-- Open Graph / Social Preview -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Claudio N. Beltre R.">
+  <meta property="og:locale" content="es_DO">
+  <meta property="og:title" content="Portafolio | Claudio N. Beltre R.">
+  <meta property="og:description"
+    content="Desarrollador Full Stack especializado en .NET y Arquitectura Limpia. Conoce mis proyectos, experiencia y certificaciones.">
   <meta property="og:url" content="https://natanael-1a2b.github.io/Mi-Portafolio/">
   <meta property="og:image" content="https://natanael-1a2b.github.io/Mi-Portafolio/og-image.png">
   <meta property="og:image:secure_url" content="https://natanael-1a2b.github.io/Mi-Portafolio/og-image.png">
@@ -35,16 +41,39 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Portafolio de Claudio N. Beltre R. - Desarrollador Full Stack">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Portafolio | Claudio N. Beltre R.">
+  <meta name="twitter:description"
+    content="Desarrollador Full Stack especializado en .NET y Arquitectura Limpia.">
   <meta name="twitter:image" content="https://natanael-1a2b.github.io/Mi-Portafolio/og-image.png">
+
+  <!-- Datos estructurados -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Claudio Natanael Beltre Rosario",
+    "alternateName": "Claudio N. Beltre R.",
+    "jobTitle": "Desarrollador Full Stack",
+    "url": "https://natanael-1a2b.github.io/Mi-Portafolio/",
+    "image": "https://natanael-1a2b.github.io/Mi-Portafolio/og-image.png",
+    "sameAs": [
+      "https://www.linkedin.com/in/claudio-natanael-beltre-rosario-38a580327/",
+      "https://github.com/Natanael-1a2b"
+    ],
+    "knowsAbout": [".NET", "C#", "Arquitectura Limpia", "React", "TypeScript", "SQL"]
+  }
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
-  <script type="module" crossorigin src="/Mi-Portafolio/assets/index-Di3tH5ur.js"></script>
-  <link rel="stylesheet" crossorigin href="/Mi-Portafolio/assets/index-BuQFNvns.css">
+
+  <!-- Íconos SVG de tecnologías (devicon) servidos como <img> desde jsDelivr -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <script type="module" crossorigin src="/Mi-Portafolio/assets/index-Dn89xjVN.js"></script>
+  <link rel="stylesheet" crossorigin href="/Mi-Portafolio/assets/index-D5-_Mryk.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
