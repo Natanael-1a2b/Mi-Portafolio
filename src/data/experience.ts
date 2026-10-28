@@ -30,15 +30,14 @@ export const experiences: Experience[] = [
     startDate: 'Septiembre 2026',
     endDate: 'Actualidad',
     description:
-      'Diseño y desarrollo herramientas internas mediante flujos multiagente de IA, y administro la infraestructura de servidores y nube de la empresa. Combino programación (Python, JavaScript, React) con servidores en AWS, Contabo y VMware para automatizar procesos y reducir tiempos de respuesta.',
+      'Desarrollo herramientas internas con flujos multiagente de IA y administro la infraestructura de servidores y nube de la empresa.',
     technologies: ['Flujos multiagente', 'Claude', 'Codex', 'Python', 'JavaScript', 'React', 'HTML', 'CSS', 'AWS', 'VMware ESXi', 'Contabo'],
     logo: '/assets/icons/esd-corporation-logo.svg',
     highlights: [
-      'Diseñé la arquitectura y desarrollé un sistema de monitoreo de todas las impresoras de la red que mide tóner, páginas, alertas, fallas y consumo por área. Reduce el tiempo de respuesta ante fallas y evita quedarse sin tóner.',
-      'Diseño y desarrollo un editor de PDF interno disponible en web, escritorio, Android, iOS y macOS, que reduce la dependencia de licencias de software externo.',
-      'Oriento flujos multiagente con Claude, Codex, Antigravity y OpenCode para diseñar, programar y validar herramientas completas en menos tiempo, y automatizo tareas con Python y JavaScript.',
-      'Construyo interfaces con React, HTML y CSS.',
-      'Administro servidores en AWS, Contabo y VMware ESXi, incluido el que aloja el ERP: creación de máquinas virtuales, asignación de recursos, monitoreo y parches.',
+      'Sistema de monitoreo de impresoras de red: tóner, fallas, alertas y consumo por área.',
+      'Editor de PDF interno para web, escritorio, Android, iOS y macOS, sin depender de licencias externas.',
+      'Oriento flujos multiagente con Claude, Codex, Antigravity y OpenCode, y automatizo tareas con Python y JavaScript.',
+      'Administro servidores en AWS, Contabo y VMware ESXi, incluido el del ERP.',
     ],
     metrics: [
       { id: 'pdf-platforms', label: 'Plataformas del editor de PDF', value: '5', icon: 'devices' },
