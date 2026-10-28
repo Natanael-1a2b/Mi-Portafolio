@@ -102,7 +102,9 @@ export function MobileExperience() {
                     <div className="mxp-track" key={exp.id}>
                       <button
                         type="button"
-                        className={`mxp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${isCurrent(exp.endDate) ? 'is-current' : ''}`}
+                        // Las barras que empiezan en la segunda mitad del año alinean la etiqueta a la derecha
+                        // para que no se salga de la cronología
+                        className={`mxp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${isCurrent(exp.endDate) ? 'is-current' : ''} ${s > 6 ? 'is-late' : ''}`}
                         style={{ gridColumn: `${s} / ${e}` }}
                         onClick={() => toggle(exp.id)}
                         aria-controls={`mxp-panel-${exp.id}`}

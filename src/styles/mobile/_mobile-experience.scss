@@ -118,6 +118,12 @@ $mxp-violet-color: rgb($mxp-violet...);
 
     &.is-purple { --rgb: #{$mxp-violet}; }
 
+    // Etiqueta más ancha que la barra: con flex-end desborda hacia la izquierda, dentro del gráfico
+    &.is-late {
+      align-items: flex-end;
+      text-align: right;
+    }
+
     &:active .mxp-bar-fill { box-shadow: 0 0 20px rgba(var(--rgb), 0.35); }
   }
 

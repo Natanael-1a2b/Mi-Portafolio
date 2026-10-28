@@ -21,6 +21,29 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    id: 'esd-corporation',
+    company: 'ESD Corporation',
+    position: 'Analista de Sistemas e Infraestructura TI',
+    startDate: 'Septiembre 2026',
+    endDate: 'Actualidad',
+    description:
+      'Diseño y desarrollo herramientas internas mediante flujos multiagente de IA, y administro la infraestructura de servidores y nube de la empresa. Combino programación (Python, JavaScript, React) con servidores en AWS, Contabo y VMware para automatizar procesos y reducir tiempos de respuesta.',
+    technologies: ['Flujos multiagente', 'Claude', 'Codex', 'Python', 'JavaScript', 'React', 'HTML', 'CSS', 'AWS', 'VMware ESXi', 'Contabo'],
+    logo: '/assets/icons/esd-corporation-logo.svg',
+    highlights: [
+      'Diseñé la arquitectura y desarrollé un sistema de monitoreo de todas las impresoras de la red que mide tóner, páginas, alertas, fallas y consumo por área. Reduce el tiempo de respuesta ante fallas y evita quedarse sin tóner.',
+      'Diseño y desarrollo un editor de PDF interno disponible en web, escritorio, Android, iOS y macOS, que reduce la dependencia de licencias de software externo.',
+      'Oriento flujos multiagente con Claude, Codex, Antigravity y OpenCode para diseñar, programar y validar herramientas completas en menos tiempo, y automatizo tareas con Python y JavaScript.',
+      'Construyo interfaces con React, HTML y CSS.',
+      'Administro servidores en AWS, Contabo y VMware ESXi, incluido el que aloja el ERP: creación de máquinas virtuales, asignación de recursos, monitoreo y parches.',
+    ],
+    metrics: [
+      { id: 'pdf-platforms', label: 'Plataformas del editor de PDF', value: '5', icon: 'devices' },
+      { id: 'server-platforms', label: 'Plataformas de servidores gestionadas', value: '3', icon: 'server' },
+      { id: 'users', label: 'Usuarios', value: '+50', icon: 'users' },
+    ],
+  },
+  {
     id: 'ibcj',
     company: 'Iglesia Bautista de Cristo Jesús (IBCJ)',
     position: 'Desarrollador Full Stack',
