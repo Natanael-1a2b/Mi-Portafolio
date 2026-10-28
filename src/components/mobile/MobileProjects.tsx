@@ -24,7 +24,6 @@ export function MobileProjects() {
             <div 
               key={proj.id} 
               className={`mobile-project-card ${proj.id === 'cine-match' || proj.id === 'jovenes-involucrados-2026' ? 'center-img' : ''}`}
-              onClick={() => setSelected(proj)}
             >
               <div className="mobile-project-img">
                 <img 
@@ -41,7 +40,16 @@ export function MobileProjects() {
               </div>
               
               <div className="mobile-project-content">
-                <h3>{proj.title}</h3>
+                <h3>
+                  <button
+                    type="button"
+                    className="project-card-trigger"
+                    aria-haspopup="dialog"
+                    onClick={() => setSelected(proj)}
+                  >
+                    {proj.title}
+                  </button>
+                </h3>
                 <p>{proj.shortDescription}</p>
                 <div className="mobile-project-badges">
                   {proj.badges.map((b) => (

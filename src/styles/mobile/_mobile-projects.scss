@@ -26,6 +26,30 @@
       scroll-snap-align: center;
       display: flex;
       flex-direction: column;
+      position: relative;
+
+      // Botón estirado: su ::after cubre toda la tarjeta
+      .project-card-trigger {
+        text-align: inherit;
+        line-height: inherit;
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          border-radius: inherit;
+        }
+
+        &:focus-visible {
+          outline: none;
+
+          &::after {
+            outline: 2px solid var(--primary);
+            outline-offset: -2px;
+          }
+        }
+      }
 
         .mobile-project-img {
           position: relative;

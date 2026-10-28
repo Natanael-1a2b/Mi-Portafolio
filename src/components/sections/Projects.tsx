@@ -128,7 +128,6 @@ export function Projects() {
               onMouseMove={handleTilt}
               onMouseLeave={handleTiltReset}
               onMouseEnter={handleTiltEnter}
-              onClick={() => setSelected(proj)}
             >
               <div className="project-glare"></div>
               <div className="project-img">
@@ -153,7 +152,17 @@ export function Projects() {
                 </div>
               </div>
               <div className="project-content">
-                <h3>{proj.title}</h3>
+                <h3>
+                  {/* Botón estirado: su ::after cubre toda la tarjeta para que sea clicable y enfocable con teclado */}
+                  <button
+                    type="button"
+                    className="project-card-trigger"
+                    aria-haspopup="dialog"
+                    onClick={() => setSelected(proj)}
+                  >
+                    {proj.title}
+                  </button>
+                </h3>
                 <p>{proj.shortDescription}</p>
                 <div className="project-badges">
                   {proj.badges.map((b) => (
