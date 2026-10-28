@@ -17,7 +17,8 @@
       justify-content: space-around;
       align-items: center;
       height: 60px;
-      padding: 0 10px;
+      // En horizontal, los íconos no deben quedar bajo el notch
+      padding: 0 max(10px, env(safe-area-inset-right, 0px)) 0 max(10px, env(safe-area-inset-left, 0px));
     }
 
     .mobile-nav-item {
