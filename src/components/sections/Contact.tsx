@@ -26,6 +26,8 @@ export function Contact() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
   const formRef = useRef<HTMLFormElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
+  // Al enfocar por código el primer campo con error, no hay que borrar ese error (handleFocus lo haría)
+  const keepErrorOnFocusRef = useRef(false)
   const prefersReduced = usePreferredMotion()
 
   useEffect(() => {
@@ -39,8 +41,9 @@ export function Contact() {
     return () => ctx.revert()
   }, [prefersReduced])
 
+  // Solo el éxito se oculta solo; el error se queda para que dé tiempo a leer la alternativa
   useEffect(() => {
-    if (!alert) return
+    if (alert?.type !== 'success') return
     const timer = setTimeout(() => setAlert(null), 5000)
     return () => clearTimeout(timer)
   }, [alert])
@@ -53,7 +56,7 @@ export function Contact() {
         return undefined
       case 'correo':
         if (!value.trim()) return 'El email es obligatorio'
-        if (!EMAIL_RE.test(value.trim())) return 'Email no válido'
+        if (!EMAIL_RE.test(value.trim())) return 'Email no válido. Usa el formato nombre@dominio.com'
         return undefined
       case 'mensaje':
         if (!value.trim()) return 'El mensaje es obligatorio'
@@ -74,7 +77,13 @@ export function Contact() {
       if (err) errors[f] = err
     })
     setFieldErrors(errors)
-    return Object.keys(errors).length === 0
+    const firstInvalid = fields.find((f) => errors[f])
+    const field = firstInvalid && document.getElementById(firstInvalid)
+    if (field && document.activeElement !== field) {
+      keepErrorOnFocusRef.current = true
+      field.focus()
+    }
+    return !firstInvalid
   }
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -89,13 +98,28 @@ export function Contact() {
     })
   }
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const name = e.target.name === 'Correo' ? 'correo' : e.target.name.toLowerCase()
+  const clearFieldError = (target: HTMLInputElement | HTMLTextAreaElement) => {
+    const name = target.name === 'Correo' ? 'correo' : target.name.toLowerCase()
     setFieldErrors((prev) => {
+      if (!(name in prev)) return prev
       const next = { ...prev }
       delete next[name as keyof FieldErrors]
       return next
     })
+  }
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (keepErrorOnFocusRef.current) {
+      keepErrorOnFocusRef.current = false
+      return
+    }
+    clearFieldError(e.target)
+  }
+
+  // Al editar se borra el error de inmediato; si se esperara al blur, el formulario se acortaría
+  // justo al pulsar "Enviar" y el botón se movería bajo el cursor, perdiendo el clic
+  const handleInput = (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    clearFieldError(e.currentTarget)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -116,10 +140,10 @@ export function Contact() {
         setFieldErrors({})
         setAlert({ type: 'success', message: '✓ Mensaje enviado correctamente' })
       } else {
-        setAlert({ type: 'error', message: '✕ Error al enviar. Por favor, contáctame vía LinkedIn o correo directamente.' })
+        setAlert({ type: 'error', message: '✕ Error al enviar. Inténtalo de nuevo o contáctame vía LinkedIn o correo directamente.' })
       }
     } catch {
-      setAlert({ type: 'error', message: '✕ Error al enviar. Por favor, contáctame vía LinkedIn o correo directamente.' })
+      setAlert({ type: 'error', message: '✕ Sin conexión. Revisa tu internet e inténtalo de nuevo, o contáctame vía LinkedIn o correo.' })
     } finally {
       setSending(false)
     }
@@ -137,12 +161,15 @@ export function Contact() {
         />
         <div className="contact-wrapper">
           <GlassCard className="contact-form">
-            {alert && (
-              <div className={`alert alert-${alert.type}`}>
-                {alert.message}
-              </div>
-            )}
-            <form ref={formRef} onSubmit={handleSubmit} noValidate>
+            {/* Región viva siempre montada: así los lectores de pantalla anuncian el resultado del envío */}
+            <div role="status" aria-live="polite">
+              {alert && (
+                <div className={`alert alert-${alert.type}`}>
+                  {alert.message}
+                </div>
+              )}
+            </div>
+            <form ref={formRef} onSubmit={handleSubmit} noValidate aria-busy={sending}>
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="nombre" className="form-label">Nombre</label>
@@ -154,6 +181,7 @@ export function Contact() {
                     name="Nombre"
                     onBlur={handleBlur}
                     onFocus={handleFocus}
+                    onInput={handleInput}
                     autoComplete="name"
                     aria-describedby={fieldErrors.nombre ? 'err-nombre' : undefined}
                   />
@@ -169,7 +197,9 @@ export function Contact() {
                     name="Correo"
                     onBlur={handleBlur}
                     onFocus={handleFocus}
+                    onInput={handleInput}
                     autoComplete="email"
+                    spellCheck={false}
                     aria-describedby={fieldErrors.correo ? 'err-correo' : undefined}
                   />
                   {fieldErrors.correo && <span className="form-error" id="err-correo" role="alert">✕ {fieldErrors.correo}</span>}
@@ -177,7 +207,7 @@ export function Contact() {
               </div>
               <div className="form-group">
                 <label htmlFor="asunto" className="form-label">Asunto</label>
-                <input type="text" id="asunto" className="form-control" placeholder="Asunto del mensaje" name="Asunto" autoComplete="subject" />
+                <input type="text" id="asunto" className="form-control" placeholder="Asunto del mensaje" name="Asunto" autoComplete="off" />
               </div>
               <div className="form-group">
                 <label htmlFor="mensaje" className="form-label">Mensaje</label>
@@ -185,10 +215,11 @@ export function Contact() {
                     id="mensaje"
                     className={`form-control${fieldErrors.mensaje ? ' form-control-error' : ''}`}
                     rows={5}
-                    placeholder="Escribe tu mensaje aquí..."
+                    placeholder="Escribe tu mensaje aquí…"
                     name="Mensaje"
                     onBlur={handleBlur}
                     onFocus={handleFocus}
+                    onInput={handleInput}
                     aria-describedby={fieldErrors.mensaje ? 'err-mensaje' : undefined}
                   />
                   {fieldErrors.mensaje && <span className="form-error" id="err-mensaje" role="alert">✕ {fieldErrors.mensaje}</span>}
@@ -200,7 +231,7 @@ export function Contact() {
                 type="submit"
                 disabled={sending}
               >
-                {sending ? 'Enviando...' : 'Enviar Mensaje'}
+                {sending ? 'Enviando…' : 'Enviar Mensaje'}
               </MagneticButton>
             </form>
           </GlassCard>

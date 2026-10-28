@@ -25,10 +25,10 @@ export function MobileContact() {
         formRef.current.reset()
         setAlert({ type: 'success', msg: 'Mensaje enviado correctamente' })
       } else {
-        setAlert({ type: 'error', msg: 'Error al enviar mensaje' })
+        setAlert({ type: 'error', msg: 'No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme por WhatsApp o correo.' })
       }
     } catch {
-      setAlert({ type: 'error', msg: 'Error de conexión' })
+      setAlert({ type: 'error', msg: 'Sin conexión. Revisa tu internet e inténtalo de nuevo.' })
     } finally {
       setSending(false)
     }
@@ -44,35 +44,38 @@ export function MobileContact() {
         />
         
         <div className="mobile-contact-form-wrapper">
-          {alert && (
-            <div className={`mobile-alert mobile-alert-${alert.type}`}>
-              {alert.msg}
-            </div>
-          )}
-          
-          <form ref={formRef} onSubmit={handleSubmit} className="mobile-form">
+          {/* Región viva siempre montada: así los lectores de pantalla anuncian el resultado del envío */}
+          <div role="status" aria-live="polite">
+            {alert && (
+              <div className={`mobile-alert mobile-alert-${alert.type}`}>
+                {alert.msg}
+              </div>
+            )}
+          </div>
+
+          <form ref={formRef} onSubmit={handleSubmit} className="mobile-form" aria-busy={sending}>
             <div className="mobile-form-group">
               <label htmlFor="mobile-nombre">Nombre</label>
-              <input type="text" id="mobile-nombre" name="Nombre" required placeholder="Tu nombre" />
+              <input type="text" id="mobile-nombre" name="Nombre" required placeholder="Tu nombre" autoComplete="name" />
             </div>
-            
+
             <div className="mobile-form-group">
               <label htmlFor="mobile-correo">Email</label>
-              <input type="email" id="mobile-correo" name="Correo" required placeholder="tu@email.com" />
+              <input type="email" id="mobile-correo" name="Correo" required placeholder="tu@email.com" autoComplete="email" spellCheck={false} />
             </div>
-            
+
             <div className="mobile-form-group">
               <label htmlFor="mobile-asunto">Asunto</label>
-              <input type="text" id="mobile-asunto" name="Asunto" placeholder="Motivo de tu mensaje" />
+              <input type="text" id="mobile-asunto" name="Asunto" placeholder="Motivo de tu mensaje" autoComplete="off" />
             </div>
-            
+
             <div className="mobile-form-group">
               <label htmlFor="mobile-mensaje">Mensaje</label>
-              <textarea id="mobile-mensaje" name="Mensaje" required rows={4} placeholder="Escribe aquí..."></textarea>
+              <textarea id="mobile-mensaje" name="Mensaje" required rows={4} placeholder="Escribe aquí…"></textarea>
             </div>
-            
+
             <button type="submit" disabled={sending} className="mobile-btn-submit">
-              {sending ? 'Enviando...' : 'Enviar Mensaje'}
+              {sending ? 'Enviando…' : 'Enviar Mensaje'}
             </button>
           </form>
         </div>
