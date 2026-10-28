@@ -7,8 +7,24 @@
 }
 
 html {
-  scroll-behavior: smooth;
   touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+// Red de seguridad global: quien pide menos movimiento no ve animaciones en bucle ni transiciones largas
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
