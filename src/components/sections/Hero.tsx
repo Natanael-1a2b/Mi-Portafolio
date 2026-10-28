@@ -225,7 +225,7 @@ export function Hero() {
 
             <div className="stats-container glass-panel">
               <div className="stat-item">
-                <span className="stat-number">600+</span>
+                <span className="stat-number">900+</span>
                 <span className="stat-label">Commits este año</span>
               </div>
               <div className="stat-separator"></div>
@@ -235,7 +235,7 @@ export function Hero() {
               </div>
               <div className="stat-separator"></div>
               <div className="stat-item">
-                <span className="stat-number">4</span>
+                <span className="stat-number">5</span>
                 <span className="stat-label">Apps en producción</span>
               </div>
             </div>

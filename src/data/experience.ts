@@ -31,13 +31,13 @@ export const experiences: Experience[] = [
     endDate: 'Actualidad',
     description:
       'Desarrollo herramientas internas con flujos multiagente de IA y administro la infraestructura de servidores y nube de la empresa.',
-    technologies: ['Flujos multiagente', 'Claude', 'Codex', 'Python', 'JavaScript', 'React', 'HTML', 'CSS', 'AWS', 'VMware ESXi', 'Contabo'],
+    technologies: ['Flujos multiagente', 'Claude', 'Codex', 'Python', 'JavaScript', 'React', 'HTML', 'CSS', 'VMware ESXi', 'Contabo', 'AWS'],
     logo: '/assets/icons/esd-corporation-logo.svg',
     highlights: [
       'Sistema de monitoreo de impresoras de red: tóner, fallas, alertas y consumo por área.',
       'Editor de PDF interno para web, escritorio, Android, iOS y macOS, sin depender de licencias externas.',
       'Oriento flujos multiagente con Claude, Codex, Antigravity y OpenCode, y automatizo tareas con Python y JavaScript.',
-      'Administro servidores en AWS, Contabo y VMware ESXi, incluido el del ERP.',
+      'Administro servidores en VMware ESXi, Contabo y AWS, incluido el del ERP.',
     ],
     metrics: [
       { id: 'pdf-platforms', label: 'Sistemas operativos del editor de PDF', value: '5', icon: 'devices' },
