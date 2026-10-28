@@ -15,7 +15,7 @@ interface Props {
   skills: Skill[]
 }
 
-// Íconos SVG inline usados por skills con iconType 'svg' (mismos paths que TechChip)
+// Íconos SVG inline usados por skills con iconType 'svg'
 const svgIcons: Record<string, React.ReactNode> = {
   lightning: (
     <svg aria-hidden="true" width={30} height={30} viewBox="0 0 16 16" fill="currentColor">
@@ -55,7 +55,7 @@ export function SkillsExplorer({ skills }: Props) {
 
   const active = groups.find(g => g.category.id === activeId) ?? groups[0]
 
-  // Entrada al hacer scroll (igual que BentoGrid)
+  // Entrada al hacer scroll
   useEffect(() => {
     if (prefersReduced || !rootRef.current) return
     const ctx = gsap.context(() => {
