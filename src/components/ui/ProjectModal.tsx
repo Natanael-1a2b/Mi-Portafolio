@@ -247,9 +247,10 @@ export function ProjectModal({ project, onClose }: Props) {
           )}
 
           <div className="modal-techs">
-            <h6 style={{ width: '100%', textAlign: 'center', marginBottom: '0.5rem' }}>
+            {/* h4 sigue al h3 del título; fontSize conserva el tamaño que tenía como h6 */}
+            <h4 style={{ width: '100%', textAlign: 'center', marginBottom: '0.5rem', fontSize: '0.67em' }}>
               Tecnologías utilizadas:
-            </h6>
+            </h4>
             {project.technologies.map((tech) => (
               <span key={tech} className="badge">
                 {tech}

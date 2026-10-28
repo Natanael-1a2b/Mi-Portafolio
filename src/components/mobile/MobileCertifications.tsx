@@ -69,7 +69,7 @@ export function MobileCertifications() {
             ))}
           </Swiper>
           
-          <div className="mobile-cert-info-below">
+          <div className="mobile-cert-info-below" aria-live="polite">
             <h3>{activeCert?.title}</h3>
             <p>{activeCert?.issuer}</p>
           </div>
