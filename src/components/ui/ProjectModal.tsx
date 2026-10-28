@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import type { Project } from '../../data/projects'
 import { asset } from '../../utils/asset'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import type { Swiper as SwiperInstance } from 'swiper'
 import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -20,6 +21,9 @@ export function ProjectModal({ project, onClose }: Props) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [closing, setClosing] = useState(false)
   const dialogRef = useRef<HTMLDivElement>(null)
+  const fullscreenRef = useRef<HTMLDivElement>(null)
+  const expandBtnRef = useRef<HTMLButtonElement>(null)
+  const swiperRef = useRef<SwiperInstance | null>(null)
   const prevFocusRef = useRef<HTMLElement | null>(null)
 
   // Refs con el valor más reciente: así el efecto de apertura no se vuelve a ejecutar
@@ -48,8 +52,10 @@ export function ProjectModal({ project, onClose }: Props) {
         return
       }
 
-      if (e.key !== 'Tab' || !dialogRef.current) return
-      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)
+      // Con la pantalla completa abierta, el foco queda atrapado dentro del visor
+      const container = isFullscreenRef.current ? fullscreenRef.current : dialogRef.current
+      if (e.key !== 'Tab' || !container) return
+      const focusable = container.querySelectorAll<HTMLElement>(FOCUSABLE)
       if (focusable.length === 0) return
       const first = focusable[0]
       const last = focusable[focusable.length - 1]
@@ -85,6 +91,23 @@ export function ProjectModal({ project, onClose }: Props) {
       prevFocusRef.current?.focus()
     }
   }, [project, handleKeyDown])
+
+  // Mientras el visor está abierto, el modal de fondo queda inerte y su carrusel no escucha el teclado
+  const wasFullscreenRef = useRef(false)
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (isFullscreen) {
+      wasFullscreenRef.current = true
+      dialog?.setAttribute('inert', '')
+      swiperRef.current?.keyboard?.disable()
+      fullscreenRef.current?.querySelector<HTMLElement>('.fullscreen-close')?.focus()
+    } else if (wasFullscreenRef.current) {
+      wasFullscreenRef.current = false
+      dialog?.removeAttribute('inert')
+      swiperRef.current?.keyboard?.enable()
+      expandBtnRef.current?.focus()
+    }
+  }, [isFullscreen])
 
   const hasMixedGallery = !!(project?.desktopGallery || project?.mobileGallery)
   const activeGallery = hasMixedGallery 
@@ -152,10 +175,12 @@ export function ProjectModal({ project, onClose }: Props) {
 
           {(activeGallery || showSingleImage) && (
             <div className="modal-gallery" style={{ marginBottom: '20px', position: 'relative', overflow: 'hidden' }}>
-              <button 
-                className="expand-btn" 
+              <button
+                ref={expandBtnRef}
+                className="expand-btn"
                 onClick={(e) => { e.stopPropagation(); setIsFullscreen(true); }}
                 title="Ver en pantalla completa"
+                aria-label="Ver en pantalla completa"
                 style={{ zIndex: 10 }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -174,6 +199,8 @@ export function ProjectModal({ project, onClose }: Props) {
                   pagination={{ clickable: true }}
                   autoplay={{ delay: 3500, disableOnInteraction: false }}
                   keyboard={{ enabled: true }}
+                  onSwiper={(s) => { swiperRef.current = s }}
+                  onDestroy={() => { swiperRef.current = null }}
                   loop={true}
                   lazyPreloadPrevNext={1}
                   className="modal-swiper"
@@ -246,9 +273,16 @@ export function ProjectModal({ project, onClose }: Props) {
       )}
 
       {isFullscreen && project && (
-        <div className="fullscreen-overlay" onClick={(e) => {
-          if (e.target === e.currentTarget) setIsFullscreen(false)
-        }}>
+        <div
+          className="fullscreen-overlay"
+          ref={fullscreenRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${project.title} en pantalla completa`}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsFullscreen(false)
+          }}
+        >
           <button className="fullscreen-close" onClick={() => setIsFullscreen(false)} aria-label="Cerrar">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18"/>
@@ -272,7 +306,7 @@ export function ProjectModal({ project, onClose }: Props) {
                 <SwiperSlide key={i} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <img
                     src={asset(img)}
-                    alt="Fullscreen"
+                    alt={`${project.title} - ${i + 1}`}
                     className="fullscreen-img"
                     loading="lazy"
                   />
@@ -283,7 +317,7 @@ export function ProjectModal({ project, onClose }: Props) {
             <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <img
                 src={asset(currentImage as string)}
-                alt="Fullscreen"
+                alt={project.title}
                 className="fullscreen-img"
               />
             </div>
