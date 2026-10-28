@@ -3,10 +3,11 @@ import { certifications } from '../../data/certifications'
 import { SectionTitle } from '../ui/SectionTitle'
 import { asset } from '../../utils/asset'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow, Pagination } from 'swiper/modules'
+import { EffectCoverflow, Pagination, Navigation, Keyboard, A11y } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 import { useFadeIn } from '../../hooks/useFadeIn'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 
@@ -42,9 +43,18 @@ export function MobileCertifications() {
               slideShadows: true,
             }}
             pagination={{ clickable: true }}
-            modules={[EffectCoverflow, Pagination]}
+            // Alternativas al gesto de deslizar: flechas, teclado y bullets enfocables
+            navigation={true}
+            keyboard={{ enabled: true, onlyInViewport: true }}
+            a11y={{
+              prevSlideMessage: 'Certificación anterior',
+              nextSlideMessage: 'Certificación siguiente',
+              paginationBulletMessage: 'Ir a la certificación {{index}}',
+            }}
+            modules={[EffectCoverflow, Pagination, Navigation, Keyboard, A11y]}
             onSlideChange={(swiper) => setCurrent(swiper.realIndex)}
             className="mobile-cert-swiper"
+            aria-label="Galería de certificaciones"
           >
             {certifications.map((cert) => (
               <SwiperSlide key={cert.id} className="mobile-cert-slide">

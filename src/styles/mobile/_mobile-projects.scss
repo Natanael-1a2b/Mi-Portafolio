@@ -10,6 +10,8 @@
       gap: 1rem;
       padding: 1rem 0 2rem 0;
       scroll-snap-type: x mandatory;
+      // Evita que el deslizamiento horizontal dispare el "atrás" del navegador o arrastre la página
+      overscroll-behavior-x: contain;
       
       &::after {
         content: '';
