@@ -40,7 +40,7 @@ export const experiences: Experience[] = [
       'Administro servidores en AWS, Contabo y VMware ESXi, incluido el del ERP.',
     ],
     metrics: [
-      { id: 'pdf-platforms', label: 'Plataformas del editor de PDF', value: '5', icon: 'devices' },
+      { id: 'pdf-platforms', label: 'Sistemas operativos del editor de PDF', value: '5', icon: 'devices' },
       { id: 'server-platforms', label: 'Plataformas de servidores gestionadas', value: '3', icon: 'server' },
       { id: 'users', label: 'Usuarios', value: '+50', icon: 'users' },
     ],
