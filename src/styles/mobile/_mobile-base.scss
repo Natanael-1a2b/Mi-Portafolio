@@ -1,7 +1,6 @@
 .mobile-app {
   // Configuración base para toda la experiencia móvil
   min-height: 100dvh;
-  background-color: var(--bg-main);
   color: var(--text-main);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -52,7 +51,6 @@
 .mobile-loading {
   height: 100vh;
   width: 100vw;
-  background-color: var(--bg-main);
 }
 
 // Animación suave de aparición al hacer scroll
