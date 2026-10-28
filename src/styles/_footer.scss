@@ -51,7 +51,7 @@
     font-size: 0.85rem;
     border: 1px solid rgba(99, 102, 241, 0.2);
     font-weight: 500;
-    transition: all 0.3s;
+    transition: background-color 0.3s, transform 0.3s, border-color 0.3s;
 
     &:hover {
       background: rgba(99, 102, 241, 0.2);
@@ -102,7 +102,7 @@
   color: var(--text-muted);
   font-size: 1.4rem;
   border: 1px solid var(--border-glass);
-  transition: all 0.3s;
+  transition: color 0.3s, transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 
   &:hover {
     background: linear-gradient(135deg, var(--primary), var(--secondary));

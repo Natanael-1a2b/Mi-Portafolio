@@ -11,7 +11,11 @@
   -webkit-backdrop-filter: blur(16px);
 
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.4s ease;
+  transition:
+    height 0.4s ease,
+    background-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
   // Con viewport-fit=cover, el contenido no debe quedar bajo el notch en horizontal
   padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
 

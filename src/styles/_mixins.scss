@@ -9,7 +9,7 @@
 
 @mixin glass-card-base {
   border-radius: var(--radius-lg);
-  transition: all 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
   background: var(--bg-card);
   border: 1px solid var(--border-glass);
 }

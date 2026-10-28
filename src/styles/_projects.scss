@@ -28,7 +28,10 @@
   border: 1px solid var(--border-glass);
   display: flex;
   flex-direction: column;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transition:
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   position: relative;
   cursor: pointer;
 
@@ -104,7 +107,11 @@
   font-weight: 600;
   font-size: 0.9rem;
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transition:
+    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none;
   z-index: 20;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -190,7 +197,11 @@
   border: 1px solid var(--border-glass);
   font-size: 0.8rem;
   letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 
   .project-card:hover & {
     background: rgba(99, 102, 241, 0.15);
@@ -298,7 +309,7 @@
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-muted);
   font-size: 1.2rem;
-  transition: all 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -376,7 +387,7 @@
   color: white;
   @include flex-center;
   font-size: 1.3rem;
-  transition: all 0.3s;
+  transition: background-color 0.3s, border-color 0.3s;
   border: 1px solid var(--border-glass);
   cursor: pointer;
 
@@ -405,7 +416,7 @@
   background: rgba(255, 255, 255, 0.3);
   border: none;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 
   &.active {
     background: var(--primary);
@@ -429,7 +440,11 @@
   border-radius: var(--radius-full);
   color: var(--text-muted);
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
 
   &.active,
   &:hover {
