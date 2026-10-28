@@ -61,6 +61,9 @@ export function CategoryCard({ category, skills, selectedSkillId, onSelectSkill 
       <img
         src={category.icon}
         alt={category.label}
+        width={32}
+        height={32}
+        loading="lazy"
         style={{ width: '32px', height: '32px', objectFit: 'contain' }}
       />
     )
@@ -80,7 +83,7 @@ export function CategoryCard({ category, skills, selectedSkillId, onSelectSkill 
             {renderCategoryIcon()}
           </div>
           <div className="category-illustration">
-            <img src={asset(category.illustration)} alt={`${category.label} 3D`} />
+            <img src={asset(category.illustration)} alt={`${category.label} 3D`} width={132} height={132} loading="lazy" />
           </div>
         </div>
         

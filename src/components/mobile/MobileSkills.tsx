@@ -28,7 +28,7 @@ function SkillIcon({ skill }: { skill: typeof skills[0] }) {
     return <span className="mobile-skill-svg-icon" style={{ color: skill.color }}>{svgIcons[skill.icon] || null}</span>
   }
   const src = skill.iconType === 'local' ? asset(skill.icon) : skill.icon
-  return <img src={src} alt={skill.name} width={20} height={20} />
+  return <img src={src} alt={skill.name} width={20} height={20} loading="lazy" />
 }
 
 export function MobileSkills() {

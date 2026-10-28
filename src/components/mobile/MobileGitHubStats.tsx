@@ -40,7 +40,7 @@ export function MobileGitHubStats() {
         <div className="mobile-gh-dashboard">
           {/* Perfil */}
           <div className="mobile-gh-card mobile-gh-profile">
-            <img src={user.avatar_url} alt={user.name} width={60} height={60} />
+            <img src={user.avatar_url} alt={user.name} width={60} height={60} loading="lazy" />
             <div className="mobile-gh-profile-info">
               <h3>{user.name}</h3>
               <p>{user.login}</p>

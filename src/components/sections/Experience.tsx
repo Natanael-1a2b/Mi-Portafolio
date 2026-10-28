@@ -190,7 +190,7 @@ export function Experience() {
                       aria-controls={`xp-panel-${exp.id}`}
                       aria-expanded={!!open[exp.id]}
                     >
-                      <img src={asset(exp.logo || '')} alt="" />
+                      <img src={asset(exp.logo || '')} alt="" loading="lazy" />
                       <span className="xp-bar-name">{exp.company.match(/\(([^)]+)\)/)?.[1] ?? exp.company}</span>
                       <span className="xp-bar-dur">· {duration}</span>
                     </button>
@@ -222,7 +222,7 @@ export function Experience() {
                   </span>
 
                   <span className="xp-row-title">
-                    <img src={asset(exp.logo || '')} alt={exp.company} className="exp-logo" />
+                    <img src={asset(exp.logo || '')} alt={exp.company} className="exp-logo" width={48} height={48} loading="lazy" />
                     <span className="xp-row-text">
                       <span className="xp-row-position">{exp.position}</span>
                       <span className="xp-row-company">{exp.company}</span>
@@ -232,7 +232,7 @@ export function Experience() {
                   <span className="xp-row-techs" aria-hidden="true">
                     {exp.technologies.map(t => {
                       const src = techIcon(t)
-                      return src ? <img key={t} src={src} alt="" title={t} /> : null
+                      return src ? <img key={t} src={src} alt="" title={t} width={22} height={22} loading="lazy" /> : null
                     })}
                   </span>
 
@@ -269,7 +269,7 @@ export function Experience() {
                             const src = techIcon(t)
                             return (
                               <span className="xp-chip" key={t}>
-                                {src && <img src={src} alt="" width={16} height={16} />}
+                                {src && <img src={src} alt="" width={16} height={16} loading="lazy" />}
                                 {t}
                               </span>
                             )

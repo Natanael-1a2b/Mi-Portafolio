@@ -49,6 +49,9 @@ export function TechChip({ skill, isSelected, onSelect }: Props) {
       <img
         src={imgSrc}
         alt={skill.name}
+        width={size}
+        height={size}
+        loading="lazy"
         style={{
           width: `${size}px`,
           height: `${size}px`,

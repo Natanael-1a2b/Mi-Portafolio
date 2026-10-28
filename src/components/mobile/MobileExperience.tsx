@@ -139,7 +139,7 @@ export function MobileExperience() {
                     {current ? <LiveBadge /> : <span className="mxp-duration">{duration}</span>}
                   </span>
                   <span className="mxp-row-title">
-                    <img src={asset(exp.logo || '')} alt="" className="mxp-logo" />
+                    <img src={asset(exp.logo || '')} alt="" className="mxp-logo" width={44} height={44} loading="lazy" />
                     <span className="mxp-row-text">
                       <span className="mxp-position">{exp.position}</span>
                       <span className="mxp-company">{exp.company}</span>
@@ -188,7 +188,7 @@ export function MobileExperience() {
                           const src = techIcon(t)
                           return (
                             <span key={t} className="mxp-chip">
-                              {src && <img src={src} alt="" width={14} height={14} />}
+                              {src && <img src={src} alt="" width={14} height={14} loading="lazy" />}
                               {t}
                             </span>
                           )
