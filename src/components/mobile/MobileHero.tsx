@@ -1,12 +1,9 @@
-import { heroContent, personalInfo } from '../../data/personal'
-import { skills } from '../../data/skills'
+import { heroContent, heroStack, personalInfo } from '../../data/personal'
 import { asset } from '../../utils/asset'
 import { MagneticButton } from '../ui/MagneticButton'
 import { SectionAtmosphere } from '../ui/SectionAtmosphere'
 
 export function MobileHero() {
-  const bottomTechs = skills.filter(s => ['react', 'dotnet', 'sqlserver', 'supabase', 'git'].includes(s.id))
-
   return (
     <section id="inicio" className="mobile-hero">
       <SectionAtmosphere variant="hero" />
@@ -18,7 +15,7 @@ export function MobileHero() {
         </div>
 
         <div className="mobile-hero-text">
-          <div className="mobile-hero-badge">INGENIERO DE SOFTWARE</div>
+          <div className="mobile-hero-badge">{heroContent.badge}</div>
           
           <h1>
             {heroContent.title}<br/>
@@ -47,7 +44,7 @@ export function MobileHero() {
         <div className="mobile-tech-stack">
           <span>Stack Principal</span>
           <div className="mobile-tech-logos">
-            {bottomTechs.map(tech => (
+            {heroStack.map(tech => (
               <div key={tech.id} className="mobile-tech-item">
                 <img src={asset(tech.icon)} alt={tech.name} width={20} height={20} />
                 <span>{tech.name}</span>

@@ -1,3 +1,5 @@
+import { skills } from './skills'
+
 export const personalInfo = {
   name: 'Claudio N. Beltre R.',
   brandInitials: 'CNB',
@@ -12,17 +14,31 @@ export const personalInfo = {
 }
 
 export const heroContent = {
-  title: 'Ingeniería de Software para',
-  titleHighlight: 'Soluciones Escalables',
-  subtitle: 'Especialista en .NET | Arquitectura Limpia | Full Stack',
+  badge: 'FULL STACK & CLOUD ENGINEER',
+  title: 'Software Full Stack y Cloud,',
+  titleHighlight: 'potenciado con IA',
+  // Se muestra en mayúsculas por CSS
+  subtitle: 'IA y flujos multiagente | React y TypeScript | .NET y Clean Architecture',
   description:
-    'Transformo requerimientos complejos en sistemas robustos y eficientes. Mi enfoque combina la solidez técnica del backend con experiencias de usuario intuitivas.',
+    'Diseño y construyo sistemas completos, del backend a la interfaz y a la nube, y los llevo a producción con usuarios reales. Oriento flujos multiagente de IA para entregar soluciones robustas, mantenibles y escalables.',
+  // Efecto de tipeo en escritorio: rota las mismas especialidades del subtítulo
   typingPhrases: [
-    'Ingeniería Backend con .NET & Arquitectura Limpia',
-    'Soluciones Full Stack que Escalan',
-    'Desarrollo Potenciado por Agentes de IA',
+    'IA y flujos multiagente',
+    'React y TypeScript',
+    '.NET y Clean Architecture',
   ],
 }
+
+// Stack principal del hero, en este orden. VMware ESXi no está en la sección de habilidades,
+// así que se define aquí con el ícono local de Simple Icons.
+const HERO_STACK_IDS = ['dotnet', 'react', 'typescript', 'python', 'vmware', 'supabase', 'sqlserver']
+const HERO_STACK_EXTRA: Record<string, { id: string; name: string; icon: string }> = {
+  vmware: { id: 'vmware', name: 'VMware ESXi', icon: '/assets/icons/vmware.svg' },
+}
+
+export const heroStack = HERO_STACK_IDS
+  .map(id => HERO_STACK_EXTRA[id] ?? skills.find(s => s.id === id))
+  .filter((t): t is { id: string; name: string; icon: string } => !!t)
 
 export const aboutContent = {
   paragraphs: [

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react'
-import { heroContent, personalInfo } from '../../data/personal'
-import { skills } from '../../data/skills'
+import { heroContent, heroStack, personalInfo } from '../../data/personal'
 import { asset } from '../../utils/asset'
 import { MagneticButton } from '../ui/MagneticButton'
 import { usePreferredMotion } from '../../hooks/usePreferredMotion'
@@ -12,8 +11,6 @@ export function Hero() {
   const subtitleRef = useRef<HTMLSpanElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const prefersReduced = usePreferredMotion()
-
-  const bottomTechs = skills.filter(s => ['react', 'dotnet', 'sqlserver', 'supabase', 'git'].includes(s.id))
 
   const runTypingEffect = useCallback(() => {
     if (prefersReduced || !subtitleRef.current) return
@@ -107,7 +104,7 @@ export function Hero() {
       <div className="container">
         <div className="hero-grid">
           <div className="hero-badge-top">
-            INGENIERO DE SOFTWARE
+            {heroContent.badge}
           </div>
 
           <div className="hero-text">
@@ -148,7 +145,7 @@ export function Hero() {
             <div className="tech-container">
               <span className="tech-label">TECNOLOGÍAS CON LAS QUE TRABAJO</span>
               <div className="tech-logos">
-                {bottomTechs.map(tech => (
+                {heroStack.map(tech => (
                   <div key={tech.id} className="tech-logo-item">
                     <img src={asset(tech.icon)} alt={tech.name} width={22} height={22} />
                     <span>{tech.name}</span>
