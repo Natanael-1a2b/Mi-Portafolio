@@ -13,9 +13,11 @@
     }
 
     .mobile-footer-brand {
-      h3 {
+      // Iniciales de marca: es un <p> (no un encabezado); esta clase gana a la regla `p` de abajo
+      .footer-brand-mark {
         margin: 0 0 0.5rem 0;
         font-size: 1.5rem;
+        line-height: 1.3; // la que tenía como h3 en _mobile-base
         font-weight: 900;
         background: linear-gradient(90deg, var(--accent), var(--secondary));
         -webkit-background-clip: text;

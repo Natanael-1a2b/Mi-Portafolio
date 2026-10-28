@@ -7,7 +7,6 @@
   overflow-x: hidden;
   padding-top: clamp(6rem, 10vw, 8rem);
   padding-bottom: clamp(3rem, 5vw, 4rem);
-  background-color: var(--bg-main);
 }
 
 // Brillos con degradado radial en vez de filter: blur(120px), que es muy costoso de pintar en áreas tan grandes

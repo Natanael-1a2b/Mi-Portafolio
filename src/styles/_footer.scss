@@ -21,11 +21,14 @@
 .footer-brand {
   text-align: center;
 
-  h3 {
+  // Iniciales de marca: es un <p> (no un encabezado), por eso anula lo que hereda de `p` abajo
+  .footer-brand-mark {
     font-size: 2.4rem;
     font-weight: 800;
     @include gradient-text(var(--primary), var(--accent));
-    margin-bottom: 1rem;
+    max-width: none;
+    margin: 0 0 1rem;
+    line-height: inherit;
   }
 
   p {

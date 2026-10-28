@@ -8,7 +8,7 @@ export function MobileFooter() {
     <footer className="mobile-footer mobile-fade-in" ref={ref}>
       <div className="mobile-container">
         <div className="mobile-footer-brand">
-          <h3>{personalInfo.brandInitials}</h3>
+          <p className="footer-brand-mark">{personalInfo.brandInitials}</p>
           <p>{footerContent.description}</p>
         </div>
 

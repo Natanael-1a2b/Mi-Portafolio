@@ -47,7 +47,7 @@ export function Footer() {
         {/* TOP */}
         <div className="footer-top">
           <div className="footer-brand">
-            <h3>{personalInfo.brandInitials}</h3>
+            <p className="footer-brand-mark">{personalInfo.brandInitials}</p>
             <p>{footerContent.description}</p>
             <div className="footer-services">
               {footerContent.services.map((s) => (
