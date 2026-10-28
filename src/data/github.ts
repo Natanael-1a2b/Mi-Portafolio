@@ -1,10 +1,10 @@
 export const githubConfig = {
-  username: 'Natanael-1a2b',
-  profileUrl: 'https://github.com/Natanael-1a2b',
+  username: 'Claudiobeltre',
+  profileUrl: 'https://github.com/Claudiobeltre',
   apiBase: 'https://api.github.com',
   dataUrl: import.meta.env.DEV
     ? `${import.meta.env.BASE_URL}github-stats.json`
-    : 'https://raw.githubusercontent.com/Natanael-1a2b/Mi-Portafolio/github-stats-data/github-stats.json',
+    : 'https://raw.githubusercontent.com/Claudiobeltre/Mi-Portafolio/github-stats-data/github-stats.json',
 }
 
 // El componente nativo reemplaza al antiguo streakCardUrl

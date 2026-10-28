@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const USERNAME = 'Natanael-1a2b';
+const USERNAME = 'Claudiobeltre';
 const TOKEN = process.env.GH_PAT || process.env.GITHUB_TOKEN;
 
 async function fetchGH(endpoint, options = {}) {

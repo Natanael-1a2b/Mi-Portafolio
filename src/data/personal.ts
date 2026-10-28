@@ -6,7 +6,7 @@ export const personalInfo = {
   phone: '829-856-9592',
   email: 'natanaelbeltre03@gmail.com',
   linkedIn: 'https://www.linkedin.com/in/claudio-natanael-beltre-rosario-38a580327/',
-  github: 'https://github.com/Natanael-1a2b',
+  github: 'https://github.com/Claudiobeltre',
   whatsapp: 'https://wa.me/18298569592',
   profileImage: '/assets/images/Porfile.webp',
   cvPath: '/assets/Curriculum Claudio N. Beltre R.pdf',

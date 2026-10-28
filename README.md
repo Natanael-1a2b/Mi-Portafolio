@@ -38,7 +38,7 @@ Para ejecutar el proyecto localmente:
 
 1. **Clonar este repositorio:**
    ```bash
-   git clone https://github.com/Natanael-1a2b/Mi-Portafolio.git
+   git clone https://github.com/Claudiobeltre/Mi-Portafolio.git
    ```
 
 2. **Instalar dependencias:**
@@ -58,10 +58,10 @@ Para ejecutar el proyecto localmente:
 
 ## 📬 Contacto y Enlaces
 
-- **Portafolio en Vivo:** [https://Natanael-1a2b.github.io/Mi-Portafolio/](https://Natanael-1a2b.github.io/Mi-Portafolio/)
+- **Portafolio en Vivo:** [https://Claudiobeltre.github.io/Mi-Portafolio/](https://Claudiobeltre.github.io/Mi-Portafolio/)
 - **Email:** [natanaelbeltre03@gmail.com](mailto:natanaelbeltre03@gmail.com)
 - **LinkedIn:** [Claudio Natanael Beltre Rosario](https://www.linkedin.com/in/claudio-natanael-beltre-rosario-38a580327/)
-- **GitHub:** [@Natanael-1a2b](https://github.com/Natanael-1a2b)
+- **GitHub:** [@Claudiobeltre](https://github.com/Claudiobeltre)
 
 ---
 *Diseñado y desarrollado para demostrar excelencia técnica y estética por Claudio N. Beltre R. © 2026*
