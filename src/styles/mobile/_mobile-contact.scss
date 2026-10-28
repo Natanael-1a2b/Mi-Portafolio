@@ -42,6 +42,8 @@
         &:focus {
           outline: none;
           border-color: var(--primary);
+          // Anillo visible: el solo cambio de color del borde de 1px era muy sutil
+          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45);
         }
       }
     }

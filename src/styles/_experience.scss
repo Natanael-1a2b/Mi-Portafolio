@@ -142,6 +142,11 @@ $xp-cyan-color: rgb($xp-cyan...);
     outline: none;
   }
 
+  // Con teclado, además del brillo, un anillo nítido
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary), 0 0 24px rgba(var(--rgb), 0.25);
+  }
+
   img {
     width: 26px;
     height: 26px;
