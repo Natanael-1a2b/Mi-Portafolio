@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { githubConfig, fetchGitHubData, GitHubStatsResult } from '../../data/github'
 import { SectionTitle } from '../ui/SectionTitle'
 import { useFadeIn } from '../../hooks/useFadeIn'
+import { formatNumber } from '../../utils/format'
 
 export function MobileGitHubStats() {
   const [data, setData] = useState<GitHubStatsResult | null>(null)
@@ -9,10 +10,11 @@ export function MobileGitHubStats() {
   const ref = useFadeIn<HTMLElement>()
 
   useEffect(() => {
-    fetchGitHubData().then(result => {
-      setData(result)
-      setLoading(false)
-    })
+    fetchGitHubData()
+      .then(result => setData(result))
+      // Sin catch, un fallo dejaba el mensaje de carga para siempre
+      .catch(() => setData(null))
+      .finally(() => setLoading(false))
   }, [])
 
   if (loading || !data) {
@@ -20,7 +22,14 @@ export function MobileGitHubStats() {
       <section className="mobile-section mobile-github mobile-fade-in" ref={ref}>
         <div className="mobile-container">
           <SectionTitle badge="CÓDIGO ABIERTO" title="GitHub & " gradientTitle="Actividad" />
-          <div className="mobile-gh-loading">Cargando estadísticas...</div>
+          <div className="mobile-gh-loading" role="status" aria-live="polite">
+            {loading ? 'Cargando estadísticas…' : (
+              <>
+                No se pudieron cargar las estadísticas.{' '}
+                <a href={githubConfig.profileUrl} target="_blank" rel="noopener noreferrer">Ver perfil en GitHub</a>
+              </>
+            )}
+          </div>
         </div>
       </section>
     )
@@ -50,27 +59,27 @@ export function MobileGitHubStats() {
           {/* Stats Grid */}
           <div className="mobile-gh-stats-grid">
             <div className="mobile-gh-stat-box">
-              <span className="mobile-gh-stat-value">{totalContributions}</span>
+              <span className="mobile-gh-stat-value">{formatNumber(totalContributions)}</span>
               <span className="mobile-gh-stat-label">Contribuciones</span>
             </div>
             <div className="mobile-gh-stat-box">
-              <span className="mobile-gh-stat-value">{totalStars}</span>
+              <span className="mobile-gh-stat-value">{formatNumber(totalStars)}</span>
               <span className="mobile-gh-stat-label">Estrellas</span>
             </div>
             <div className="mobile-gh-stat-box highlight-box">
-              <span className="mobile-gh-stat-value">{currentStreak}</span>
+              <span className="mobile-gh-stat-value">{formatNumber(currentStreak)}</span>
               <span className="mobile-gh-stat-label">Racha (Días)</span>
             </div>
             <div className="mobile-gh-stat-box">
-              <span className="mobile-gh-stat-value">{currentYearContributions}</span>
+              <span className="mobile-gh-stat-value">{formatNumber(currentYearContributions)}</span>
               <span className="mobile-gh-stat-label">Este Año</span>
             </div>
             <div className="mobile-gh-stat-box">
-              <span className="mobile-gh-stat-value">{user.public_repos}</span>
+              <span className="mobile-gh-stat-value">{formatNumber(user.public_repos)}</span>
               <span className="mobile-gh-stat-label">Repositorios</span>
             </div>
             <div className="mobile-gh-stat-box">
-              <span className="mobile-gh-stat-value">{data.totalPRs}</span>
+              <span className="mobile-gh-stat-value">{formatNumber(data.totalPRs)}</span>
               <span className="mobile-gh-stat-label">Pull Requests</span>
             </div>
           </div>
