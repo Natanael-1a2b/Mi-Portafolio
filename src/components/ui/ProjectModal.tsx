@@ -22,51 +22,56 @@ export function ProjectModal({ project, onClose }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null)
   const prevFocusRef = useRef<HTMLElement | null>(null)
 
+  // Refs con el valor más reciente: así el efecto de apertura no se vuelve a ejecutar
+  // cuando cambia la pantalla completa o el padre pasa un onClose nuevo en cada render
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
+  const isFullscreenRef = useRef(isFullscreen)
+  isFullscreenRef.current = isFullscreen
+
   const handleClose = useCallback(() => {
     setClosing(true)
     setTimeout(() => {
       setClosing(false)
-      onClose()
+      onCloseRef.current()
     }, 250)
-  }, [onClose])
+  }, [])
 
-  const handleEscape = useCallback(
+  const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (isFullscreen) {
+        if (isFullscreenRef.current) {
           setIsFullscreen(false)
         } else {
           handleClose()
         }
+        return
+      }
+
+      if (e.key !== 'Tab' || !dialogRef.current) return
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
       }
     },
-    [handleClose, isFullscreen],
+    [handleClose],
   )
-
-  const trapFocus = useCallback((e: KeyboardEvent) => {
-    if (e.key !== 'Tab' || !dialogRef.current) return
-    const focusable = dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)
-    if (focusable.length === 0) return
-    const first = focusable[0]
-    const last = focusable[focusable.length - 1]
-    if (e.shiftKey) {
-      if (document.activeElement === first) {
-        e.preventDefault()
-        last.focus()
-      }
-    } else {
-      if (document.activeElement === last) {
-        e.preventDefault()
-        first.focus()
-      }
-    }
-  }, [])
 
   useEffect(() => {
     if (!project) return
     prevFocusRef.current = document.activeElement as HTMLElement
-    document.addEventListener('keydown', handleEscape)
-    document.addEventListener('keydown', trapFocus)
+    document.addEventListener('keydown', handleKeyDown)
     document.body.style.overflow = 'hidden'
     setViewMode('desktop')
     setIsFullscreen(false)
@@ -75,12 +80,11 @@ export function ProjectModal({ project, onClose }: Props) {
       first?.focus()
     })
     return () => {
-      document.removeEventListener('keydown', handleEscape)
-      document.removeEventListener('keydown', trapFocus)
+      document.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
       prevFocusRef.current?.focus()
     }
-  }, [project, handleEscape, trapFocus])
+  }, [project, handleKeyDown])
 
   const hasMixedGallery = !!(project?.desktopGallery || project?.mobileGallery)
   const activeGallery = hasMixedGallery 
@@ -92,7 +96,7 @@ export function ProjectModal({ project, onClose }: Props) {
   const currentImage = activeGallery ? activeGallery[0] : project?.image
 
   const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) onClose()
+    if (e.target === e.currentTarget) handleClose()
   }
 
   // To force re-render of Swiper when gallery changes
