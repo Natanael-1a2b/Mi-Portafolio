@@ -8,6 +8,8 @@ export interface ExperienceMetric {
 export interface Experience {
   id: string
   company: string
+  /** Nombre corto para la barra de la cronología; si falta, se usa la sigla entre paréntesis o el nombre completo */
+  shortName?: string
   position: string
   startDate: string
   endDate: string
@@ -23,6 +25,7 @@ export const experiences: Experience[] = [
   {
     id: 'esd-corporation',
     company: 'ESD Corporation',
+    shortName: 'ESD',
     position: 'Analista de Sistemas e Infraestructura TI',
     startDate: 'Septiembre 2026',
     endDate: 'Actualidad',

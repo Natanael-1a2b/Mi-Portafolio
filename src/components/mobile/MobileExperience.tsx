@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { experiences } from '../../data/experience'
 import { skills } from '../../data/skills'
 import { asset } from '../../utils/asset'
+import { packLanes } from '../../utils/lanes'
 import { SectionTitle } from '../ui/SectionTitle'
 import { LiveBadge } from '../ui/LiveBadge'
 import { useFadeIn } from '../../hooks/useFadeIn'
@@ -12,6 +13,7 @@ const MONTHS_INITIAL = ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', '
 
 const techIconMap: Record<string, string> = {
   tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+  aws: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain.svg',
   typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
 }
 
@@ -33,7 +35,8 @@ function toMonthIndex(date: string): number {
 }
 
 const fmtShort = (idx: number) => `${MONTHS_CAP[idx % 12]} ${Math.floor(idx / 12)}`
-const shortName = (company: string) => company.match(/\(([^)]+)\)/)?.[1] ?? company
+const shortName = (exp: { company: string; shortName?: string }) =>
+  exp.shortName ?? exp.company.match(/\(([^)]+)\)/)?.[1] ?? exp.company
 
 export function MobileExperience() {
   const ref = useFadeIn<HTMLElement>()
@@ -65,10 +68,10 @@ export function MobileExperience() {
         if (s <= e) overlap = `${MONTHS_CAP[s % 12]} – ${MONTHS_CAP[e % 12]} en paralelo`
       }
     }
-    return { items, year, origin, todayPct, overlap }
+    return { items, lanes: packLanes(items), year, origin, todayPct, overlap }
   }, [])
 
-  const { items, year, origin, todayPct, overlap } = data
+  const { items, lanes, year, origin, todayPct, overlap } = data
 
   return (
     <section id="experiencia" className="mobile-section mobile-experience mobile-fade-in" ref={ref}>
@@ -94,30 +97,33 @@ export function MobileExperience() {
               </div>
 
               <div className="mxp-tracks">
-                {items.map(({ exp, start, end, duration }) => {
-                  const s = Math.max(start, origin) - origin + 1
-                  const e = Math.min(end, origin + 11) - origin + 2
-                  if (e <= 1) return null
-                  return (
-                    <div className="mxp-track" key={exp.id}>
-                      <button
-                        type="button"
-                        // Las barras que empiezan en la segunda mitad del año alinean la etiqueta a la derecha
-                        // para que no se salga de la cronología
-                        className={`mxp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${isCurrent(exp.endDate) ? 'is-current' : ''} ${s > 6 ? 'is-late' : ''}`}
-                        style={{ gridColumn: `${s} / ${e}` }}
-                        onClick={() => toggle(exp.id)}
-                        aria-controls={`mxp-panel-${exp.id}`}
-                        aria-expanded={!!open[exp.id]}
-                      >
-                        <span className="mxp-bar-label">
-                          {shortName(exp.company)} <span>· {duration}</span>
-                        </span>
-                        <span className="mxp-bar-fill" aria-hidden="true" />
-                      </button>
-                    </div>
-                  )
-                })}
+                {lanes.map((lane, li) => (
+                  <div className="mxp-track" key={li}>
+                    {lane.map(({ exp, start, end, duration }) => {
+                      const s = Math.max(start, origin) - origin + 1
+                      const e = Math.min(end, origin + 11) - origin + 2
+                      if (e <= 1) return null
+                      return (
+                        <button
+                          key={exp.id}
+                          type="button"
+                          // Las barras que empiezan en la segunda mitad del año alinean la etiqueta a la derecha
+                          // para que no se salga de la cronología
+                          className={`mxp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${isCurrent(exp.endDate) ? 'is-current' : ''} ${s > 6 ? 'is-late' : ''}`}
+                          style={{ gridColumn: `${s} / ${e}`, gridRow: 1 }}
+                          onClick={() => toggle(exp.id)}
+                          aria-controls={`mxp-panel-${exp.id}`}
+                          aria-expanded={!!open[exp.id]}
+                        >
+                          <span className="mxp-bar-label">
+                            {shortName(exp)} <span>· {duration}</span>
+                          </span>
+                          <span className="mxp-bar-fill" aria-hidden="true" />
+                        </button>
+                      )
+                    })}
+                  </div>
+                ))}
                 {todayPct !== null && <div className="mxp-today" style={{ left: `${todayPct}%` }} aria-hidden="true" />}
               </div>
               {todayPct !== null && <span className="mxp-today-label" style={{ left: `${todayPct}%` }} aria-hidden="true">HOY</span>}

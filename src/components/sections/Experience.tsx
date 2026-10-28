@@ -5,6 +5,7 @@ import { usePreferredMotion } from '../../hooks/usePreferredMotion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { asset } from '../../utils/asset'
+import { packLanes } from '../../utils/lanes'
 import { skills } from '../../data/skills'
 import { LiveBadge } from '../ui/LiveBadge'
 import { SectionTitle } from '../ui/SectionTitle'
@@ -26,6 +27,7 @@ function findSkillByName(name: string) {
 
 const techIconMap: Record<string, string> = {
   tailwind: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
+  aws: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain.svg',
   typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
 }
 
@@ -133,7 +135,7 @@ export function Experience() {
     }
 
     const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i)
-    return { items, origin, totalCols, todayPct, overlap, years }
+    return { items, lanes: packLanes(items), origin, totalCols, todayPct, overlap, years }
   }, [])
 
   useEffect(() => {
@@ -166,7 +168,7 @@ export function Experience() {
     return () => ctx.revert()
   }, [prefersReduced])
 
-  const { items, origin, totalCols, todayPct, overlap, years } = timeline
+  const { items, lanes, origin, totalCols, todayPct, overlap, years } = timeline
 
   return (
     <section id="experiencia" ref={sectionRef} className="experience-section section-alt" style={{ position: 'relative' }}>
@@ -197,20 +199,23 @@ export function Experience() {
               </div>
 
               <div className="xp-tracks">
-                {items.map(({ exp, start, end, current, duration }) => (
-                  <div className="xp-track" key={exp.id}>
-                    <button
-                      type="button"
-                      className={`xp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${current ? 'is-current' : ''}`}
-                      style={{ gridColumn: `${start - origin + 1} / ${end - origin + 2}` }}
-                      onClick={() => toggle(exp.id)}
-                      aria-controls={`xp-panel-${exp.id}`}
-                      aria-expanded={!!open[exp.id]}
-                    >
-                      <img src={asset(exp.logo || '')} alt="" loading="lazy" />
-                      <span className="xp-bar-name">{exp.company.match(/\(([^)]+)\)/)?.[1] ?? exp.company}</span>
-                      <span className="xp-bar-dur">· {duration}</span>
-                    </button>
+                {lanes.map((lane, li) => (
+                  <div className="xp-track" key={li}>
+                    {lane.map(({ exp, start, end, current, duration }) => (
+                      <button
+                        key={exp.id}
+                        type="button"
+                        className={`xp-bar ${exp.accent === 'purple' ? 'is-purple' : ''} ${current ? 'is-current' : ''}`}
+                        style={{ gridColumn: `${start - origin + 1} / ${end - origin + 2}`, gridRow: 1 }}
+                        onClick={() => toggle(exp.id)}
+                        aria-controls={`xp-panel-${exp.id}`}
+                        aria-expanded={!!open[exp.id]}
+                      >
+                        <img src={asset(exp.logo || '')} alt="" loading="lazy" />
+                        <span className="xp-bar-name">{exp.shortName ?? exp.company.match(/\(([^)]+)\)/)?.[1] ?? exp.company}</span>
+                        <span className="xp-bar-dur">· {duration}</span>
+                      </button>
+                    ))}
                   </div>
                 ))}
                 <div className="xp-today" style={{ left: `${todayPct}%` }} aria-hidden="true" />
