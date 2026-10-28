@@ -51,7 +51,7 @@ export const aboutContent = {
 
 export const footerContent = {
   description:
-    'Desarrollador Full Stack enfocado en crear soluciones modernas, escalables y orientadas a resultados reales.',
+    'Full Stack & Cloud Engineer enfocado en soluciones modernas, escalables y potenciadas con IA.',
   services: ['Desarrollo Web', 'APIs REST', 'Sistemas Administrativos', 'Agentes de IA'],
   ctaTitle: '¿Listo para llevar tu proyecto al siguiente nivel?',
   ctaDescription:
